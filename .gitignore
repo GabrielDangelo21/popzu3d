@@ -1,0 +1,19 @@
+# Repositório público: só o que o site precisa.
+
+# Gerado pelo build --preview
+preview/
+
+# Fotos originais do Whale (1.175 arquivos). O build usa só as escolhidas,
+# que já estão em public/img/. Recriar com tools/copy_photos.py.
+images/
+
+# Material interno do dono (custos, notas, referência)
+*.xlsx
+CLAUDE.md
+colecoes*.md
+destaques*.md
+frete*.md
+popzu-home-dark.html
+
+__pycache__/
+.vscode/

@@ -1,0 +1,8 @@
+# O site já vem gerado em public/ (python build.py). O Netlify só publica a pasta.
+[build]
+  publish = "public"
+
+[[headers]]
+  for = "/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"

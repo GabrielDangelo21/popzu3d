@@ -1,0 +1,106 @@
+{
+  "_info": "Configuração geral. Campos com null aparecem como 'nog in te vullen' só no preview; no site publicado ficam ocultos e o build avisa.",
+  "base_url": null,
+  "whatsapp": "32493733912",
+  "whatsapp_display": "+32 493 73 39 12",
+  "instagram": "popzu3d",
+  "email": "popzu3d@gmail.com",
+  "lead_days": {
+    "min": 1,
+    "max": 1,
+    "_info": "Prazo de produção informado pelo dono em 04/10/2026: 1 dia útil."
+  },
+  "default_height_cm": 10,
+  "legal": {
+    "name": null,
+    "vat": null,
+    "address": null
+  },
+  "hero_photo": "alien-baby/alien-baby-07.webp",
+  "seasons": {
+    "_info": "Datas MM-DD, inclusive. Fora dessas datas não há faixa no topo e os destaques usam a troca de inverno.",
+    "halloween": {
+      "from": "09-15",
+      "to": "10-31"
+    },
+    "kerst": {
+      "from": "11-01",
+      "to": "12-31"
+    }
+  },
+  "shipping": {
+    "_info": "Tabela do dono (04/10/2026). type: self = retirada em Denderleeuw, point = ponto de retirada, home = em casa. transit: tempo de transporte depois que a figura é enviada.",
+    "rows": [
+      {
+        "dest": {
+          "nl": "Denderleeuw",
+          "fr": "Denderleeuw",
+          "en": "Denderleeuw"
+        },
+        "type": "self",
+        "price": 0,
+        "transit": "sameday"
+      },
+      {
+        "dest": {
+          "nl": "België",
+          "fr": "Belgique",
+          "en": "Belgium"
+        },
+        "type": "point",
+        "price": 5,
+        "transit": "24h"
+      },
+      {
+        "dest": {
+          "nl": "België",
+          "fr": "Belgique",
+          "en": "Belgium"
+        },
+        "type": "home",
+        "price": 7,
+        "transit": "24h"
+      },
+      {
+        "dest": {
+          "nl": "Nederland, Frankrijk, Luxemburg",
+          "fr": "Pays-Bas, France, Luxembourg",
+          "en": "Netherlands, France, Luxembourg"
+        },
+        "type": "point",
+        "price": 5,
+        "transit": "3"
+      },
+      {
+        "dest": {
+          "nl": "Spanje, Portugal",
+          "fr": "Espagne, Portugal",
+          "en": "Spain, Portugal"
+        },
+        "type": "point",
+        "price": 7,
+        "transit": "3"
+      },
+      {
+        "dest": {
+          "nl": "Polen",
+          "fr": "Pologne",
+          "en": "Poland"
+        },
+        "type": "point",
+        "price": 8,
+        "transit": "3"
+      },
+      {
+        "dest": {
+          "nl": "Duitsland",
+          "fr": "Allemagne",
+          "en": "Germany"
+        },
+        "type": "home",
+        "price": 13,
+        "transit": "3-5"
+      }
+    ]
+  }
+}
