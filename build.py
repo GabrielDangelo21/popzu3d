@@ -114,14 +114,22 @@ def wa(text):
     return f"https://wa.me/{SITE['whatsapp']}?text={quote(text)}"
 
 
+def order_msg(lang, m, s):
+    return T(lang, "wa_order", name=m["name"], size=variant(lang, s), price=price_text(lang, s["price"]))
+
+
 def wa_order(lang, m, s=None):
     if s:
-        return wa(T(lang, "wa_order", name=m["name"], size=variant(lang, s), price=price_text(lang, s["price"])))
+        return wa(order_msg(lang, m, s))
     return wa(T(lang, "wa_order_noprice", name=m["name"], size=heights(lang, m)))
 
 
 def todo(lang):
     return f'<span class="todo">{e(T(lang, "todo"))}</span>'
+
+
+def colors_img(m):
+    return f"/img/{m['slug']}/cores.webp"
 
 
 def img(m, i, small=False):
@@ -141,8 +149,9 @@ CUR = ' aria-current="page"'
 WA_ICON = ('<svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3Z"/></svg>')
 
 
-def wa_button(href, label, cls=""):
-    return f'<a class="btn btn-wa {cls}" href="{e(href)}" target="_blank" rel="noopener">{WA_ICON}{e(label)}</a>'
+def wa_button(href, label, cls="", msg=None):
+    data = f' data-msg="{e(msg)}"' if msg else ""
+    return f'<a class="btn btn-wa {cls}" href="{e(href)}"{data} target="_blank" rel="noopener">{WA_ICON}{e(label)}</a>'
 
 
 # ---------- featured ----------
@@ -276,7 +285,7 @@ def card(lang, m, fav=False, halloween=False):
         tag = f'<span class="tag flexi">{e(T(lang, "badge_flexi"))}</span>'
     alt = T(lang, "p_photo", name=m["name"], i=1)
     href = url(lang, m["slug"] + "/")
-    body = f'<h3><a href="{href}">{e(m["name"])}</a></h3><div class="sub">{e(col["name"][lang])} · {e(card_heights(lang, m))}</div>'
+    body = f'<h3><a href="{href}">{e(m["name"])}</a></h3><div class="sub">{e(col["name"][lang])} · {e(card_heights(lang, m))}{(" · " + e(T(lang, "card_colors", n=len(m["colors"]["options"])))) if m.get("colors") else ""}</div>'
     if fav:
         line = m.get("tagline", {}).get(lang, "")
         body += f'<p class="line">{e(line)}</p>' if line else ""
@@ -397,12 +406,24 @@ def product(lang, m):
             f'<img src="{img(m, i, True)}" alt="" width="{THUMB}" height="{THUMB}" loading="lazy"></button>'
             for i in range(len(photos))) + "</div>"
     tagline = m.get("tagline", {}).get(lang)
+    colors_fig = ""
+    if m.get("colors"):
+        colors_fig = (f'<figure class="color-chart"><a href="{colors_img(m)}" target="_blank" rel="noopener">'
+                      f'<img src="{colors_img(m)}" alt="{e(T(lang, "p_color") + ": " + ", ".join(m["colors"]["options"]))}" loading="lazy"></a>'
+                      f'<figcaption>{e(T(lang, "p_colors_caption"))}</figcaption></figure>')
     if sizes(m):
         opts = "".join(
             f'<div class="size-opt"><div class="sz"><b>{e(T(lang, "size_" + s["key"]))}</b><span>{e(T(lang, "size", cm=s["cm"]))}</span></div>'
-            f'<div class="sp">{e(price_text(lang, s["price"]))}</div>{wa_button(wa_order(lang, m, s), T(lang, "order_short"), "btn-sm")}</div>'
+            f'<div class="sp">{e(price_text(lang, s["price"]))}</div>{wa_button(wa_order(lang, m, s), T(lang, "order_short"), "btn-sm", order_msg(lang, m, s))}</div>'
             for s in sizes(m))
         order = f'<h2 class="choose">{e(T(lang, "p_choose"))}</h2><div class="sizes">{opts}</div>'
+        if m.get("colors"):
+            chips = "".join(
+                f'<label class="color-chip"><input type="radio" name="kleur" value="{e(c)}"><span>{e(c)}</span></label>'
+                for c in m["colors"]["options"])
+            order = (f'<h2 class="choose">{e(T(lang, "p_color"))}</h2>'
+                     f'<div class="colors" data-tpl="{e(T(lang, "wa_color", c="{c}"))}" data-wa="https://wa.me/{SITE["whatsapp"]}?text=">{chips}</div>'
+                     f'<p class="color-hint">{e(T(lang, "p_color_hint"))}</p>' + order)
     else:
         order = (f'<p class="big-price ask">{e(T(lang, "price_on_request"))}</p>'
                  + wa_button(wa_order(lang, m), T(lang, "ask_btn"), "btn-block"))
@@ -419,6 +440,7 @@ def product(lang, m):
     <div class="main"><img src="{img(m, 0)}" alt="{e(T(lang, "p_photo", name=m["name"], i=1))}" width="1200" height="1200" fetchpriority="high"></div>
     {thumbs}
     <p class="notice">{e(T(lang, "p_notice"))}</p>
+    {colors_fig}
   </div>
   <div class="pinfo">
     <div class="eyebrow">{e(col["name"][lang])}{tag}</div>
@@ -486,6 +508,12 @@ def build_images():
                 continue
             put(src, OUT / img(m, i).lstrip("/"))
             put(src, OUT / img(m, i, True).lstrip("/"), THUMB)
+        if m.get("colors"):
+            src = src_root / m["slug"] / m["colors"]["image"]
+            if src.exists():
+                put(src, OUT / colors_img(m).lstrip("/"))
+            else:
+                WARN.append(f"Imagem de cores não encontrada: {src}")
     hero = src_root / SITE["hero_photo"]
     if Image:
         dst = OUT / "img" / "hero.webp"

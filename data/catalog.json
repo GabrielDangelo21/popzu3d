@@ -1,5 +1,5 @@
 {
- "_info": "Catálogo do Popzu. sizes: s = pequeno (escala 50%), l = grande (100%); cm = altura, price = preço em euros com IVA (Catalogo_Precos_Tamanho.xlsx, 08/10/2026). photos: arquivos de images/<slug>/, o primeiro é a capa.",
+ "_info": "Catálogo do Popzu. sizes: s = pequeno (escala 50%), l = grande (100%); cm = altura, price = preço em euros com IVA (Catalogo_Precos_Tamanho.xlsx, 08/10/2026). photos: arquivos de images/<slug>/, o primeiro é a capa. colors: imagem com as variações de cor (modelos.png do Whale) e os nomes das cores, na ordem da imagem.",
  "collections": [
   {
    "key": "dino",
@@ -138,7 +138,20 @@
      "cm": 21,
      "price": 29
     }
-   ]
+   ],
+   "colors": {
+    "image": "baby-t-rex-cores.webp",
+    "options": [
+     "Dino Green",
+     "Lava Red",
+     "Ocean Blue",
+     "Purple Roar",
+     "Sunset Orange",
+     "Sunshine Yellow",
+     "Mint Roar",
+     "Night Black"
+    ]
+   }
   },
   {
    "slug": "baby-triceratops",
@@ -184,7 +197,22 @@
      "cm": 32,
      "price": 39
     }
-   ]
+   ],
+   "colors": {
+    "image": "baby-spinosaurus-cores.webp",
+    "options": [
+     "Blue Sky",
+     "Forest",
+     "Volcano",
+     "Galaxy",
+     "Cotton Candy",
+     "Shadow",
+     "Sunset",
+     "Ocean",
+     "Frost",
+     "Dreamy"
+    ]
+   }
   },
   {
    "slug": "baby-brachiosaurus",
@@ -207,7 +235,20 @@
      "cm": 29,
      "price": 35
     }
-   ]
+   ],
+   "colors": {
+    "image": "baby-brachiosaurus-cores.webp",
+    "options": [
+     "Ocean Blue",
+     "Mint Green",
+     "Lavender Purple",
+     "Sunny Yellow",
+     "Bubblegum Pink",
+     "Turquoise",
+     "Coral Orange",
+     "Warm Beige"
+    ]
+   }
   },
   {
    "slug": "baby-ankylosaurus",
@@ -743,7 +784,18 @@
      "cm": 25,
      "price": 37
     }
-   ]
+   ],
+   "colors": {
+    "image": "baby-mermaid-cores.webp",
+    "options": [
+     "Coral Dream",
+     "Lavender Bloom",
+     "Ocean Blue",
+     "Peach Pearl",
+     "Mint Lagoon",
+     "Golden Sunset"
+    ]
+   }
   },
   {
    "slug": "pumpkin-killer",
@@ -799,7 +851,17 @@
      "cm": 25,
      "price": 48
     }
-   ]
+   ],
+   "colors": {
+    "image": "baby-vampire-cores.webp",
+    "options": [
+     "Purple",
+     "Blue",
+     "Green",
+     "Orange",
+     "Pink"
+    ]
+   }
   },
   {
    "slug": "baby-reaper",
@@ -822,7 +884,22 @@
      "cm": 26,
      "price": 37
     }
-   ]
+   ],
+   "colors": {
+    "image": "baby-reaper-cores.webp",
+    "options": [
+     "Classic Black",
+     "Mystic Purple",
+     "Bloody Red",
+     "Sweet Pink",
+     "Sky Blue",
+     "Forest Green",
+     "Pumpkin Orange",
+     "Soft Grey",
+     "Pastel Yellow",
+     "Mint Teal"
+    ]
+   }
   },
   {
    "slug": "pumpboo",
@@ -845,7 +922,21 @@
      "cm": 25,
      "price": 42
     }
-   ]
+   ],
+   "colors": {
+    "image": "pumpboo-cores.webp",
+    "options": [
+     "Classic Orange",
+     "Spooky Purple",
+     "Witchy Black",
+     "Candy Pink",
+     "Pumpkin Yellow",
+     "Minty Green",
+     "Ghostly White",
+     "Sunset Coral",
+     "Pastel Lavender"
+    ]
+   }
   },
   {
    "slug": "pumpkinaut",
@@ -965,7 +1056,18 @@
      "cm": 25,
      "price": 15
     }
-   ]
+   ],
+   "colors": {
+    "image": "alien-cores.webp",
+    "options": [
+     "Moon Gray",
+     "Aqua Mint",
+     "Cosmic Purple",
+     "Lime Nebula",
+     "Sky Blue",
+     "Coral Glow"
+    ]
+   }
   },
   {
    "slug": "alien-baby",
@@ -993,7 +1095,20 @@
      "cm": 26,
      "price": 22
     }
-   ]
+   ],
+   "colors": {
+    "image": "alien-baby-cores.webp",
+    "options": [
+     "Blue",
+     "Cyan",
+     "Green",
+     "Orange",
+     "Pink",
+     "Purple",
+     "Red",
+     "Yellow"
+    ]
+   }
   },
   {
    "slug": "alien-women",
@@ -1016,7 +1131,20 @@
      "cm": 25,
      "price": 15
     }
-   ]
+   ],
+   "colors": {
+    "image": "alien-women-cores.webp",
+    "options": [
+     "Green",
+     "Purple",
+     "Blue",
+     "Pink",
+     "Yellow",
+     "Orange",
+     "Red",
+     "White"
+    ]
+   }
   },
   {
    "slug": "astronaut-boy",

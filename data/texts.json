@@ -159,7 +159,12 @@
     "p_choose": "Kies je formaat",
     "order_short": "Bestel",
     "fav_btn": "Kies je formaat →",
-    "ship_note": "Deze prijzen gelden voor een pakket tot 500 g, ongeveer twee kleine figuren. Voor een grote figuur of een grotere bestelling bevestigen we de verzendkosten via WhatsApp."
+    "ship_note": "Deze prijzen gelden voor een pakket tot 500 g, ongeveer twee kleine figuren. Voor een grote figuur of een grotere bestelling bevestigen we de verzendkosten via WhatsApp.",
+    "p_color": "Kies je kleur",
+    "p_color_hint": "Bekijk de kleurenkaart bij de foto's. Je gekozen kleur komt mee in je WhatsApp-bericht.",
+    "p_colors_caption": "Kleurenkaart · voorbeeldfoto · klik om te vergroten",
+    "wa_color": "Kleur: {c}.",
+    "card_colors": "{n} kleuren"
   },
   "fr": {
     "lang_name": "Français",
@@ -321,7 +326,12 @@
     "p_choose": "Choisissez votre format",
     "order_short": "Commander",
     "fav_btn": "Choisir le format →",
-    "ship_note": "Ces prix valent pour un colis jusqu'à 500 g, soit environ deux petites figurines. Pour une grande figurine ou une commande plus importante, nous confirmons les frais d'envoi via WhatsApp."
+    "ship_note": "Ces prix valent pour un colis jusqu'à 500 g, soit environ deux petites figurines. Pour une grande figurine ou une commande plus importante, nous confirmons les frais d'envoi via WhatsApp.",
+    "p_color": "Choisissez votre couleur",
+    "p_color_hint": "Voir le nuancier avec les photos. La couleur choisie est ajoutée à votre message WhatsApp.",
+    "p_colors_caption": "Nuancier · photo d'exemple · cliquez pour agrandir",
+    "wa_color": "Couleur : {c}.",
+    "card_colors": "{n} couleurs"
   },
   "en": {
     "lang_name": "English",
@@ -483,6 +493,11 @@
     "p_choose": "Choose your size",
     "order_short": "Order",
     "fav_btn": "Choose your size →",
-    "ship_note": "These prices apply to a parcel up to 500 g, about two small figures. For a large figure or a bigger order, we confirm the shipping cost on WhatsApp."
+    "ship_note": "These prices apply to a parcel up to 500 g, about two small figures. For a large figure or a bigger order, we confirm the shipping cost on WhatsApp.",
+    "p_color": "Choose your colour",
+    "p_color_hint": "See the colour chart with the photos. Your chosen colour is added to your WhatsApp message.",
+    "p_colors_caption": "Colour chart · example photo · click to enlarge",
+    "wa_color": "Colour: {c}.",
+    "card_colors": "{n} colours"
   }
 }

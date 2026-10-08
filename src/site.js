@@ -58,6 +58,17 @@
   openHash();
   window.addEventListener('hashchange', openHash);
 
+  // Kleurkeuze: de gekozen kleur komt mee in het WhatsApp-bericht van elk formaat.
+  var picker = document.querySelector('.colors[data-tpl]');
+  if (picker) {
+    picker.addEventListener('change', function (ev) {
+      var extra = ' ' + picker.getAttribute('data-tpl').replace('{c}', ev.target.value);
+      document.querySelectorAll('.sizes a[data-msg]').forEach(function (a) {
+        a.href = picker.getAttribute('data-wa') + encodeURIComponent(a.getAttribute('data-msg') + extra);
+      });
+    });
+  }
+
   // Fotogalerij op de productpagina.
   var main = document.querySelector('.gallery .main img');
   document.querySelectorAll('.thumbs button').forEach(function (b, i, all) {
