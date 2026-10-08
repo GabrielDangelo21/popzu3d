@@ -62,6 +62,12 @@
   var picker = document.querySelector('.colors[data-tpl]');
   if (picker) {
     picker.addEventListener('change', function (ev) {
+      var mainImg = document.querySelector('.gallery .main img');
+      if (mainImg && ev.target.getAttribute('data-img')) {
+        mainImg.src = ev.target.getAttribute('data-img');
+        mainImg.alt = ev.target.getAttribute('data-alt');
+        document.querySelectorAll('.thumbs button').forEach(function (x) { x.setAttribute('aria-current', 'false'); });
+      }
       var extra = ' ' + picker.getAttribute('data-tpl').replace('{c}', ev.target.value);
       document.querySelectorAll('.sizes a[data-msg]').forEach(function (a) {
         a.href = picker.getAttribute('data-wa') + encodeURIComponent(a.getAttribute('data-msg') + extra);

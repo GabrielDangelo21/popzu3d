@@ -132,6 +132,10 @@ def colors_img(m):
     return f"/img/{m['slug']}/cores.webp"
 
 
+def color_img(m, i):
+    return f"/img/{m['slug']}/cor-{i + 1:02d}.webp"
+
+
 def img(m, i, small=False):
     return f"/img/{m['slug']}/{i + 1}{'-' + str(THUMB) if small else ''}.webp"
 
@@ -419,8 +423,9 @@ def product(lang, m):
         order = f'<h2 class="choose">{e(T(lang, "p_choose"))}</h2><div class="sizes">{opts}</div>'
         if m.get("colors"):
             chips = "".join(
-                f'<label class="color-chip"><input type="radio" name="kleur" value="{e(c)}"><span>{e(c)}</span></label>'
-                for c in m["colors"]["options"])
+                f'<label class="color-chip"><input type="radio" name="kleur" value="{e(c)}" data-img="{color_img(m, i)}"'
+                f' data-alt="{e(m["name"] + " · " + c)}"><span>{e(c)}</span></label>'
+                for i, c in enumerate(m["colors"]["options"]))
             order = (f'<h2 class="choose">{e(T(lang, "p_color"))}</h2>'
                      f'<div class="colors" data-tpl="{e(T(lang, "wa_color", c="{c}"))}" data-wa="https://wa.me/{SITE["whatsapp"]}?text=">{chips}</div>'
                      f'<p class="color-hint">{e(T(lang, "p_color_hint"))}</p>' + order)
@@ -514,6 +519,13 @@ def build_images():
                 put(src, OUT / colors_img(m).lstrip("/"))
             else:
                 WARN.append(f"Imagem de cores não encontrada: {src}")
+            # Uma foto por cor (tools/color_crops.py).
+            for i in range(len(m["colors"]["options"])):
+                src = src_root / m["slug"] / f'{m["slug"]}-cor-{i + 1:02d}.webp'
+                if src.exists():
+                    put(src, OUT / color_img(m, i).lstrip("/"))
+                else:
+                    WARN.append(f"Foto da cor não encontrada: {src} (rode tools/color_crops.py)")
     hero = src_root / SITE["hero_photo"]
     if Image:
         dst = OUT / "img" / "hero.webp"
