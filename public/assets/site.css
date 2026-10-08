@@ -203,3 +203,15 @@ table.ship{width:100%;border-collapse:collapse;font-size:14px;min-width:460px}
 .ship td:first-child{color:var(--text)}
 .ship td:nth-child(3){white-space:nowrap;color:var(--text);font-weight:700}
 .facts a.more{color:var(--mint);font-size:14px;font-weight:700}
+
+/* formaten op de productpagina */
+.choose{font-size:20px;margin:0 0 12px}
+.sizes{display:grid;gap:10px;margin:0 0 24px}
+.size-opt{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px 14px 14px 18px}
+.size-opt .sz b{display:block;font-size:17px}
+.size-opt .sz span{font-size:14px;color:var(--muted)}
+.size-opt .sp{font-family:'Fredoka',sans-serif;font-weight:600;font-size:24px;white-space:nowrap}
+@media (max-width:420px){
+  .size-opt{grid-template-columns:1fr auto;gap:10px 12px}
+  .size-opt .btn{grid-column:1/-1}
+}

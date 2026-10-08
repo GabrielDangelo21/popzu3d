@@ -4,7 +4,7 @@ Uso:
     python build.py            -> public/  (para publicar no Netlify)
     python build.py --preview  -> preview/ (mostra os destaques mesmo sem preço)
 
-Dados em data/: catalog.json (modelos, preços, fotos), texts.json (textos NL/FR/EN), site.json (contato, prazo, estações).
+Dados em data/: catalog.json (modelos, tamanhos e preços, fotos), texts.json (textos NL/FR/EN), site.json (contato, prazo, estações).
 Precisa de Pillow para gerar as miniaturas (pip install pillow).
 """
 import datetime
@@ -34,7 +34,8 @@ e = lambda s: html.escape(str(s), quote=True)
 # ---------- helpers ----------
 
 def F(lang, s, **kw):
-    base = {"lead": lead(lang), "cm": SITE["default_height_cm"], "ship_from": ship_from(lang), "shipping_table": "{shipping_table}"}
+    base = {"lead": lead(lang), "ship_from": ship_from(lang), "small": size_range(lang, "s"), "large": size_range(lang, "l"),
+            "shipping_table": "{shipping_table}"}
     return s.format(**{**base, **kw})
 
 
@@ -70,12 +71,28 @@ def lead(lang):
     return TXT[lang]["lead"].format(min=d["min"], max=d["max"])
 
 
-def height(m):
-    return m.get("height_cm") or SITE["default_height_cm"]
+def sizes(m):
+    return [s for s in m.get("sizes", []) if s.get("price") is not None]
 
 
-def size(lang, m=None):
-    return T(lang, "size", cm=height(m) if m else SITE["default_height_cm"])
+def from_price(m):
+    return min((s["price"] for s in sizes(m)), default=None)
+
+
+def size_range(lang, key):
+    cms = [s["cm"] for m in MODELS for s in sizes(m) if s["key"] == key]
+    return TXT[lang]["range"].format(a=min(cms), b=max(cms)) if cms else ""
+
+
+def heights(lang, m):
+    cms = [s["cm"] for s in sizes(m)]
+    if len(cms) == 2:
+        return T(lang, "heights", a=cms[0], b=cms[1])
+    return T(lang, "size", cm=cms[0]) if cms else ""
+
+
+def variant(lang, s):
+    return f'{T(lang, "size_" + s["key"])}, {T(lang, "size", cm=s["cm"])}'
 
 
 def price_text(lang, p):
@@ -97,11 +114,10 @@ def wa(text):
     return f"https://wa.me/{SITE['whatsapp']}?text={quote(text)}"
 
 
-def wa_order(lang, m):
-    p = price_text(lang, m["price"])
-    if p:
-        return wa(T(lang, "wa_order", name=m["name"], size=size(lang, m), price=p))
-    return wa(T(lang, "wa_order_noprice", name=m["name"], size=size(lang, m)))
+def wa_order(lang, m, s=None):
+    if s:
+        return wa(T(lang, "wa_order", name=m["name"], size=variant(lang, s), price=price_text(lang, s["price"])))
+    return wa(T(lang, "wa_order_noprice", name=m["name"], size=heights(lang, m)))
 
 
 def todo(lang):
@@ -136,7 +152,7 @@ def featured(season):
     base = list(f["list"])
     if season != "halloween":
         base = [f["swap"].get(s, s) for s in base]
-    ok = lambda s: PREVIEW or BY_SLUG[s]["price"] is not None
+    ok = lambda s: s in BY_SLUG and (PREVIEW or sizes(BY_SLUG[s]))
     out = []
     for s in base + f["reserve"]:
         if len(out) >= len(f["list"]):
@@ -241,10 +257,18 @@ def footer(lang):
 
 # ---------- components ----------
 
+def card_heights(lang, m):
+    cms = [s["cm"] for s in sizes(m)]
+    return TXT[lang]["range"].format(a=cms[0], b=cms[-1]) if len(cms) > 1 else (T(lang, "size", cm=cms[0]) if cms else "")
+
+
 def card(lang, m, fav=False, halloween=False):
     col = COLS[m["collection"]]
-    p = price_text(lang, m["price"])
-    price = f'<span class="price">{e(p)}</span>' if p else f'<span class="price ask">{e(T(lang, "price_on_request"))}</span>'
+    p = from_price(m)
+    if p is not None:
+        price = f'<span class="price">{e(T(lang, "from_price", p=price_text(lang, p)))}</span>'
+    else:
+        price = f'<span class="price ask">{e(T(lang, "price_on_request"))}</span>'
     tag = ""
     if fav and halloween:
         tag = f'<span class="tag">{e(T(lang, "badge_halloween"))}</span>'
@@ -252,13 +276,13 @@ def card(lang, m, fav=False, halloween=False):
         tag = f'<span class="tag flexi">{e(T(lang, "badge_flexi"))}</span>'
     alt = T(lang, "p_photo", name=m["name"], i=1)
     href = url(lang, m["slug"] + "/")
-    body = f'<h3><a href="{href}">{e(m["name"])}</a></h3><div class="sub">{e(col["name"][lang])} · {e(size(lang, m))}</div>'
+    body = f'<h3><a href="{href}">{e(m["name"])}</a></h3><div class="sub">{e(col["name"][lang])} · {e(card_heights(lang, m))}</div>'
     if fav:
         line = m.get("tagline", {}).get(lang, "")
         body += f'<p class="line">{e(line)}</p>' if line else ""
         body += f'<div class="row">{price}</div>'
-        label = T(lang, "order_btn") if p else T(lang, "ask_btn")
-        body += wa_button(wa_order(lang, m), label, "btn-sm btn-block")
+        # Com dois tamanhos, o pedido é feito na página do produto (um botão de WhatsApp por tamanho).
+        body += f'<a class="btn btn-coral btn-sm btn-block" href="{href}" tabindex="-1">{e(T(lang, "fav_btn"))}</a>'
     else:
         body += f'<div class="row">{price}</div>'
     return (f'<article class="card" data-col="{m["collection"]}">'
@@ -270,7 +294,6 @@ def card(lang, m, fav=False, halloween=False):
 
 def home(lang):
     n = len(MODELS)
-    cm = SITE["default_height_cm"]
     lists = {"halloween": featured("halloween"), "default": featured("default")}
     has_fav = any(lists.values())
     cur = "halloween" if SEASON == "halloween" else "default"
@@ -325,11 +348,11 @@ def home(lang):
     for q, a in TXT[lang]["faq"]:
         a = F(lang, a)
         if "{shipping_table}" in a:
-            faq += f'<details id="levering"><summary>{e(q)}</summary><p>{e(a.replace("{shipping_table}", ""))}</p>{shipping_table(lang)}</details>'
+            faq += f'<details id="levering"><summary>{e(q)}</summary><p>{e(a.replace("{shipping_table}", ""))}</p>{shipping_table(lang)}<p>{e(T(lang, "ship_note"))}</p></details>'
         else:
             faq += f"<details><summary>{e(q)}</summary><p>{e(a)}</p></details>"
     out += f"""<section id="collectie"{' class="alt"' if has_fav else ''}><div class="wrap">
-  <div class="head"><div><div class="eyebrow">{e(T(lang, "cat_label"))}</div><h2>{e(T(lang, "cat_title"))}</h2></div><p>{e(T(lang, "cat_sub", n=n, cm=cm))}</p></div>
+  <div class="head"><div><div class="eyebrow">{e(T(lang, "cat_label"))}</div><h2>{e(T(lang, "cat_title"))}</h2></div><p>{e(T(lang, "cat_sub", n=n))}</p></div>
   <div class="chips" role="group" aria-label="{e(T(lang, "filter_label"))}">{chips}</div>
   <p class="col-intro" aria-live="polite"></p>
   <div class="grid" id="catalog">{cards}</div>
@@ -342,7 +365,7 @@ def home(lang):
   <div class="panel">
     <div class="eyebrow">{e(T(lang, "custom_label"))}</div>
     <h2>{e(T(lang, "custom_title"))}</h2>
-    <p>{e(T(lang, "custom_p", cm=cm))}</p>
+    <p>{e(T(lang, "custom_p"))}</p>
     {wa_button(wa(T(lang, "wa_custom")), T(lang, "custom_btn"))}
   </div>
   <div class="panel">
@@ -362,10 +385,8 @@ def home(lang):
 
 def product(lang, m):
     col = COLS[m["collection"]]
-    cm = height(m)
-    p = price_text(lang, m["price"])
     path = m["slug"] + "/"
-    out = head(lang, T(lang, "meta_title_product", name=m["name"]), T(lang, "meta_desc_product", name=m["name"], cm=cm), path, img(m, 0))
+    out = head(lang, T(lang, "meta_title_product", name=m["name"]), T(lang, "meta_desc_product", name=m["name"], heights=heights(lang, m)), path, img(m, 0))
     out += topbar(lang, False) + nav(lang, path, False, any(featured(k) for k in ("halloween", "default")))
 
     photos = m["photos"]
@@ -376,8 +397,15 @@ def product(lang, m):
             f'<img src="{img(m, i, True)}" alt="" width="{THUMB}" height="{THUMB}" loading="lazy"></button>'
             for i in range(len(photos))) + "</div>"
     tagline = m.get("tagline", {}).get(lang)
-    price = f'<p class="big-price">{e(p)}</p>' if p else f'<p class="big-price ask">{e(T(lang, "price_on_request"))}</p>'
-    label = T(lang, "order_btn") if p else T(lang, "ask_btn")
+    if sizes(m):
+        opts = "".join(
+            f'<div class="size-opt"><div class="sz"><b>{e(T(lang, "size_" + s["key"]))}</b><span>{e(T(lang, "size", cm=s["cm"]))}</span></div>'
+            f'<div class="sp">{e(price_text(lang, s["price"]))}</div>{wa_button(wa_order(lang, m, s), T(lang, "order_short"), "btn-sm")}</div>'
+            for s in sizes(m))
+        order = f'<h2 class="choose">{e(T(lang, "p_choose"))}</h2><div class="sizes">{opts}</div>'
+    else:
+        order = (f'<p class="big-price ask">{e(T(lang, "price_on_request"))}</p>'
+                 + wa_button(wa_order(lang, m), T(lang, "ask_btn"), "btn-block"))
     tag = f' <span class="tag flexi" style="position:static;vertical-align:middle">{e(T(lang, "badge_flexi"))}</span>' if m.get("badge") == "flexi" else ""
 
     same = [x for x in MODELS if x["collection"] == m["collection"]]
@@ -396,15 +424,13 @@ def product(lang, m):
     <div class="eyebrow">{e(col["name"][lang])}{tag}</div>
     <h1>{e(m["name"])}</h1>
     {f'<p class="tagline">{e(tagline)}</p>' if tagline else ''}
-    <p class="desc">{e(T(lang, "p_desc", name=m["name"], collection=col["name"][lang], cm=cm))}</p>
-    {price}
+    <p class="desc">{e(T(lang, "p_desc", name=m["name"], collection=col["name"][lang]))}</p>
+    {order}
     <ul class="facts">
-      <li><span>{e(T(lang, "p_height"))}</span>{e(size(lang, m))}</li>
       <li><span>{e(T(lang, "p_finish"))}</span>{e(T(lang, "p_finish_val"))}</li>
       <li><span>{e(T(lang, "p_lead"))}</span>{e(lead(lang))}</li>
       <li><span>{e(T(lang, "p_delivery"))}</span><div>{e(T(lang, "p_delivery_val"))}<br><a class="more" href="{url(lang)}#levering">{e(T(lang, "p_shipping_link"))} →</a></div></li>
     </ul>
-    {wa_button(wa_order(lang, m), label, "btn-block")}
     <p class="bigger">{e(T(lang, "p_bigger"))} <a href="{e(wa(T(lang, "wa_bigger", name=m["name"])))}" target="_blank" rel="noopener">{e(T(lang, "p_bigger_link"))}</a></p>
   </div>
 </div></section>
@@ -477,6 +503,23 @@ def build_images():
 
 # ---------- main ----------
 
+def clean_stale():
+    """Remove páginas e fotos de modelos que saíram do catálogo."""
+    keep = set(BY_SLUG)
+    for base in [OUT] + [OUT / l for l in LANGS if l != "nl"]:
+        if not base.exists():
+            continue
+        for d in base.iterdir():
+            if d.is_dir() and (d / "index.html").exists() and d.name not in keep and d.name not in LANGS:
+                shutil.rmtree(d)
+                WARN.append(f"Removido (fora do catálogo): {d.relative_to(OUT)}/")
+    imgs = OUT / "img"
+    if imgs.exists():
+        for d in imgs.iterdir():
+            if d.is_dir() and d.name not in keep:
+                shutil.rmtree(d)
+
+
 def write(path, content):
     p = OUT / path
     p.parent.mkdir(parents=True, exist_ok=True)
@@ -494,7 +537,7 @@ def main():
             WARN.append(f"Destaques ({k}): nenhum modelo com preço, seção escondida.")
         elif len(featured(k)) < len(CAT["featured"]["list"]):
             WARN.append(f"Destaques ({k}): só {len(featured(k))} modelos com preço.")
-    missing = sum(1 for m in MODELS if m["price"] is None)
+    missing = sum(1 for m in MODELS if not sizes(m))
     if missing:
         WARN.append(f"{missing} de {len(MODELS)} modelos sem preço ('Prijs op aanvraag').")
     for key in ("instagram", "email", "base_url"):
@@ -505,6 +548,7 @@ def main():
             WARN.append(f"site.json: legal.{key} vazio (oculto no site; 'nog in te vullen' no preview).")
 
     OUT.mkdir(exist_ok=True)
+    clean_stale()
     build_images()
     for lang in LANGS:
         pre = "" if lang == "nl" else lang + "/"

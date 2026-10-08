@@ -1,5 +1,5 @@
 {
- "_info": "Catálogo do Popzu. price: número em euros com IVA (ex.: 24.95) ou null = 'Prijs op aanvraag'. height_cm: null = altura padrão de site.json. photos: arquivos de images/<slug>/, o primeiro é a capa.",
+ "_info": "Catálogo do Popzu. sizes: s = pequeno (escala 50%), l = grande (100%); cm = altura, price = preço em euros com IVA (Catalogo_Precos_Tamanho.xlsx, 08/10/2026). photos: arquivos de images/<slug>/, o primeiro é a capa.",
  "collections": [
   {
    "key": "dino",
@@ -116,8 +116,6 @@
    "slug": "baby-t-rex",
    "name": "Baby T-Rex",
    "collection": "dino",
-   "price": 12,
-   "height_cm": null,
    "photos": [
     "baby-t-rex-09.webp",
     "baby-t-rex-14.webp",
@@ -128,79 +126,139 @@
     "nl": "De koning van de dino's, maar dan schattig.",
     "fr": "Le roi des dinos, version adorable.",
     "en": "The king of the dinos, but adorable."
-   }
+   },
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 11,
+     "price": 12
+    },
+    {
+     "key": "l",
+     "cm": 21,
+     "price": 29
+    }
+   ]
   },
   {
    "slug": "baby-triceratops",
    "name": "Baby Triceratops",
    "collection": "dino",
-   "price": null,
-   "height_cm": null,
    "photos": [
     "baby-triceratops-03.webp",
     "baby-triceratops-13.webp",
     "baby-triceratops-14.webp",
     "baby-triceratops-16.webp"
+   ],
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 12,
+     "price": 11
+    },
+    {
+     "key": "l",
+     "cm": 24,
+     "price": 34
+    }
    ]
   },
   {
    "slug": "baby-spinosaurus",
    "name": "Baby Spinosaurus",
    "collection": "dino",
-   "price": null,
-   "height_cm": null,
    "photos": [
     "baby-spinosaurus-10.webp",
     "baby-spinosaurus-13.webp",
     "baby-spinosaurus-14.webp",
     "baby-spinosaurus-18.webp"
+   ],
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 16,
+     "price": 14
+    },
+    {
+     "key": "l",
+     "cm": 32,
+     "price": 39
+    }
    ]
   },
   {
    "slug": "baby-brachiosaurus",
    "name": "Baby Brachiosaurus",
    "collection": "dino",
-   "price": null,
-   "height_cm": null,
    "photos": [
     "baby-brachiosaurus-13.webp",
     "baby-brachiosaurus-32.webp",
     "baby-brachiosaurus-31.webp",
     "baby-brachiosaurus-38.webp"
+   ],
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 14,
+     "price": 12
+    },
+    {
+     "key": "l",
+     "cm": 29,
+     "price": 35
+    }
    ]
   },
   {
    "slug": "baby-ankylosaurus",
    "name": "Baby Ankylosaurus",
    "collection": "dino",
-   "price": null,
-   "height_cm": null,
    "photos": [
     "baby-ankylosaurus-06.webp",
     "baby-ankylosaurus-17.webp",
     "baby-ankylosaurus-16.webp",
     "baby-ankylosaurus-20.webp"
+   ],
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 15,
+     "price": 12
+    },
+    {
+     "key": "l",
+     "cm": 31,
+     "price": 35
+    }
    ]
   },
   {
    "slug": "baby-carnotaurus",
    "name": "Baby Carnotaurus",
    "collection": "dino",
-   "price": null,
-   "height_cm": null,
    "photos": [
     "baby-carnotaurus-05.webp",
     "baby-carnotaurus-15.webp",
     "baby-carnotaurus-16.webp",
     "baby-carnotaurus-17.webp"
+   ],
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 15,
+     "price": 12
+    },
+    {
+     "key": "l",
+     "cm": 31,
+     "price": 35
+    }
    ]
   },
   {
    "slug": "cute-corgi",
    "name": "Cute Corgi",
    "collection": "honden",
-   "price": 9,
-   "height_cm": null,
    "photos": [
     "cute-corgi-01.webp",
     "cute-corgi-13.webp",
@@ -211,14 +269,24 @@
     "nl": "Korte pootjes, groot karakter.",
     "fr": "Petites pattes, grand caractère.",
     "en": "Short legs, big personality."
-   }
+   },
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 11,
+     "price": 10
+    },
+    {
+     "key": "l",
+     "cm": 22,
+     "price": 30
+    }
+   ]
   },
   {
    "slug": "cute-husky",
    "name": "Cute Husky",
    "collection": "honden",
-   "price": 10,
-   "height_cm": null,
    "photos": [
     "cute-husky-44.webp",
     "cute-husky-26.webp",
@@ -229,66 +297,116 @@
     "nl": "Klaar voor de eerste sneeuw.",
     "fr": "Prêt pour la première neige.",
     "en": "Ready for the first snow."
-   }
+   },
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 13,
+     "price": 10
+    },
+    {
+     "key": "l",
+     "cm": 25,
+     "price": 38
+    }
+   ]
   },
   {
    "slug": "cute-bulldog",
    "name": "Cute Bulldog",
    "collection": "honden",
-   "price": null,
-   "height_cm": null,
    "photos": [
     "cute-bulldog-09.webp",
     "cute-bulldog-15.webp",
     "cute-bulldog-14.webp",
     "cute-bulldog-16.webp"
+   ],
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 11,
+     "price": 10
+    },
+    {
+     "key": "l",
+     "cm": 22,
+     "price": 30
+    }
    ]
   },
   {
    "slug": "dachshund-dog",
    "name": "Dachshund Dog",
    "collection": "honden",
-   "price": null,
-   "height_cm": null,
    "photos": [
     "dachshund-dog-02.webp",
     "dachshund-dog-14.webp",
     "dachshund-dog-15.webp",
     "dachshund-dog-19.webp"
+   ],
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 12,
+     "price": 9
+    },
+    {
+     "key": "l",
+     "cm": 24,
+     "price": 20
+    }
    ]
   },
   {
    "slug": "yorkshire-dog",
    "name": "Yorkshire Dog",
    "collection": "honden",
-   "price": null,
-   "height_cm": null,
    "photos": [
     "yorkshire-dog-08.webp",
     "yorkshire-dog-14.webp",
     "yorkshire-dog-15.webp",
     "yorkshire-dog-16.webp"
+   ],
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 14,
+     "price": 10
+    },
+    {
+     "key": "l",
+     "cm": 25,
+     "price": 35
+    }
    ]
   },
   {
    "slug": "rottweiler-dog",
    "name": "Rottweiler Dog",
    "collection": "honden",
-   "price": null,
-   "height_cm": null,
    "photos": [
     "rottweiler-dog-08.webp",
     "rottweiler-dog-12.webp",
     "rottweiler-dog-13.webp",
     "rottweiler-dog-14.webp"
+   ],
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 13,
+     "price": 12
+    },
+    {
+     "key": "l",
+     "cm": 26,
+     "price": 45
+    }
    ]
   },
   {
    "slug": "fat-capybara",
    "name": "Fat Capybara",
    "collection": "dieren",
-   "price": 10,
-   "height_cm": null,
    "photos": [
     "fat-capybara-09.webp",
     "fat-capybara-14.webp",
@@ -299,40 +417,70 @@
     "nl": "De meest relaxte vriend op je plank.",
     "fr": "L'ami le plus zen de votre étagère.",
     "en": "The most relaxed friend on your shelf."
-   }
+   },
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 10,
+     "price": 10
+    },
+    {
+     "key": "l",
+     "cm": 20,
+     "price": 26
+    }
+   ]
   },
   {
    "slug": "derp-capybara",
    "name": "Derp Capybara",
    "collection": "dieren",
-   "price": null,
-   "height_cm": null,
    "photos": [
     "derp-capybara-06.webp",
     "derp-capybara-17.webp",
     "derp-capybara-13.webp",
     "derp-capybara-14.webp"
+   ],
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 10,
+     "price": 9
+    },
+    {
+     "key": "l",
+     "cm": 20,
+     "price": 26
+    }
    ]
   },
   {
    "slug": "hamster",
    "name": "Hamster",
    "collection": "dieren",
-   "price": null,
-   "height_cm": null,
    "photos": [
     "hamster-23.webp",
     "hamster-51.webp",
     "hamster-44.webp",
     "hamster-50.webp"
+   ],
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 9,
+     "price": 5
+    },
+    {
+     "key": "l",
+     "cm": 18,
+     "price": 16
+    }
    ]
   },
   {
    "slug": "hamster-flexi",
    "name": "Hamster Flexi",
    "collection": "dieren",
-   "price": 8,
-   "height_cm": null,
    "photos": [
     "hamster-flexi-40.webp",
     "hamster-flexi-41.webp",
@@ -344,27 +492,47 @@
     "fr": "Un hamster qui bouge avec vous.",
     "en": "A hamster that moves along with you."
    },
-   "badge": "flexi"
+   "badge": "flexi",
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 10,
+     "price": 7
+    },
+    {
+     "key": "l",
+     "cm": 20,
+     "price": 14
+    }
+   ]
   },
   {
    "slug": "derp-monkey",
    "name": "Derp Monkey",
    "collection": "dieren",
-   "price": null,
-   "height_cm": null,
    "photos": [
     "derp-monkey-04.webp",
     "derp-monkey-16.webp",
     "derp-monkey-17.webp",
     "derp-monkey-19.webp"
+   ],
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 10,
+     "price": 10
+    },
+    {
+     "key": "l",
+     "cm": 20,
+     "price": 29
+    }
    ]
   },
   {
    "slug": "snowy-owl",
    "name": "Snowy Owl",
    "collection": "dieren",
-   "price": 9,
-   "height_cm": null,
    "photos": [
     "snowy-owl-06.webp",
     "snowy-owl-13.webp",
@@ -375,39 +543,69 @@
     "nl": "Een wijze uil voor de winteravonden.",
     "fr": "Une chouette sage pour les soirs d'hiver.",
     "en": "A wise owl for winter evenings."
-   }
+   },
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 11,
+     "price": 7
+    },
+    {
+     "key": "l",
+     "cm": 22,
+     "price": 31
+    }
+   ]
   },
   {
    "slug": "mochi-octopus",
    "name": "Mochi Octopus",
    "collection": "zee",
-   "price": null,
-   "height_cm": null,
    "photos": [
     "mochi-octopus-05.webp",
     "mochi-octopus-04.webp",
     "mochi-octopus-09.webp"
+   ],
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 10,
+     "price": 14
+    },
+    {
+     "key": "l",
+     "cm": 20,
+     "price": 44
+    }
    ]
   },
   {
    "slug": "derp-octopus",
    "name": "Derp Octopus",
    "collection": "zee",
-   "price": null,
-   "height_cm": null,
    "photos": [
     "derp-octopus-03.webp",
     "derp-octopus-12.webp",
     "derp-octopus-13.webp",
     "derp-octopus-14.webp"
+   ],
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 10,
+     "price": 13
+    },
+    {
+     "key": "l",
+     "cm": 20,
+     "price": 46
+    }
    ]
   },
   {
    "slug": "mochi-seal",
    "name": "Mochi Seal",
    "collection": "zee",
-   "price": 8,
-   "height_cm": null,
    "photos": [
     "mochi-seal-09.webp",
     "mochi-seal-12.webp",
@@ -418,79 +616,139 @@
     "nl": "Rond, zacht om te zien en dol op sneeuw.",
     "fr": "Tout rond, tout doux et fan de neige.",
     "en": "Round, soft-looking and fond of snow."
-   }
+   },
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 13,
+     "price": 6
+    },
+    {
+     "key": "l",
+     "cm": 25,
+     "price": 22
+    }
+   ]
   },
   {
    "slug": "derp-seal",
    "name": "Derp Seal",
    "collection": "zee",
-   "price": null,
-   "height_cm": null,
    "photos": [
     "derp-seal-10.webp",
     "derp-seal-16.webp",
     "derp-seal-17.webp",
     "derp-seal-20.webp"
+   ],
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 9,
+     "price": 9
+    },
+    {
+     "key": "l",
+     "cm": 17,
+     "price": 26
+    }
    ]
   },
   {
    "slug": "cute-dolphin",
    "name": "Cute Dolphin",
    "collection": "zee",
-   "price": null,
-   "height_cm": null,
    "photos": [
     "cute-dolphin-04.webp",
     "cute-dolphin-18.webp",
     "cute-dolphin-14.webp",
     "cute-dolphin-24.webp"
+   ],
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 13,
+     "price": 9
+    },
+    {
+     "key": "l",
+     "cm": 25,
+     "price": 23
+    }
    ]
   },
   {
    "slug": "clownfish",
    "name": "Clownfish",
    "collection": "zee",
-   "price": null,
-   "height_cm": null,
    "photos": [
     "clownfish-04.webp",
     "clownfish-15.webp",
     "clownfish-16.webp",
     "clownfish-22.webp"
+   ],
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 13,
+     "price": 11
+    },
+    {
+     "key": "l",
+     "cm": 25,
+     "price": 30
+    }
    ]
   },
   {
    "slug": "blue-tang-fish",
    "name": "Blue Tang Fish",
    "collection": "zee",
-   "price": null,
-   "height_cm": null,
    "photos": [
     "blue-tang-fish-05.webp",
     "blue-tang-fish-14.webp",
     "blue-tang-fish-15.webp",
     "blue-tang-fish-18.webp"
+   ],
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 15,
+     "price": 15
+    },
+    {
+     "key": "l",
+     "cm": 30,
+     "price": 53
+    }
    ]
   },
   {
    "slug": "baby-mermaid",
    "name": "Baby Mermaid",
    "collection": "zee",
-   "price": null,
-   "height_cm": null,
    "photos": [
     "baby-mermaid-02.webp",
     "baby-mermaid-12.webp",
     "baby-mermaid-13.webp",
     "baby-mermaid-14.webp"
+   ],
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 13,
+     "price": 15
+    },
+    {
+     "key": "l",
+     "cm": 25,
+     "price": 37
+    }
    ]
   },
   {
    "slug": "pumpkin-killer",
    "name": "Pumpkin Killer",
    "collection": "spooky",
-   "price": 15,
-   "height_cm": null,
    "photos": [
     "pumpkin-killer-03.webp",
     "pumpkin-killer-09.webp",
@@ -501,14 +759,24 @@
     "nl": "Een pompoen met een ondeugend kantje.",
     "fr": "Une citrouille au petit côté espiègle.",
     "en": "A pumpkin with a mischievous side."
-   }
+   },
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 15,
+     "price": 14
+    },
+    {
+     "key": "l",
+     "cm": 29,
+     "price": 55
+    }
+   ]
   },
   {
    "slug": "baby-vampire",
    "name": "Baby Vampire",
    "collection": "spooky",
-   "price": 15,
-   "height_cm": null,
    "photos": [
     "baby-vampire-07.webp",
     "baby-vampire-12.webp",
@@ -519,66 +787,116 @@
     "nl": "Bijt niet. Beloofd.",
     "fr": "Il ne mord pas. Promis.",
     "en": "Doesn't bite. Promise."
-   }
+   },
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 13,
+     "price": 15
+    },
+    {
+     "key": "l",
+     "cm": 25,
+     "price": 48
+    }
+   ]
   },
   {
    "slug": "baby-reaper",
    "name": "Baby Reaper",
    "collection": "spooky",
-   "price": null,
-   "height_cm": null,
    "photos": [
     "baby-reaper-06.webp",
     "baby-reaper-15.webp",
     "baby-reaper-16.webp",
     "baby-reaper-20.webp"
+   ],
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 13,
+     "price": 12
+    },
+    {
+     "key": "l",
+     "cm": 26,
+     "price": 37
+    }
    ]
   },
   {
    "slug": "pumpboo",
    "name": "Pumpboo",
    "collection": "spooky",
-   "price": null,
-   "height_cm": null,
    "photos": [
     "pumpboo-06.webp",
     "pumpboo-15.webp",
     "pumpboo-16.webp",
     "pumpboo-20.webp"
+   ],
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 13,
+     "price": 12
+    },
+    {
+     "key": "l",
+     "cm": 25,
+     "price": 42
+    }
    ]
   },
   {
    "slug": "pumpkinaut",
    "name": "Pumpkinaut",
    "collection": "spooky",
-   "price": null,
-   "height_cm": null,
    "photos": [
     "pumpkinaut-11.webp",
     "pumpkinaut-20.webp",
     "pumpkinaut-21.webp",
     "pumpkinaut-22.webp"
+   ],
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 11,
+     "price": 13
+    },
+    {
+     "key": "l",
+     "cm": 22,
+     "price": 37
+    }
    ]
   },
   {
    "slug": "derp-pumpkin",
    "name": "Derp Pumpkin",
    "collection": "spooky",
-   "price": null,
-   "height_cm": null,
    "photos": [
     "derp-pumpkin-03.webp",
     "derp-pumpkin-10.webp",
     "derp-pumpkin-11.webp",
     "derp-pumpkin-14.webp"
+   ],
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 10,
+     "price": 11
+    },
+    {
+     "key": "l",
+     "cm": 20,
+     "price": 34
+    }
    ]
   },
   {
    "slug": "the-mummy",
    "name": "The Mummy",
    "collection": "spooky",
-   "price": 7,
-   "height_cm": null,
    "photos": [
     "the-mummy-08.webp",
     "the-mummy-15.webp",
@@ -589,40 +907,70 @@
     "nl": "Goed ingepakt en klaar voor Halloween.",
     "fr": "Bien emballée et prête pour Halloween.",
     "en": "All wrapped up and ready for Halloween."
-   }
+   },
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 11,
+     "price": 7
+    },
+    {
+     "key": "l",
+     "cm": 22,
+     "price": 22
+    }
+   ]
   },
   {
    "slug": "derp-werewolf",
    "name": "Derp Werewolf",
    "collection": "spooky",
-   "price": null,
-   "height_cm": null,
    "photos": [
     "derp-werewolf-07.webp",
     "derp-werewolf-14.webp",
     "derp-werewolf-15.webp",
     "derp-werewolf-16.webp"
+   ],
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 10,
+     "price": 9
+    },
+    {
+     "key": "l",
+     "cm": 19,
+     "price": 27
+    }
    ]
   },
   {
    "slug": "alien",
    "name": "Alien",
    "collection": "space",
-   "price": null,
-   "height_cm": null,
    "photos": [
     "alien-07.webp",
     "alien-18.webp",
     "alien-22.webp",
     "alien-20.webp"
+   ],
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 13,
+     "price": 5
+    },
+    {
+     "key": "l",
+     "cm": 25,
+     "price": 15
+    }
    ]
   },
   {
    "slug": "alien-baby",
    "name": "Alien Baby",
    "collection": "space",
-   "price": 9,
-   "height_cm": null,
    "photos": [
     "alien-baby-07.webp",
     "alien-baby-12.webp",
@@ -633,84 +981,133 @@
     "nl": "Een klein bezoekertje van heel ver weg.",
     "fr": "Un petit visiteur venu de très loin.",
     "en": "A tiny visitor from very far away."
-   }
+   },
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 13,
+     "price": 9
+    },
+    {
+     "key": "l",
+     "cm": 26,
+     "price": 22
+    }
+   ]
   },
   {
    "slug": "alien-women",
    "name": "Alien Women",
    "collection": "space",
-   "price": null,
-   "height_cm": null,
    "photos": [
     "alien-women-04.webp",
     "alien-women-11.webp",
     "alien-women-13.webp",
     "alien-women-16.webp"
+   ],
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 13,
+     "price": 6
+    },
+    {
+     "key": "l",
+     "cm": 25,
+     "price": 15
+    }
    ]
   },
   {
    "slug": "astronaut-boy",
    "name": "Astronaut Boy",
    "collection": "space",
-   "price": null,
-   "height_cm": null,
    "photos": [
     "astronaut-boy-06.webp",
     "astronaut-boy-13.webp",
     "astronaut-boy-14.webp",
     "astronaut-boy-16.webp"
+   ],
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 11,
+     "price": 12
+    },
+    {
+     "key": "l",
+     "cm": 22,
+     "price": 26
+    }
    ]
   },
   {
    "slug": "super-nova",
    "name": "Super Nova",
    "collection": "space",
-   "price": null,
-   "height_cm": null,
    "photos": [
     "super-nova-08.webp",
     "super-nova-11.webp",
     "super-nova-12.webp",
     "super-nova-13.webp"
+   ],
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 12,
+     "price": 9
+    },
+    {
+     "key": "l",
+     "cm": 23,
+     "price": 26
+    }
    ]
   },
   {
    "slug": "luna",
    "name": "Luna",
    "collection": "space",
-   "price": null,
-   "height_cm": null,
    "photos": [
     "luna-08.webp",
     "luna-13.webp",
     "luna-14.webp",
     "luna-15.webp"
+   ],
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 11,
+     "price": 9
+    },
+    {
+     "key": "l",
+     "cm": 22,
+     "price": 26
+    }
    ]
   },
   {
    "slug": "derp-dragon",
    "name": "Derp Dragon",
    "collection": "space",
-   "price": null,
-   "height_cm": null,
    "photos": [
     "derp-dragon-08.webp",
     "derp-dragon-15.webp",
     "derp-dragon-16.webp",
     "derp-dragon-19.webp"
-   ]
-  },
-  {
-   "slug": "the-elemental-dragon",
-   "name": "The Elemental Dragon",
-   "collection": "space",
-   "price": null,
-   "height_cm": null,
-   "photos": [
-    "the-elemental-dragon-26.webp",
-    "the-elemental-dragon-49.webp",
-    "the-elemental-dragon-50.webp",
-    "the-elemental-dragon-53.webp"
+   ],
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 10,
+     "price": 10
+    },
+    {
+     "key": "l",
+     "cm": 19,
+     "price": 32
+    }
    ]
   }
  ]
