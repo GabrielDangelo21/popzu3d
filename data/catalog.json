@@ -1036,6 +1036,47 @@
    ]
   },
   {
+   "slug": "baby-werewolf",
+   "name": "Baby Werewolf",
+   "collection": "spooky",
+   "photos": [
+    "baby-werewolf-04.webp",
+    "baby-werewolf-16.webp",
+    "baby-werewolf-10.webp",
+    "baby-werewolf-13.webp"
+   ],
+   "sizes": [
+    {
+     "key": "s",
+     "cm": 13,
+     "price": 12
+    },
+    {
+     "key": "l",
+     "cm": 25,
+     "price": 42
+    }
+   ],
+   "colors": {
+    "image": "baby-werewolf-cores.webp",
+    "options": [
+     "Classic Grey",
+     "Peach Apricot",
+     "Moonlight Blue",
+     "Forest Mint",
+     "Lavender Dream",
+     "Caramel Cocoa",
+     "Violet Storm",
+     "Midnight Shadow",
+     "Pumpkin Spice",
+     "Rose Berry",
+     "Ocean Teal",
+     "Crimson Moon",
+     "Golden Honey"
+    ]
+   }
+  },
+  {
    "slug": "alien",
    "name": "Alien",
    "collection": "space",

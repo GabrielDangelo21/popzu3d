@@ -1,5 +1,9 @@
 """Converte as fotos dos modelos do Whale (pasta Originais) para images/<slug>/ em WebP, até 1200 px.
-Ignora GIFs, guias de montagem, 3MF e PDF. Gera images/manifest.csv com a origem de cada foto."""
+Ignora GIFs, guias de montagem, quadros de cores (modelos*.png), 3MF e PDF. Gera images/manifest.csv.
+
+Uso: python tools/copy_photos.py "Baby Werewolf"   -> só esse modelo (recomendado; acrescenta ao manifesto)
+     python tools/copy_photos.py                   -> todos (CUIDADO: renumera as fotos e pode quebrar catalog.json)
+"""
 import csv, re, sys
 from pathlib import Path
 from concurrent.futures import ProcessPoolExecutor
@@ -29,12 +33,14 @@ def convert(job):
 
 def main():
     jobs = []
-    for model in sorted(p for p in SRC.iterdir() if p.is_dir()):
+    only = set(sys.argv[1:])
+    for model in sorted(p for p in SRC.iterdir() if p.is_dir() and (not only or p.name in only)):
         photo = model / "Photo"
         files = sorted(
             f for f in photo.rglob("*")
             if f.is_file() and f.suffix.lower() in EXTS
             and "assembly guide" not in str(f.relative_to(photo)).lower()
+            and not f.name.lower().startswith("modelos")
         )
         out = DST / slug(model.name)
         out.mkdir(parents=True, exist_ok=True)
@@ -42,9 +48,10 @@ def main():
             jobs.append((f, out / f"{slug(model.name)}-{i:02d}.webp"))
     with ProcessPoolExecutor() as ex:
         rows = list(ex.map(convert, jobs, chunksize=4))
-    with open(DST / "manifest.csv", "w", newline="", encoding="utf-8") as fh:
+    with open(DST / "manifest.csv", "a" if only else "w", newline="", encoding="utf-8") as fh:
         w = csv.writer(fh)
-        w.writerow(["origem", "destino", "largura", "altura", "erro"])
+        if not only:
+            w.writerow(["origem", "destino", "largura", "altura", "erro"])
         for r in rows:
             w.writerow([r[0], str(Path(r[1]).relative_to(DST.parent)).replace("\\", "/"), *r[2:]])
     errs = [r for r in rows if r[4]]
