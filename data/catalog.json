@@ -1301,9 +1301,9 @@
      {
       "key": "u",
       "label": {
-       "nl": "Eén formaat",
-       "fr": "Taille unique",
-       "en": "One size"
+       "nl": "Per stuk",
+       "fr": "À l'unité",
+       "en": "Per piece"
       },
       "cm": 9,
       "price": 3.5
@@ -1348,9 +1348,9 @@
      {
       "key": "u",
       "label": {
-       "nl": "Eén formaat",
-       "fr": "Taille unique",
-       "en": "One size"
+       "nl": "Per stuk",
+       "fr": "À l'unité",
+       "en": "Per piece"
       },
       "cm": 7,
       "price": 5
@@ -1399,9 +1399,9 @@
      {
       "key": "u",
       "label": {
-       "nl": "Eén formaat",
-       "fr": "Taille unique",
-       "en": "One size"
+       "nl": "Per stuk",
+       "fr": "À l'unité",
+       "en": "Per piece"
       },
       "cm": 7,
       "price": 7.5
@@ -1445,9 +1445,9 @@
      {
       "key": "u",
       "label": {
-       "nl": "Eén formaat",
-       "fr": "Taille unique",
-       "en": "One size"
+       "nl": "Per stuk",
+       "fr": "À l'unité",
+       "en": "Per piece"
       },
       "cm": 13,
       "price": 4
@@ -1493,9 +1493,9 @@
      {
       "key": "u",
       "label": {
-       "nl": "Eén formaat",
-       "fr": "Taille unique",
-       "en": "One size"
+       "nl": "Per stuk",
+       "fr": "À l'unité",
+       "en": "Per piece"
       },
       "cm": 21,
       "price": 6
@@ -1540,9 +1540,9 @@
      {
       "key": "u",
       "label": {
-       "nl": "Eén formaat",
-       "fr": "Taille unique",
-       "en": "One size"
+       "nl": "Per stuk",
+       "fr": "À l'unité",
+       "en": "Per piece"
       },
       "cm": 13.5,
       "price": 3.5
@@ -1587,9 +1587,9 @@
      {
       "key": "u",
       "label": {
-       "nl": "Eén formaat",
-       "fr": "Taille unique",
-       "en": "One size"
+       "nl": "Per stuk",
+       "fr": "À l'unité",
+       "en": "Per piece"
       },
       "cm": 13.5,
       "price": 5
@@ -1627,15 +1627,20 @@
      {
       "key": "u",
       "label": {
-       "nl": "Eén formaat",
-       "fr": "Taille unique",
-       "en": "One size"
+       "nl": "Per stuk",
+       "fr": "À l'unité",
+       "en": "Per piece"
       },
       "cm": 18,
       "price": 7.5
      }
     ],
-    "source": "Papai Noel"
+    "source": "Papai Noel",
+    "note": {
+     "nl": "Wordt geleverd zonder ledlichtje.",
+     "fr": "Livré sans bougie LED.",
+     "en": "Supplied without LED light."
+    }
    },
    {
     "slug": "sneeuwman",
@@ -1654,15 +1659,20 @@
      {
       "key": "u",
       "label": {
-       "nl": "Eén formaat",
-       "fr": "Taille unique",
-       "en": "One size"
+       "nl": "Per stuk",
+       "fr": "À l'unité",
+       "en": "Per piece"
       },
       "cm": 14,
       "price": 8
      }
     ],
-    "source": "Boneco de Neve"
+    "source": "Boneco de Neve",
+    "note": {
+     "nl": "Wordt geleverd zonder ledlichtje.",
+     "fr": "Livré sans bougie LED.",
+     "en": "Supplied without LED light."
+    }
    },
    {
     "slug": "kerstkabouter",
@@ -1681,9 +1691,9 @@
      {
       "key": "u",
       "label": {
-       "nl": "Eén formaat",
-       "fr": "Taille unique",
-       "en": "One size"
+       "nl": "Per stuk",
+       "fr": "À l'unité",
+       "en": "Per piece"
       },
       "cm": 20,
       "price": 8

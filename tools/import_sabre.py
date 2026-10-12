@@ -21,6 +21,10 @@ def L(nl, fr, en):
 
 RED, GREEN, BEIGE = L("Rood", "Rouge", "Red"), L("Groen", "Vert", "Green"), L("Beige", "Beige", "Beige")
 
+# Todos os preços são por unidade, mesmo quando a foto mostra várias peças (confirmado pelo dono em 12/10/2026).
+ONE_SIZE = L("Per stuk", "À l'unité", "Per piece")
+NO_LED = L("Wordt geleverd zonder ledlichtje.", "Livré sans bougie LED.", "Supplied without LED light.")
+
 # Linha da planilha (nº) -> dados do site. photos: posição (1 = primeira) das fotos da pasta, já ordenadas por nome;
 # a primeira é a capa. Fotos com LED aceso ficaram de fora (a luz não vem junto).
 # color_photos: foto de cada cor, na ordem de colors (None = não há foto só daquela cor).
@@ -48,14 +52,13 @@ ITEMS = [
          name=L("Noords kerstboompje", "Sapin nordique", "Nordic Christmas tree"),
          photos=[4, 2, 3, 1], colors=[RED, GREEN], color_photos=[3, 2]),
     dict(row=7, folder="Papai Noel", slug="kerstman", collection="kerst-tafel",
-         name=L("Kerstman", "Père Noël", "Santa"), photos=[2, 1]),
+         name=L("Kerstman", "Père Noël", "Santa"), photos=[2, 1], note=NO_LED),
     dict(row=8, folder="Boneco de neve", slug="sneeuwman", collection="kerst-tafel",
-         name=L("Sneeuwman", "Bonhomme de neige", "Snowman"), photos=[4, 3, 2]),
+         name=L("Sneeuwman", "Bonhomme de neige", "Snowman"), photos=[4, 3, 2], note=NO_LED),
     dict(row=10, folder="Gnomos", slug="kerstkabouter", collection="kerst-tafel",
          name=L("Kerstkabouter", "Gnome de Noël", "Christmas gnome"), photos=[2, 3, 1]),
 ]
 
-ONE_SIZE = L("Eén formaat", "Taille unique", "One size")
 
 
 def save(src, dst, square=False):
@@ -93,6 +96,8 @@ def main():
                 "sizes": [{"key": "u", "label": ONE_SIZE, "cm": cm, "price": price}], "source": sheet_name}
         if it.get("tagline"):
             item["tagline"] = it["tagline"]
+        if it.get("note"):
+            item["note"] = it["note"]
         if it.get("colors"):
             item["colors"] = {"options": it["colors"]}
         items.append(item)

@@ -468,7 +468,7 @@ def product(lang, m):
             f'<div class="size-opt"><div class="sz"><b>{e(size_name(lang, s))}</b><span>{e(T(lang, "size", cm=num(lang, s["cm"]))) if s.get("cm") else ""}</span></div>'
             f'<div class="sp">{e(price_text(lang, s["price"]))}</div>{wa_button(wa_order(lang, m, s), T(lang, "order_short"), "btn-sm", order_msg(lang, m, s))}</div>'
             for s in sizes(m))
-        order = f'<h2 class="choose">{e(T(lang, "p_choose"))}</h2><div class="sizes">{opts}</div>'
+        order = f'<h2 class="choose">{e(T(lang, "p_choose" if len(sizes(m)) > 1 else "p_order_one"))}</h2><div class="sizes">{opts}</div>'
         if m.get("colors"):
             chips = "".join(
                 f'<label class="color-chip"><input type="radio" name="kleur" value="{e(cname(c, lang))}"'
@@ -508,6 +508,7 @@ def product(lang, m):
     <h1>{e(nm(m, lang))}</h1>
     {f'<p class="tagline">{e(tagline)}</p>' if tagline else ''}
     <p class="desc">{e(T(lang, "p_desc_kerst" if kerst else "p_desc", name=nm(m, lang), collection=col["name"][lang]))}</p>
+    {f'<p class="pnote">{e(m["note"][lang])}</p>' if m.get("note") else ""}
     {order}
     <ul class="facts">
       {f'<li><span>{e(T(lang, "p_contents"))}</span>{e(m["contents"][lang])}</li>' if m.get("contents") else ""}

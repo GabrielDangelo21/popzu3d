@@ -234,3 +234,4 @@ table.ship{width:100%;border-collapse:collapse;font-size:14px;min-width:460px}
 .kerst-cat{font-size:22px;margin:34px 0 2px}
 .kerst-cat:first-of-type{margin-top:0}
 .kerst-tag{color:var(--muted);margin:0 0 16px}
+.pnote{display:inline-block;font-size:14px;color:var(--sun);border:1px solid #5A4B2A;background:#2E2820;border-radius:10px;padding:6px 12px;margin:0 0 20px}
