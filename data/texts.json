@@ -168,10 +168,11 @@
     "nav_kerst": "Kerst",
     "kerst_label": "Kerstcollectie",
     "kerst_title": "Kerst, speciaal voor jou geprint.",
-    "kerst_sub": "Hangers voor in de boom, figuren voor op tafel en sets om cadeau te doen. Alleen tot 31 december.",
+    "kerst_sub": "Hangers voor in de boom en figuren voor op tafel, in rood, groen of beige. Alleen tot 31 december.",
     "p_desc_kerst": "De {name} uit onze kerstcollectie. Stevig 3D-geprint in kleur en pas na je bestelling speciaal voor jou gemaakt: mooi in de boom, op tafel of als cadeau.",
     "p_finish_kerst": "3D-geprint in kleur. Stevig object, geen speelgoed.",
-    "p_contents": "Inhoud"
+    "p_contents": "Inhoud",
+    "p_color_hint_plain": "Je gekozen kleur komt mee in je WhatsApp-bericht."
   },
   "fr": {
     "lang_name": "Français",
@@ -342,10 +343,11 @@
     "nav_kerst": "Noël",
     "kerst_label": "Collection de Noël",
     "kerst_title": "Noël, imprimé rien que pour vous.",
-    "kerst_sub": "Des suspensions pour le sapin, des figurines pour la table et des coffrets à offrir. Jusqu'au 31 décembre seulement.",
+    "kerst_sub": "Des suspensions pour le sapin et des figurines pour la table, en rouge, vert ou beige. Jusqu'au 31 décembre seulement.",
     "p_desc_kerst": "La pièce {name} de notre collection de Noël. Imprimée en 3D en couleur, bien solide et fabriquée rien que pour vous après votre commande : parfaite dans le sapin, sur la table ou à offrir.",
     "p_finish_kerst": "Imprimée en 3D en couleur. Objet solide, pas un jouet.",
-    "p_contents": "Contenu"
+    "p_contents": "Contenu",
+    "p_color_hint_plain": "La couleur choisie est ajoutée à votre message WhatsApp."
   },
   "en": {
     "lang_name": "English",
@@ -516,9 +518,10 @@
     "nav_kerst": "Christmas",
     "kerst_label": "Christmas collection",
     "kerst_title": "Christmas, printed just for you.",
-    "kerst_sub": "Ornaments for the tree, figures for the table and gift sets. Only until 31 December.",
+    "kerst_sub": "Ornaments for the tree and figures for the table, in red, green or beige. Only until 31 December.",
     "p_desc_kerst": "The {name} from our Christmas collection. Sturdy, 3D-printed in colour and made just for you after you order: lovely in the tree, on the table or as a gift.",
     "p_finish_kerst": "3D-printed in colour. A sturdy object, not a toy.",
-    "p_contents": "Contents"
+    "p_contents": "Contents",
+    "p_color_hint_plain": "Your chosen colour is added to your WhatsApp message."
   }
 }

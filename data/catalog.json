@@ -1282,6 +1282,415 @@
     }
    }
   ],
-  "items": []
+  "items": [
+   {
+    "slug": "kerstboomhanger",
+    "name": {
+     "nl": "Kerstboomhanger",
+     "fr": "Suspension sapin",
+     "en": "Christmas tree ornament"
+    },
+    "collection": "kerst-hangers",
+    "photos": [
+     "kerstboomhanger-01.webp",
+     "kerstboomhanger-02.webp",
+     "kerstboomhanger-03.webp",
+     "kerstboomhanger-04.webp"
+    ],
+    "sizes": [
+     {
+      "key": "u",
+      "label": {
+       "nl": "Eén formaat",
+       "fr": "Taille unique",
+       "en": "One size"
+      },
+      "cm": 9,
+      "price": 3.5
+     }
+    ],
+    "source": "Enfeite Arvore de Natal",
+    "colors": {
+     "options": [
+      {
+       "nl": "Rood",
+       "fr": "Rouge",
+       "en": "Red"
+      },
+      {
+       "nl": "Groen",
+       "fr": "Vert",
+       "en": "Green"
+      },
+      {
+       "nl": "Beige",
+       "fr": "Beige",
+       "en": "Beige"
+      }
+     ]
+    }
+   },
+   {
+    "slug": "kerstklokje",
+    "name": {
+     "nl": "Kerstklokje",
+     "fr": "Clochette de Noël",
+     "en": "Christmas bell"
+    },
+    "collection": "kerst-hangers",
+    "photos": [
+     "kerstklokje-01.webp",
+     "kerstklokje-02.webp",
+     "kerstklokje-03.webp",
+     "kerstklokje-04.webp"
+    ],
+    "sizes": [
+     {
+      "key": "u",
+      "label": {
+       "nl": "Eén formaat",
+       "fr": "Taille unique",
+       "en": "One size"
+      },
+      "cm": 7,
+      "price": 5
+     }
+    ],
+    "source": "Sino de Natal Funcional",
+    "tagline": {
+     "nl": "Een klokje dat echt rinkelt.",
+     "fr": "Une clochette qui tinte vraiment.",
+     "en": "A little bell that really rings."
+    },
+    "colors": {
+     "options": [
+      {
+       "nl": "Rood",
+       "fr": "Rouge",
+       "en": "Red"
+      },
+      {
+       "nl": "Groen",
+       "fr": "Vert",
+       "en": "Green"
+      },
+      {
+       "nl": "Beige",
+       "fr": "Beige",
+       "en": "Beige"
+      }
+     ]
+    }
+   },
+   {
+    "slug": "japandi-kerstbal",
+    "name": {
+     "nl": "Japandi-kerstbal",
+     "fr": "Boule de Noël japandi",
+     "en": "Japandi bauble"
+    },
+    "collection": "kerst-hangers",
+    "photos": [
+     "japandi-kerstbal-01.webp",
+     "japandi-kerstbal-02.webp",
+     "japandi-kerstbal-03.webp"
+    ],
+    "sizes": [
+     {
+      "key": "u",
+      "label": {
+       "nl": "Eén formaat",
+       "fr": "Taille unique",
+       "en": "One size"
+      },
+      "cm": 7,
+      "price": 7.5
+     }
+    ],
+    "source": "Bola de Natal Japandi",
+    "colors": {
+     "options": [
+      {
+       "nl": "Rood",
+       "fr": "Rouge",
+       "en": "Red"
+      },
+      {
+       "nl": "Groen",
+       "fr": "Vert",
+       "en": "Green"
+      },
+      {
+       "nl": "Beige",
+       "fr": "Beige",
+       "en": "Beige"
+      }
+     ]
+    }
+   },
+   {
+    "slug": "druppelhanger",
+    "name": {
+     "nl": "Druppelhanger",
+     "fr": "Suspension goutte",
+     "en": "Drop ornament"
+    },
+    "collection": "kerst-hangers",
+    "photos": [
+     "druppelhanger-01.webp",
+     "druppelhanger-02.webp",
+     "druppelhanger-03.webp"
+    ],
+    "sizes": [
+     {
+      "key": "u",
+      "label": {
+       "nl": "Eén formaat",
+       "fr": "Taille unique",
+       "en": "One size"
+      },
+      "cm": 13,
+      "price": 4
+     }
+    ],
+    "source": "Enfeite bolas pontudas",
+    "colors": {
+     "options": [
+      {
+       "nl": "Rood",
+       "fr": "Rouge",
+       "en": "Red"
+      },
+      {
+       "nl": "Groen",
+       "fr": "Vert",
+       "en": "Green"
+      },
+      {
+       "nl": "Beige",
+       "fr": "Beige",
+       "en": "Beige"
+      }
+     ]
+    }
+   },
+   {
+    "slug": "notenkraker",
+    "name": {
+     "nl": "Notenkraker",
+     "fr": "Casse-noisette",
+     "en": "Nutcracker"
+    },
+    "collection": "kerst-tafel",
+    "photos": [
+     "notenkraker-01.webp",
+     "notenkraker-02.webp",
+     "notenkraker-03.webp",
+     "notenkraker-04.webp",
+     "notenkraker-05.webp"
+    ],
+    "sizes": [
+     {
+      "key": "u",
+      "label": {
+       "nl": "Eén formaat",
+       "fr": "Taille unique",
+       "en": "One size"
+      },
+      "cm": 21,
+      "price": 6
+     }
+    ],
+    "source": "Quebra Nozes",
+    "colors": {
+     "options": [
+      {
+       "nl": "Rood",
+       "fr": "Rouge",
+       "en": "Red"
+      },
+      {
+       "nl": "Groen",
+       "fr": "Vert",
+       "en": "Green"
+      },
+      {
+       "nl": "Beige",
+       "fr": "Beige",
+       "en": "Beige"
+      }
+     ]
+    }
+   },
+   {
+    "slug": "rendier",
+    "name": {
+     "nl": "Rendier",
+     "fr": "Renne",
+     "en": "Reindeer"
+    },
+    "collection": "kerst-tafel",
+    "photos": [
+     "rendier-01.webp",
+     "rendier-02.webp",
+     "rendier-03.webp",
+     "rendier-04.webp"
+    ],
+    "sizes": [
+     {
+      "key": "u",
+      "label": {
+       "nl": "Eén formaat",
+       "fr": "Taille unique",
+       "en": "One size"
+      },
+      "cm": 13.5,
+      "price": 3.5
+     }
+    ],
+    "source": "Rena Natalina",
+    "colors": {
+     "options": [
+      {
+       "nl": "Rood",
+       "fr": "Rouge",
+       "en": "Red"
+      },
+      {
+       "nl": "Groen",
+       "fr": "Vert",
+       "en": "Green"
+      },
+      {
+       "nl": "Beige",
+       "fr": "Beige",
+       "en": "Beige"
+      }
+     ]
+    }
+   },
+   {
+    "slug": "noords-kerstboompje",
+    "name": {
+     "nl": "Noords kerstboompje",
+     "fr": "Sapin nordique",
+     "en": "Nordic Christmas tree"
+    },
+    "collection": "kerst-tafel",
+    "photos": [
+     "noords-kerstboompje-01.webp",
+     "noords-kerstboompje-02.webp",
+     "noords-kerstboompje-03.webp",
+     "noords-kerstboompje-04.webp"
+    ],
+    "sizes": [
+     {
+      "key": "u",
+      "label": {
+       "nl": "Eén formaat",
+       "fr": "Taille unique",
+       "en": "One size"
+      },
+      "cm": 13.5,
+      "price": 5
+     }
+    ],
+    "source": "Árvores de Nórdicas",
+    "colors": {
+     "options": [
+      {
+       "nl": "Rood",
+       "fr": "Rouge",
+       "en": "Red"
+      },
+      {
+       "nl": "Groen",
+       "fr": "Vert",
+       "en": "Green"
+      }
+     ]
+    }
+   },
+   {
+    "slug": "kerstman",
+    "name": {
+     "nl": "Kerstman",
+     "fr": "Père Noël",
+     "en": "Santa"
+    },
+    "collection": "kerst-tafel",
+    "photos": [
+     "kerstman-01.webp",
+     "kerstman-02.webp"
+    ],
+    "sizes": [
+     {
+      "key": "u",
+      "label": {
+       "nl": "Eén formaat",
+       "fr": "Taille unique",
+       "en": "One size"
+      },
+      "cm": 18,
+      "price": 7.5
+     }
+    ],
+    "source": "Papai Noel"
+   },
+   {
+    "slug": "sneeuwman",
+    "name": {
+     "nl": "Sneeuwman",
+     "fr": "Bonhomme de neige",
+     "en": "Snowman"
+    },
+    "collection": "kerst-tafel",
+    "photos": [
+     "sneeuwman-01.webp",
+     "sneeuwman-02.webp",
+     "sneeuwman-03.webp"
+    ],
+    "sizes": [
+     {
+      "key": "u",
+      "label": {
+       "nl": "Eén formaat",
+       "fr": "Taille unique",
+       "en": "One size"
+      },
+      "cm": 14,
+      "price": 8
+     }
+    ],
+    "source": "Boneco de Neve"
+   },
+   {
+    "slug": "kerstkabouter",
+    "name": {
+     "nl": "Kerstkabouter",
+     "fr": "Gnome de Noël",
+     "en": "Christmas gnome"
+    },
+    "collection": "kerst-tafel",
+    "photos": [
+     "kerstkabouter-01.webp",
+     "kerstkabouter-02.webp",
+     "kerstkabouter-03.webp"
+    ],
+    "sizes": [
+     {
+      "key": "u",
+      "label": {
+       "nl": "Eén formaat",
+       "fr": "Taille unique",
+       "en": "One size"
+      },
+      "cm": 20,
+      "price": 8
+     }
+    ],
+    "source": "Gnomos"
+   }
+  ]
  }
 }

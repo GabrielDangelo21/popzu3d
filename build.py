@@ -84,16 +84,22 @@ def from_price(m):
     return min((s["price"] for s in sizes(m)), default=None)
 
 
+def num(lang, x):
+    """Altura: 13.5 -> '13,5' em NL/FR, '13.5' em EN; inteiros sem casa decimal."""
+    s = f"{int(x)}" if float(x).is_integer() else f"{x:g}"
+    return s if lang == "en" else s.replace(".", ",")
+
+
 def size_range(lang, key):
     cms = [s["cm"] for m in MODELS for s in sizes(m) if s["key"] == key]
-    return TXT[lang]["range"].format(a=min(cms), b=max(cms)) if cms else ""
+    return TXT[lang]["range"].format(a=num(lang, min(cms)), b=num(lang, max(cms))) if cms else ""
 
 
 def heights(lang, m):
     cms = [s["cm"] for s in sizes(m) if s.get("cm")]
     if len(cms) == 2:
-        return T(lang, "heights", a=cms[0], b=cms[1])
-    return T(lang, "size", cm=cms[0]) if cms else ""
+        return T(lang, "heights", a=num(lang, cms[0]), b=num(lang, cms[1]))
+    return T(lang, "size", cm=num(lang, cms[0])) if cms else ""
 
 
 def size_name(lang, s):
@@ -101,7 +107,7 @@ def size_name(lang, s):
 
 
 def variant(lang, s):
-    return f'{size_name(lang, s)}, {T(lang, "size", cm=s["cm"])}' if s.get("cm") else size_name(lang, s)
+    return f'{size_name(lang, s)}, {T(lang, "size", cm=num(lang, s["cm"]))}' if s.get("cm") else size_name(lang, s)
 
 
 def price_text(lang, p):
@@ -124,17 +130,30 @@ def wa(text):
 
 
 def order_msg(lang, m, s):
-    return T(lang, "wa_order", name=m["name"], size=variant(lang, s), price=price_text(lang, s["price"]))
+    return T(lang, "wa_order", name=nm(m, lang), size=variant(lang, s), price=price_text(lang, s["price"]))
 
 
 def wa_order(lang, m, s=None):
     if s:
         return wa(order_msg(lang, m, s))
-    return wa(T(lang, "wa_order_noprice", name=m["name"], size=heights(lang, m)))
+    return wa(T(lang, "wa_order_noprice", name=nm(m, lang), size=heights(lang, m)))
 
 
 def todo(lang):
     return f'<span class="todo">{e(T(lang, "todo"))}</span>'
+
+
+def nm(m, lang):
+    """Nome do produto: texto único (figuras do Whale) ou {nl, fr, en} (coleção de Natal)."""
+    return m["name"][lang] if isinstance(m["name"], dict) else m["name"]
+
+
+def cname(c, lang):
+    return c[lang] if isinstance(c, dict) else c
+
+
+def has_color_img(m, i):
+    return (ROOT / "images" / m["slug"] / f'{m["slug"]}-cor-{i + 1:02d}.webp').exists()
 
 
 def colors_img(m):
@@ -286,14 +305,15 @@ def footer(lang):
 
 def card_heights(lang, m):
     cms = [s["cm"] for s in sizes(m) if s.get("cm")]
-    return TXT[lang]["range"].format(a=cms[0], b=cms[-1]) if len(cms) > 1 else (T(lang, "size", cm=cms[0]) if cms else "")
+    return TXT[lang]["range"].format(a=num(lang, cms[0]), b=num(lang, cms[-1])) if len(cms) > 1 else (T(lang, "size", cm=num(lang, cms[0])) if cms else "")
 
 
 def card(lang, m, fav=False, halloween=False):
     col = COLS[m["collection"]]
     p = from_price(m)
     if p is not None:
-        price = f'<span class="price">{e(T(lang, "from_price", p=price_text(lang, p)))}</span>'
+        label = price_text(lang, p) if len(sizes(m)) == 1 else T(lang, "from_price", p=price_text(lang, p))
+        price = f'<span class="price">{e(label)}</span>'
     else:
         price = f'<span class="price ask">{e(T(lang, "price_on_request"))}</span>'
     tag = ""
@@ -301,9 +321,9 @@ def card(lang, m, fav=False, halloween=False):
         tag = f'<span class="tag">{e(T(lang, "badge_halloween"))}</span>'
     elif m.get("badge") == "flexi":
         tag = f'<span class="tag flexi">{e(T(lang, "badge_flexi"))}</span>'
-    alt = T(lang, "p_photo", name=m["name"], i=1)
+    alt = T(lang, "p_photo", name=nm(m, lang), i=1)
     href = url(lang, m["slug"] + "/")
-    body = f'<h3><a href="{href}">{e(m["name"])}</a></h3><div class="sub">{e(col["name"][lang])}{(" · " + e(card_heights(lang, m))) if card_heights(lang, m) else ""}{(" · " + e(T(lang, "card_colors", n=len(m["colors"]["options"])))) if m.get("colors") else ""}</div>'
+    body = f'<h3><a href="{href}">{e(nm(m, lang))}</a></h3><div class="sub">{e(col["name"][lang])}{(" · " + e(card_heights(lang, m))) if card_heights(lang, m) else ""}{(" · " + e(T(lang, "card_colors", n=len(m["colors"]["options"])))) if m.get("colors") else ""}</div>'
     if fav:
         line = m.get("tagline", {}).get(lang, "")
         body += f'<p class="line">{e(line)}</p>' if line else ""
@@ -427,36 +447,37 @@ def home(lang):
 def product(lang, m):
     col = COLS[m["collection"]]
     path = m["slug"] + "/"
-    out = head(lang, T(lang, "meta_title_product", name=m["name"]), T(lang, "meta_desc_product", name=m["name"], heights=heights(lang, m)), path, img(m, 0))
+    out = head(lang, T(lang, "meta_title_product", name=nm(m, lang)), T(lang, "meta_desc_product", name=nm(m, lang), heights=heights(lang, m)), path, img(m, 0))
     out += topbar(lang, False) + nav(lang, path, False, any(featured(k) for k in ("halloween", "default")))
 
     photos = m["photos"]
     thumbs = ""
     if len(photos) > 1:
         thumbs = '<div class="thumbs">' + "".join(
-            f'<button type="button" data-src="{img(m, i)}" data-alt="{e(T(lang, "p_photo", name=m["name"], i=i + 1))}" aria-current="{"true" if i == 0 else "false"}" aria-label="{e(T(lang, "p_photo", name=m["name"], i=i + 1))}">'
+            f'<button type="button" data-src="{img(m, i)}" data-alt="{e(T(lang, "p_photo", name=nm(m, lang), i=i + 1))}" aria-current="{"true" if i == 0 else "false"}" aria-label="{e(T(lang, "p_photo", name=nm(m, lang), i=i + 1))}">'
             f'<img src="{img(m, i, True)}" alt="" width="{THUMB}" height="{THUMB}" loading="lazy"></button>'
             for i in range(len(photos))) + "</div>"
     tagline = m.get("tagline", {}).get(lang)
     colors_fig = ""
-    if m.get("colors"):
+    if m.get("colors", {}).get("image"):
         colors_fig = (f'<figure class="color-chart"><a href="{colors_img(m)}" target="_blank" rel="noopener">'
-                      f'<img src="{colors_img(m)}" alt="{e(T(lang, "p_color") + ": " + ", ".join(m["colors"]["options"]))}" loading="lazy"></a>'
+                      f'<img src="{colors_img(m)}" alt="{e(T(lang, "p_color") + ": " + ", ".join(cname(c, lang) for c in m["colors"]["options"]))}" loading="lazy"></a>'
                       f'<figcaption>{e(T(lang, "p_colors_caption"))}</figcaption></figure>')
     if sizes(m):
         opts = "".join(
-            f'<div class="size-opt"><div class="sz"><b>{e(size_name(lang, s))}</b><span>{e(T(lang, "size", cm=s["cm"])) if s.get("cm") else ""}</span></div>'
+            f'<div class="size-opt"><div class="sz"><b>{e(size_name(lang, s))}</b><span>{e(T(lang, "size", cm=num(lang, s["cm"]))) if s.get("cm") else ""}</span></div>'
             f'<div class="sp">{e(price_text(lang, s["price"]))}</div>{wa_button(wa_order(lang, m, s), T(lang, "order_short"), "btn-sm", order_msg(lang, m, s))}</div>'
             for s in sizes(m))
         order = f'<h2 class="choose">{e(T(lang, "p_choose"))}</h2><div class="sizes">{opts}</div>'
         if m.get("colors"):
             chips = "".join(
-                f'<label class="color-chip"><input type="radio" name="kleur" value="{e(c)}" data-img="{color_img(m, i)}"'
-                f' data-alt="{e(m["name"] + " · " + c)}"><span>{e(c)}</span></label>'
+                f'<label class="color-chip"><input type="radio" name="kleur" value="{e(cname(c, lang))}"'
+                + (f' data-img="{color_img(m, i)}" data-alt="{e(nm(m, lang) + " · " + cname(c, lang))}"' if has_color_img(m, i) else "")
+                + f'><span>{e(cname(c, lang))}</span></label>'
                 for i, c in enumerate(m["colors"]["options"]))
             order = (f'<h2 class="choose">{e(T(lang, "p_color"))}</h2>'
                      f'<div class="colors" data-tpl="{e(T(lang, "wa_color", c="{c}"))}" data-wa="https://wa.me/{SITE["whatsapp"]}?text=">{chips}</div>'
-                     f'<p class="color-hint">{e(T(lang, "p_color_hint"))}</p>' + order)
+                     f'<p class="color-hint">{e(T(lang, "p_color_hint" if m["colors"].get("image") else "p_color_hint_plain"))}</p>' + order)
     else:
         order = (f'<p class="big-price ask">{e(T(lang, "price_on_request"))}</p>'
                  + wa_button(wa_order(lang, m), T(lang, "ask_btn"), "btn-block"))
@@ -474,19 +495,19 @@ def product(lang, m):
   <div class="grid">{"".join(card(lang, x) for x in related)}</div>
 </div></section>"""
     out += f"""<main id="inhoud">
-<div class="wrap crumbs"><a href="{url(lang)}">{e(T(lang, "p_home"))}</a> › <a href="{url(lang) + ("#kerst" if kerst else "?c=" + col["key"] + "#collectie")}">{e(col["name"][lang])}</a> › {e(m["name"])}</div>
+<div class="wrap crumbs"><a href="{url(lang)}">{e(T(lang, "p_home"))}</a> › <a href="{url(lang) + ("#kerst" if kerst else "?c=" + col["key"] + "#collectie")}">{e(col["name"][lang])}</a> › {e(nm(m, lang))}</div>
 <section class="product"><div class="wrap">
   <div class="gallery">
-    <div class="main"><img src="{img(m, 0)}" alt="{e(T(lang, "p_photo", name=m["name"], i=1))}" width="1200" height="1200" fetchpriority="high"></div>
+    <div class="main"><img src="{img(m, 0)}" alt="{e(T(lang, "p_photo", name=nm(m, lang), i=1))}" width="1200" height="1200" fetchpriority="high"></div>
     {thumbs}
     <p class="notice">{e(T(lang, "p_notice"))}</p>
     {colors_fig}
   </div>
   <div class="pinfo">
     <div class="eyebrow">{e(col["name"][lang])}{tag}</div>
-    <h1>{e(m["name"])}</h1>
+    <h1>{e(nm(m, lang))}</h1>
     {f'<p class="tagline">{e(tagline)}</p>' if tagline else ''}
-    <p class="desc">{e(T(lang, "p_desc_kerst" if kerst else "p_desc", name=m["name"], collection=col["name"][lang]))}</p>
+    <p class="desc">{e(T(lang, "p_desc_kerst" if kerst else "p_desc", name=nm(m, lang), collection=col["name"][lang]))}</p>
     {order}
     <ul class="facts">
       {f'<li><span>{e(T(lang, "p_contents"))}</span>{e(m["contents"][lang])}</li>' if m.get("contents") else ""}
@@ -494,7 +515,7 @@ def product(lang, m):
       <li><span>{e(T(lang, "p_lead"))}</span>{e(lead(lang))}</li>
       <li><span>{e(T(lang, "p_delivery"))}</span><div>{e(T(lang, "p_delivery_val"))}<br><a class="more" href="{url(lang)}#levering">{e(T(lang, "p_shipping_link"))} →</a></div></li>
     </ul>
-    <p class="bigger">{e(T(lang, "p_bigger"))} <a href="{e(wa(T(lang, "wa_bigger", name=m["name"])))}" target="_blank" rel="noopener">{e(T(lang, "p_bigger_link"))}</a></p>
+    <p class="bigger">{e(T(lang, "p_bigger"))} <a href="{e(wa(T(lang, "wa_bigger", name=nm(m, lang))))}" target="_blank" rel="noopener">{e(T(lang, "p_bigger_link"))}</a></p>
   </div>
 </div></section>
 {related_html}
@@ -547,17 +568,19 @@ def build_images():
             put(src, OUT / img(m, i).lstrip("/"))
             put(src, OUT / img(m, i, True).lstrip("/"), THUMB)
         if m.get("colors"):
-            src = src_root / m["slug"] / m["colors"]["image"]
-            if src.exists():
-                put(src, OUT / colors_img(m).lstrip("/"))
-            else:
-                WARN.append(f"Imagem de cores não encontrada: {src}")
-            # Uma foto por cor (tools/color_crops.py).
+            chart = m["colors"].get("image")
+            if chart:
+                src = src_root / m["slug"] / chart
+                if src.exists():
+                    put(src, OUT / colors_img(m).lstrip("/"))
+                else:
+                    WARN.append(f"Imagem de cores não encontrada: {src}")
+            # Uma foto por cor (tools/color_crops.py ou tools/import_sabre.py). Sem foto, a cor só entra na mensagem.
             for i in range(len(m["colors"]["options"])):
                 src = src_root / m["slug"] / f'{m["slug"]}-cor-{i + 1:02d}.webp'
                 if src.exists():
                     put(src, OUT / color_img(m, i).lstrip("/"))
-                else:
+                elif chart:
                     WARN.append(f"Foto da cor não encontrada: {src} (rode tools/color_crops.py)")
     hero = src_root / SITE["hero_photo"]
     if Image:
