@@ -1,6 +1,6 @@
 {
   "_info": "Configuração geral. Campos com null aparecem como 'nog in te vullen' só no preview; no site publicado ficam ocultos e o build avisa.",
-  "base_url": null,
+  "base_url": "https://popzu3d.netlify.app",
   "whatsapp": "32493733912",
   "whatsapp_display": "+32 493 73 39 12",
   "instagram": "popzu3d",
