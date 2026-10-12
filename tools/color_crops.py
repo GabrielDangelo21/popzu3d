@@ -18,7 +18,6 @@ GRIDS = {
     "Alien Baby":         [(0.07, 0.48, 0.01, 0.99, 4), (0.52, 0.93, 0.01, 0.99, 4)],
     "Alien Women":        [(0.00, 0.48, 0.10, 0.90, 4), (0.50, 0.98, 0.10, 0.90, 4)],
     "Baby Brachiosaurus": [(0.02, 0.46, 0.02, 0.98, 4), (0.52, 0.94, 0.02, 0.98, 4)],
-    "Baby Mermaid":       [(0.04, 0.41, 0.07, 0.93, 3), (0.50, 0.905, 0.07, 0.93, 3)],
     "Baby Reaper":        [(0.31, 0.525, 0.00, 1.00, 5), (0.58, 0.795, 0.00, 1.00, 5)],
     "Baby Spinosaurus":   [(0.16, 0.42, 0.00, 1.00, 5), (0.55, 0.84, 0.00, 1.00, 5)],
     "Baby T-Rex":         [(0.12, 0.51, 0.08, 0.95, 4), (0.565, 0.94, 0.08, 0.95, 4)],
@@ -37,14 +36,22 @@ def _werewolf():
     return out
 
 
-BOXES = {"Baby Werewolf": _werewolf()}
+def _mermaid():  # quadro novo (12/10/2026), com textura de tricô
+    return [("modelos.png", x0, y0, x1, y1) for y0, y1 in ((0.04, 0.432), (0.548, 0.89))
+            for x0, x1 in ((0.12, 0.40), (0.40, 0.69), (0.69, 0.98))]
+
+
+BOXES = {"Baby Werewolf": _werewolf(), "Baby Mermaid": _mermaid()}
+
+# Áreas do quadro pintadas com a cor do fundo antes de recortar (títulos que encostam nas figuras).
+MASK = {"Baby Mermaid": [(0.30, 0.0, 0.70, 0.11)]}
 
 # Cor extra que não está no quadro (a versão das fotos): número da cor -> foto do modelo.
 # Os recortes do quadro começam depois dela.
 FIRST_PHOTO = {"Baby Werewolf": "baby-werewolf-16.webp"}
 
 # Ajuste da borda de cima de uma célula (número da cor, 1 = primeira), para fugir de títulos.
-TOP = {("Baby Mermaid", 2): 0.15, ("Baby Mermaid", 5): 0.535}
+TOP = {}
 
 # Cores em que o quadro não dá um recorte limpo (texto por cima): usa uma foto do modelo em images/<slug>/.
 PHOTO = {("Baby T-Rex", 1): "baby-t-rex-14.webp"}
@@ -89,10 +96,17 @@ def boxes_model(name, debug_dir):
         k += 1
         with Image.open(folder / FIRST_PHOTO[name]) as ph:
             save_square(ph, folder / f"{slug(name)}-cor-{k:02d}.webp", zoom=True)
-    charts = {}
+    charts, originals = {}, {}
     for f, x0, y0, x1, y1 in BOXES[name]:
         if f not in charts:
-            charts[f] = Image.open(SRC / name / "Photo" / f).convert("RGB")
+            originals[f] = Image.open(SRC / name / "Photo" / f).convert("RGB")
+            charts[f] = originals[f].copy()
+            for mx0, my0, mx1, my1 in MASK.get(name, []):
+                cw, ch = charts[f].size
+                box = (int(mx0 * cw), int(my0 * ch), int(mx1 * cw), int(my1 * ch))
+                below = charts[f].crop((box[0], box[3], box[2], box[3] + 6))
+                bg = tuple(int(v) for v in ImageStat.Stat(below).median)
+                ImageDraw.Draw(charts[f]).rectangle(box, fill=bg)
         im = charts[f]
         w, h = im.size
         box = (int(x0 * w), int(y0 * h), int(x1 * w), int(y1 * h))
@@ -101,8 +115,8 @@ def boxes_model(name, debug_dir):
             ImageDraw.Draw(im).rectangle(box, outline=(255, 0, 0), width=6)
         else:
             square(im.crop(box)).save(folder / f"{slug(name)}-cor-{k:02d}.webp", "WEBP", quality=84, method=6)
-    # Quadro de cores do site: os quadros empilhados.
-    ims = list(charts.values())
+    # Quadro de cores do site: os quadros originais (sem máscara), empilhados.
+    ims = list(charts.values()) if debug_dir else list(originals.values())
     stacked = Image.new("RGB", (max(i.width for i in ims), sum(i.height for i in ims)), "white")
     y = 0
     for i in ims:
@@ -126,7 +140,8 @@ def main():
     for name in GRIDS:
         if only and name not in only:
             continue
-        chart = SRC / name / "Photo" / "modelos.png"
+        chart = next((SRC / name / "Photo" / f for f in ("modelos.png", "modelo.png") if (SRC / name / "Photo" / f).exists()),
+                     SRC / name / "Photo" / "modelos.png")
         if not chart.exists():
             print(f"{name}: quadro não encontrado ({chart}), recortes existentes mantidos")
             continue

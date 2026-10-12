@@ -1,5 +1,5 @@
 """Converte as fotos dos modelos do Whale (pasta Originais) para images/<slug>/ em WebP, até 1200 px.
-Ignora GIFs, guias de montagem, quadros de cores (modelos*.png), 3MF e PDF. Gera images/manifest.csv.
+Ignora GIFs, guias de montagem, quadros de cores (modelo*.png), 3MF e PDF. Gera images/manifest.csv.
 
 Uso: python tools/copy_photos.py "Baby Werewolf"   -> só esse modelo (recomendado; acrescenta ao manifesto)
      python tools/copy_photos.py                   -> todos (CUIDADO: renumera as fotos e pode quebrar catalog.json)
@@ -40,7 +40,7 @@ def main():
             f for f in photo.rglob("*")
             if f.is_file() and f.suffix.lower() in EXTS
             and "assembly guide" not in str(f.relative_to(photo)).lower()
-            and not f.name.lower().startswith("modelos")
+            and not f.name.lower().startswith("modelo")
         )
         out = DST / slug(model.name)
         out.mkdir(parents=True, exist_ok=True)
