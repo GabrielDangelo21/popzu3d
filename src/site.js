@@ -11,6 +11,8 @@
     Object.keys(seasons).forEach(function (k) {
       if (md >= seasons[k][0] && md <= seasons[k][1]) current = k;
     });
+    // Alleen in een preview gebouwd met --season.
+    if (root.getAttribute('data-force-season')) current = root.getAttribute('data-force-season');
     document.querySelectorAll('[data-season]').forEach(function (el) {
       el.hidden = el.getAttribute('data-season') !== current;
     });

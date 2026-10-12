@@ -70,7 +70,7 @@
     "custom_btn": "Stuur een berichtje",
     "about_label": "Over popzu",
     "about_title": "Een kleine studio in Denderleeuw.",
-    "about_p": "We printen onze figuren in kleur op onze eigen 3D-printers, met een textuur die aan breiwerk doet denken. Het zijn stevige, geprinte objecten, geen stoffen knuffels. We werken met originele designs van Whale 3D Studio en hebben een commerciële licentie om ze te printen en te verkopen.",
+    "about_p": "We printen onze figuren in kleur op onze eigen 3D-printers. Het zijn stevige, geprinte objecten, geen stoffen knuffels. We werken alleen met originele designs van onafhankelijke ontwerpers, zoals Whale 3D Studio, en hebben een commerciële licentie om ze te printen en te verkopen.",
     "faq_label": "Goed om te weten",
     "faq_title": "Veelgestelde vragen",
     "faq": [
@@ -164,7 +164,14 @@
     "p_color_hint": "Bekijk de kleurenkaart bij de foto's. Je gekozen kleur komt mee in je WhatsApp-bericht.",
     "p_colors_caption": "Kleurenkaart · voorbeeldfoto · klik om te vergroten",
     "wa_color": "Kleur: {c}.",
-    "card_colors": "{n} kleuren"
+    "card_colors": "{n} kleuren",
+    "nav_kerst": "Kerst",
+    "kerst_label": "Kerstcollectie",
+    "kerst_title": "Kerst, speciaal voor jou geprint.",
+    "kerst_sub": "Hangers voor in de boom, figuren voor op tafel en sets om cadeau te doen. Alleen tot 31 december.",
+    "p_desc_kerst": "De {name} uit onze kerstcollectie. Stevig 3D-geprint in kleur en pas na je bestelling speciaal voor jou gemaakt: mooi in de boom, op tafel of als cadeau.",
+    "p_finish_kerst": "3D-geprint in kleur. Stevig object, geen speelgoed.",
+    "p_contents": "Inhoud"
   },
   "fr": {
     "lang_name": "Français",
@@ -237,7 +244,7 @@
     "custom_btn": "Envoyer un message",
     "about_label": "À propos de popzu",
     "about_title": "Un petit atelier à Denderleeuw.",
-    "about_p": "Nous imprimons nos figurines en couleur sur nos propres imprimantes 3D, avec une texture qui rappelle le tricot. Ce sont des objets imprimés et solides, pas des peluches en tissu. Nous travaillons avec des designs originaux de Whale 3D Studio et disposons d'une licence commerciale pour les imprimer et les vendre.",
+    "about_p": "Nous imprimons nos figurines en couleur sur nos propres imprimantes 3D. Ce sont des objets imprimés et solides, pas des peluches en tissu. Nous travaillons uniquement avec des designs originaux de créateurs indépendants, comme Whale 3D Studio, et disposons d'une licence commerciale pour les imprimer et les vendre.",
     "faq_label": "Bon à savoir",
     "faq_title": "Questions fréquentes",
     "faq": [
@@ -331,7 +338,14 @@
     "p_color_hint": "Voir le nuancier avec les photos. La couleur choisie est ajoutée à votre message WhatsApp.",
     "p_colors_caption": "Nuancier · photo d'exemple · cliquez pour agrandir",
     "wa_color": "Couleur : {c}.",
-    "card_colors": "{n} couleurs"
+    "card_colors": "{n} couleurs",
+    "nav_kerst": "Noël",
+    "kerst_label": "Collection de Noël",
+    "kerst_title": "Noël, imprimé rien que pour vous.",
+    "kerst_sub": "Des suspensions pour le sapin, des figurines pour la table et des coffrets à offrir. Jusqu'au 31 décembre seulement.",
+    "p_desc_kerst": "La pièce {name} de notre collection de Noël. Imprimée en 3D en couleur, bien solide et fabriquée rien que pour vous après votre commande : parfaite dans le sapin, sur la table ou à offrir.",
+    "p_finish_kerst": "Imprimée en 3D en couleur. Objet solide, pas un jouet.",
+    "p_contents": "Contenu"
   },
   "en": {
     "lang_name": "English",
@@ -404,7 +418,7 @@
     "custom_btn": "Send a message",
     "about_label": "About popzu",
     "about_title": "A small studio in Denderleeuw.",
-    "about_p": "We print our figures in colour on our own 3D printers, with a texture that looks like knitting. They are sturdy printed objects, not fabric plush toys. We work with original designs by Whale 3D Studio and hold a commercial licence to print and sell them.",
+    "about_p": "We print our figures in colour on our own 3D printers. They are sturdy printed objects, not fabric plush toys. We only work with original designs by independent designers, such as Whale 3D Studio, and hold a commercial licence to print and sell them.",
     "faq_label": "Good to know",
     "faq_title": "Frequently asked questions",
     "faq": [
@@ -498,6 +512,13 @@
     "p_color_hint": "See the colour chart with the photos. Your chosen colour is added to your WhatsApp message.",
     "p_colors_caption": "Colour chart · example photo · click to enlarge",
     "wa_color": "Colour: {c}.",
-    "card_colors": "{n} colours"
+    "card_colors": "{n} colours",
+    "nav_kerst": "Christmas",
+    "kerst_label": "Christmas collection",
+    "kerst_title": "Christmas, printed just for you.",
+    "kerst_sub": "Ornaments for the tree, figures for the table and gift sets. Only until 31 December.",
+    "p_desc_kerst": "The {name} from our Christmas collection. Sturdy, 3D-printed in colour and made just for you after you order: lovely in the tree, on the table or as a gift.",
+    "p_finish_kerst": "3D-printed in colour. A sturdy object, not a toy.",
+    "p_contents": "Contents"
   }
 }

@@ -1238,5 +1238,50 @@
     }
    ]
   }
- ]
+ ],
+ "kerst": {
+  "_info": "Kerstcollectie (só aparece na home de 1/11 a 31/12). Cada item tem o mesmo formato dos modelos: slug, name, collection (uma das categories), photos (em images/<slug>/), sizes (key, cm opcional, price com IVA; 'label' opcional {nl,fr,en} para nomes como 'Set van 3'), colors opcional e contents opcional {nl,fr,en} para kits.",
+  "categories": [
+   {
+    "key": "kerst-hangers",
+    "name": {
+     "nl": "Kersthangers",
+     "fr": "Suspensions de Noël",
+     "en": "Tree ornaments"
+    },
+    "tagline": {
+     "nl": "Kleine figuren met een lusje, voor in de kerstboom.",
+     "fr": "Des petites pièces avec une attache, pour le sapin.",
+     "en": "Small pieces with a loop, for the Christmas tree."
+    }
+   },
+   {
+    "key": "kerst-tafel",
+    "name": {
+     "nl": "Tafeldecoratie",
+     "fr": "Déco de table",
+     "en": "Table decorations"
+    },
+    "tagline": {
+     "nl": "Voor op tafel, op de kast of in het raam.",
+     "fr": "Pour la table, l'étagère ou la fenêtre.",
+     "en": "For the table, the shelf or the window."
+    }
+   },
+   {
+    "key": "kerst-sets",
+    "name": {
+     "nl": "Sets",
+     "fr": "Coffrets",
+     "en": "Gift sets"
+    },
+    "tagline": {
+     "nl": "Meerdere stuks samen, klaar om cadeau te doen.",
+     "fr": "Plusieurs pièces ensemble, prêtes à offrir.",
+     "en": "Several pieces together, ready to give."
+    }
+   }
+  ],
+  "items": []
+ }
 }

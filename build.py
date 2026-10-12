@@ -3,6 +3,7 @@
 Uso:
     python build.py            -> public/  (para publicar no Netlify)
     python build.py --preview  -> preview/ (mostra os destaques mesmo sem preço)
+    python build.py --preview --season kerst -> preview/ como se fosse novembro
 
 Dados em data/: catalog.json (modelos, tamanhos e preços, fotos), texts.json (textos NL/FR/EN), site.json (contato, prazo, estações).
 Precisa de Pillow para gerar as miniaturas (pip install pillow).
@@ -24,8 +25,12 @@ THUMB = 600
 load = lambda name: json.loads((ROOT / "data" / name).read_text(encoding="utf-8"))
 SITE, CAT, TXT = load("site.json"), load("catalog.json"), load("texts.json")
 MODELS = CAT["models"]
-BY_SLUG = {m["slug"]: m for m in MODELS}
-COLS = {c["key"]: c for c in CAT["collections"]}
+# Kerstcollectie: aparte lijn, alleen zichtbaar op de homepage in het seizoen "kerst" (productpagina's bestaan altijd).
+KERST = CAT.get("kerst", {"categories": [], "items": []})
+KITEMS = KERST["items"]
+ALL = MODELS + KITEMS
+BY_SLUG = {m["slug"]: m for m in ALL}
+COLS = {c["key"]: c for c in CAT["collections"] + KERST["categories"]}
 WARN = []
 
 e = lambda s: html.escape(str(s), quote=True)
@@ -85,14 +90,18 @@ def size_range(lang, key):
 
 
 def heights(lang, m):
-    cms = [s["cm"] for s in sizes(m)]
+    cms = [s["cm"] for s in sizes(m) if s.get("cm")]
     if len(cms) == 2:
         return T(lang, "heights", a=cms[0], b=cms[1])
     return T(lang, "size", cm=cms[0]) if cms else ""
 
 
+def size_name(lang, s):
+    return s["label"][lang] if s.get("label") else T(lang, "size_" + s["key"])
+
+
 def variant(lang, s):
-    return f'{T(lang, "size_" + s["key"])}, {T(lang, "size", cm=s["cm"])}'
+    return f'{size_name(lang, s)}, {T(lang, "size", cm=s["cm"])}' if s.get("cm") else size_name(lang, s)
 
 
 def price_text(lang, p):
@@ -148,8 +157,10 @@ def season_today():
     return "none"
 
 
-SEASON = season_today()
+# --season kerst|halloween|none simula outra época (útil com --preview para ver a seção de Natal antes de novembro).
+SEASON = sys.argv[sys.argv.index("--season") + 1] if "--season" in sys.argv else season_today()
 CUR = ' aria-current="page"'
+FORCE = f' data-force-season="{SEASON}"' if "--season" in sys.argv else ""
 WA_ICON = ('<svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3Z"/></svg>')
 
 
@@ -189,7 +200,7 @@ def head(lang, title, desc, paths, og=None):
         og_tags += f'<meta property="og:image" content="{e(base + og)}">'
     seasons = {k: [v["from"], v["to"]] for k, v in SITE["seasons"].items() if not k.startswith("_")}
     return f"""<!doctype html>
-<html lang="{lang}" data-seasons='{e(json.dumps(seasons))}'>
+<html lang="{lang}" data-seasons='{e(json.dumps(seasons))}'{FORCE}>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -226,6 +237,9 @@ def nav(lang, paths, home, has_fav):
     links += [(pre + "#collectie", T(lang, "nav_collection")), (pre + "#hoe", T(lang, "nav_how")),
               (pre + "#opmaat", T(lang, "nav_custom")), (pre + "#faq", T(lang, "nav_faq"))]
     ls = "".join(f'<a href="{e(h)}">{e(t)}</a>' for h, t in links)
+    if KITEMS:
+        hid = "" if SEASON == "kerst" else " hidden"
+        ls = f'<a href="{e(pre)}#kerst" data-season="kerst"{hid}>{e(T(lang, "nav_kerst"))}</a>' + ls
     langs = "".join(
         f'<a href="{url(l, paths)}" hreflang="{l}" lang="{l}" title="{e(TXT[l]["lang_name"])}"'
         f'{CUR if l == lang else ""}>{l.upper()}</a>' for l in LANGS)
@@ -271,7 +285,7 @@ def footer(lang):
 # ---------- components ----------
 
 def card_heights(lang, m):
-    cms = [s["cm"] for s in sizes(m)]
+    cms = [s["cm"] for s in sizes(m) if s.get("cm")]
     return TXT[lang]["range"].format(a=cms[0], b=cms[-1]) if len(cms) > 1 else (T(lang, "size", cm=cms[0]) if cms else "")
 
 
@@ -289,7 +303,7 @@ def card(lang, m, fav=False, halloween=False):
         tag = f'<span class="tag flexi">{e(T(lang, "badge_flexi"))}</span>'
     alt = T(lang, "p_photo", name=m["name"], i=1)
     href = url(lang, m["slug"] + "/")
-    body = f'<h3><a href="{href}">{e(m["name"])}</a></h3><div class="sub">{e(col["name"][lang])} · {e(card_heights(lang, m))}{(" · " + e(T(lang, "card_colors", n=len(m["colors"]["options"])))) if m.get("colors") else ""}</div>'
+    body = f'<h3><a href="{href}">{e(m["name"])}</a></h3><div class="sub">{e(col["name"][lang])}{(" · " + e(card_heights(lang, m))) if card_heights(lang, m) else ""}{(" · " + e(T(lang, "card_colors", n=len(m["colors"]["options"])))) if m.get("colors") else ""}</div>'
     if fav:
         line = m.get("tagline", {}).get(lang, "")
         body += f'<p class="line">{e(line)}</p>' if line else ""
@@ -348,6 +362,20 @@ def home(lang):
 </div></section>
 """
         out += "</div>\n"
+
+    if KITEMS:
+        groups = ""
+        for c in KERST["categories"]:
+            items = [m for m in KITEMS if m["collection"] == c["key"]]
+            if items:
+                groups += (f'<h3 class="kerst-cat">{e(c["name"][lang])}</h3><p class="kerst-tag">{e(c["tagline"][lang])}</p>'
+                           f'<div class="grid">{"".join(card(lang, m) for m in items)}</div>')
+        hid = "" if SEASON == "kerst" else " hidden"
+        out += f"""<section id="kerst" class="kerst" data-season="kerst"{hid}><div class="wrap">
+  <div class="head"><div><div class="eyebrow">{e(T(lang, "kerst_label"))}</div><h2>{e(T(lang, "kerst_title"))}</h2></div><p>{e(T(lang, "kerst_sub"))}</p></div>
+  {groups}
+</div></section>
+"""
 
     chips = f'<button class="chip" type="button" data-filter="all" data-intro="" aria-pressed="true">{e(T(lang, "filter_all"))}<small>{n}</small></button>'
     for c in CAT["collections"]:
@@ -417,7 +445,7 @@ def product(lang, m):
                       f'<figcaption>{e(T(lang, "p_colors_caption"))}</figcaption></figure>')
     if sizes(m):
         opts = "".join(
-            f'<div class="size-opt"><div class="sz"><b>{e(T(lang, "size_" + s["key"]))}</b><span>{e(T(lang, "size", cm=s["cm"]))}</span></div>'
+            f'<div class="size-opt"><div class="sz"><b>{e(size_name(lang, s))}</b><span>{e(T(lang, "size", cm=s["cm"])) if s.get("cm") else ""}</span></div>'
             f'<div class="sp">{e(price_text(lang, s["price"]))}</div>{wa_button(wa_order(lang, m, s), T(lang, "order_short"), "btn-sm", order_msg(lang, m, s))}</div>'
             for s in sizes(m))
         order = f'<h2 class="choose">{e(T(lang, "p_choose"))}</h2><div class="sizes">{opts}</div>'
@@ -434,12 +462,19 @@ def product(lang, m):
                  + wa_button(wa_order(lang, m), T(lang, "ask_btn"), "btn-block"))
     tag = f' <span class="tag flexi" style="position:static;vertical-align:middle">{e(T(lang, "badge_flexi"))}</span>' if m.get("badge") == "flexi" else ""
 
-    same = [x for x in MODELS if x["collection"] == m["collection"]]
+    kerst = m in KITEMS
+    same = [x for x in ALL if x["collection"] == m["collection"]]
     k = same.index(m)
     related = [same[(k + j) % len(same)] for j in range(1, min(5, len(same)))]
 
+    related_html = ""
+    if related:
+        related_html = f"""<section class="alt"><div class="wrap">
+  <div class="head"><div><h2>{e(T(lang, "p_related", collection=col["name"][lang]))}</h2></div><p><a class="btn btn-ghost btn-sm" href="{url(lang)}{"#kerst" if kerst else "#collectie"}">{e(T(lang, "p_back"))}</a></p></div>
+  <div class="grid">{"".join(card(lang, x) for x in related)}</div>
+</div></section>"""
     out += f"""<main id="inhoud">
-<div class="wrap crumbs"><a href="{url(lang)}">{e(T(lang, "p_home"))}</a> › <a href="{url(lang)}?c={col["key"]}#collectie">{e(col["name"][lang])}</a> › {e(m["name"])}</div>
+<div class="wrap crumbs"><a href="{url(lang)}">{e(T(lang, "p_home"))}</a> › <a href="{url(lang) + ("#kerst" if kerst else "?c=" + col["key"] + "#collectie")}">{e(col["name"][lang])}</a> › {e(m["name"])}</div>
 <section class="product"><div class="wrap">
   <div class="gallery">
     <div class="main"><img src="{img(m, 0)}" alt="{e(T(lang, "p_photo", name=m["name"], i=1))}" width="1200" height="1200" fetchpriority="high"></div>
@@ -451,20 +486,18 @@ def product(lang, m):
     <div class="eyebrow">{e(col["name"][lang])}{tag}</div>
     <h1>{e(m["name"])}</h1>
     {f'<p class="tagline">{e(tagline)}</p>' if tagline else ''}
-    <p class="desc">{e(T(lang, "p_desc", name=m["name"], collection=col["name"][lang]))}</p>
+    <p class="desc">{e(T(lang, "p_desc_kerst" if kerst else "p_desc", name=m["name"], collection=col["name"][lang]))}</p>
     {order}
     <ul class="facts">
-      <li><span>{e(T(lang, "p_finish"))}</span>{e(T(lang, "p_finish_val"))}</li>
+      {f'<li><span>{e(T(lang, "p_contents"))}</span>{e(m["contents"][lang])}</li>' if m.get("contents") else ""}
+      <li><span>{e(T(lang, "p_finish"))}</span>{e(T(lang, "p_finish_kerst" if kerst else "p_finish_val"))}</li>
       <li><span>{e(T(lang, "p_lead"))}</span>{e(lead(lang))}</li>
       <li><span>{e(T(lang, "p_delivery"))}</span><div>{e(T(lang, "p_delivery_val"))}<br><a class="more" href="{url(lang)}#levering">{e(T(lang, "p_shipping_link"))} →</a></div></li>
     </ul>
     <p class="bigger">{e(T(lang, "p_bigger"))} <a href="{e(wa(T(lang, "wa_bigger", name=m["name"])))}" target="_blank" rel="noopener">{e(T(lang, "p_bigger_link"))}</a></p>
   </div>
 </div></section>
-<section class="alt"><div class="wrap">
-  <div class="head"><div><h2>{e(T(lang, "p_related", collection=col["name"][lang]))}</h2></div><p><a class="btn btn-ghost btn-sm" href="{url(lang)}#collectie">{e(T(lang, "p_back"))}</a></p></div>
-  <div class="grid">{"".join(card(lang, x) for x in related)}</div>
-</div></section>
+{related_html}
 </main>
 """
     return out + footer(lang)
@@ -505,7 +538,7 @@ def build_images():
         else:
             shutil.copy2(src, dst)
 
-    for m in MODELS:
+    for m in ALL:
         for i, name in enumerate(m["photos"]):
             src = src_root / m["slug"] / name
             if not src.exists():
@@ -569,7 +602,7 @@ def write(path, content):
 def main():
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-    for m in MODELS:
+    for m in ALL:
         if m["collection"] not in COLS:
             sys.exit(f"Coleção desconhecida em {m['slug']}: {m['collection']}")
     for k in ("halloween", "default"):
@@ -593,7 +626,7 @@ def main():
     for lang in LANGS:
         pre = "" if lang == "nl" else lang + "/"
         write(pre + "index.html", home(lang))
-        for m in MODELS:
+        for m in ALL:
             write(pre + m["slug"] + "/index.html", product(lang, m))
     write("404.html", not_found())
     (OUT / "assets").mkdir(exist_ok=True)
@@ -607,14 +640,14 @@ def main():
         (OUT / old).unlink(missing_ok=True)
     base = (SITE.get("base_url") or "").rstrip("/")
     if base:
-        urls = [url(l, p) for l in LANGS for p in [""] + [m["slug"] + "/" for m in MODELS]]
+        urls = [url(l, p) for l in LANGS for p in [""] + [m["slug"] + "/" for m in ALL]]
         write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
               + "".join(f"<url><loc>{base}{u}</loc></url>\n" for u in urls) + "</urlset>\n")
         write("robots.txt", f"User-agent: *\nAllow: /\nSitemap: {base}/sitemap.xml\n")
     else:
         write("robots.txt", "User-agent: *\nAllow: /\n")
 
-    pages = len(LANGS) * (len(MODELS) + 1) + 1
+    pages = len(LANGS) * (len(ALL) + 1) + 1
     print(f"OK: {pages} páginas em {OUT.name}/ (estação de hoje: {SEASON}{', modo preview' if PREVIEW else ''})")
     for w in WARN:
         print("  aviso:", w)

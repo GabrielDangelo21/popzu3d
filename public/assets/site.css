@@ -227,3 +227,10 @@ table.ship{width:100%;border-collapse:collapse;font-size:14px;min-width:460px}
 .color-chart{margin:18px 0 0}
 .color-chart img{width:100%;border-radius:16px;border:1px solid var(--line)}
 .color-chart figcaption{font-size:13px;color:var(--muted);margin-top:8px}
+
+/* kerstcollectie */
+.kerst{background:linear-gradient(180deg,#22302B 0%,var(--bg) 100%)}
+.kerst .eyebrow{color:var(--sun)}
+.kerst-cat{font-size:22px;margin:34px 0 2px}
+.kerst-cat:first-of-type{margin-top:0}
+.kerst-tag{color:var(--muted);margin:0 0 16px}
