@@ -617,7 +617,28 @@ def clean_stale():
                 shutil.rmtree(d)
 
 
+_HASH = {}
+
+
+def versioned(content):
+    """Acrescenta ?v=<hash do arquivo> a /img/... e /assets/..., para o navegador baixar a versão nova
+    quando um arquivo muda sem mudar de nome (as fotos ficam 7 dias em cache, veja netlify.toml)."""
+    import hashlib
+    import re
+
+    def add(mt):
+        path = mt.group(1)
+        if path not in _HASH:
+            f = OUT / path.lstrip("/")
+            _HASH[path] = hashlib.md5(f.read_bytes()).hexdigest()[:8] if f.exists() else ""
+        return f'"{path}?v={_HASH[path]}"' if _HASH[path] else mt.group(0)
+
+    return re.sub(r'"(/(?:img|assets)/[^"?#]+)"', add, content)
+
+
 def write(path, content):
+    if path.endswith(".html"):
+        content = versioned(content)
     p = OUT / path
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(content, encoding="utf-8")
@@ -647,6 +668,10 @@ def main():
     OUT.mkdir(exist_ok=True)
     clean_stale()
     build_images()
+    (OUT / "assets").mkdir(exist_ok=True)
+    for f in ("site.css", "site.js"):
+        shutil.copy2(ROOT / "src" / f, OUT / "assets" / f)
+    shutil.copy2(ROOT / "logo" / "selo-fundo-escuro.svg", OUT / "assets" / "logo.svg")
     for lang in LANGS:
         pre = "" if lang == "nl" else lang + "/"
         write(pre + "index.html", home(lang))
