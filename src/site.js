@@ -72,7 +72,8 @@
       }
       var extra = ' ' + picker.getAttribute('data-tpl').replace('{c}', ev.target.value);
       document.querySelectorAll('.sizes a[data-msg]').forEach(function (a) {
-        a.href = picker.getAttribute('data-wa') + encodeURIComponent(a.getAttribute('data-msg') + extra);
+        var link = a.getAttribute('data-link');
+        a.href = picker.getAttribute('data-wa') + encodeURIComponent(a.getAttribute('data-msg') + extra + (link ? '\n' + link : ''));
       });
     });
   }

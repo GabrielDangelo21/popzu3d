@@ -133,10 +133,21 @@ def order_msg(lang, m, s):
     return T(lang, "wa_order", name=nm(m, lang), size=variant(lang, s), price=price_text(lang, s["price"]))
 
 
+def page_link(lang, m):
+    """Link da página do produto, posto no fim da mensagem do WhatsApp para o dono saber qual é o modelo."""
+    base = (SITE.get("base_url") or "").rstrip("/")
+    return f"{base}{url(lang, m['slug'] + '/')}" if base else ""
+
+
+def with_link(msg, lang, m):
+    link = page_link(lang, m)
+    return f"{msg}\n{link}" if link else msg
+
+
 def wa_order(lang, m, s=None):
     if s:
-        return wa(order_msg(lang, m, s))
-    return wa(T(lang, "wa_order_noprice", name=nm(m, lang), size=heights(lang, m)))
+        return wa(with_link(order_msg(lang, m, s), lang, m))
+    return wa(with_link(T(lang, "wa_order_noprice", name=nm(m, lang), size=heights(lang, m)), lang, m))
 
 
 def todo(lang):
@@ -183,8 +194,10 @@ FORCE = f' data-force-season="{SEASON}"' if "--season" in sys.argv else ""
 WA_ICON = ('<svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3Z"/></svg>')
 
 
-def wa_button(href, label, cls="", msg=None):
+def wa_button(href, label, cls="", msg=None, link=None):
     data = f' data-msg="{e(msg)}"' if msg else ""
+    if msg and link:
+        data += f' data-link="{e(link)}"'
     return f'<a class="btn btn-wa {cls}" href="{e(href)}"{data} target="_blank" rel="noopener">{WA_ICON}{e(label)}</a>'
 
 
@@ -466,7 +479,7 @@ def product(lang, m):
     if sizes(m):
         opts = "".join(
             f'<div class="size-opt"><div class="sz"><b>{e(size_name(lang, s))}</b><span>{e(T(lang, "size", cm=num(lang, s["cm"]))) if s.get("cm") else ""}</span></div>'
-            f'<div class="sp">{e(price_text(lang, s["price"]))}</div>{wa_button(wa_order(lang, m, s), T(lang, "order_short"), "btn-sm", order_msg(lang, m, s))}</div>'
+            f'<div class="sp">{e(price_text(lang, s["price"]))}</div>{wa_button(wa_order(lang, m, s), T(lang, "order_short"), "btn-sm", order_msg(lang, m, s), page_link(lang, m))}</div>'
             for s in sizes(m))
         order = f'<h2 class="choose">{e(T(lang, "p_choose" if len(sizes(m)) > 1 else "p_order_one"))}</h2><div class="sizes">{opts}</div>'
         if m.get("colors"):
@@ -516,7 +529,7 @@ def product(lang, m):
       <li><span>{e(T(lang, "p_lead"))}</span>{e(lead(lang))}</li>
       <li><span>{e(T(lang, "p_delivery"))}</span><div>{e(T(lang, "p_delivery_val"))}<br><a class="more" href="{url(lang)}#levering">{e(T(lang, "p_shipping_link"))} →</a></div></li>
     </ul>
-    <p class="bigger">{e(T(lang, "p_bigger"))} <a href="{e(wa(T(lang, "wa_bigger", name=nm(m, lang))))}" target="_blank" rel="noopener">{e(T(lang, "p_bigger_link"))}</a></p>
+    <p class="bigger">{e(T(lang, "p_bigger"))} <a href="{e(wa(with_link(T(lang, "wa_bigger", name=nm(m, lang)), lang, m)))}" target="_blank" rel="noopener">{e(T(lang, "p_bigger_link"))}</a></p>
   </div>
 </div></section>
 {related_html}
