@@ -38,7 +38,19 @@ e = lambda s: html.escape(str(s), quote=True)
 
 # ---------- helpers ----------
 
+# Nomes que já começam com "The" (The Mummy, The Elemental Dragon): sem artigo duplicado.
+ARTICLE_FIX = {"en": (("The The ", "The "), ("the The ", "the ")),
+               "nl": (("De The ", "The "), ("de The ", "The "))}
+
+
 def F(lang, s, **kw):
+    out = _F(lang, s, **kw)
+    for a, b in ARTICLE_FIX.get(lang, ()):
+        out = out.replace(a, b)
+    return out
+
+
+def _F(lang, s, **kw):
     base = {"lead": lead(lang), "ship_from": ship_from(lang), "small": size_range(lang, "s"), "large": size_range(lang, "l"),
             "shipping_table": "{shipping_table}"}
     return s.format(**{**base, **kw})
@@ -460,7 +472,8 @@ def home(lang):
 def product(lang, m):
     col = COLS[m["collection"]]
     path = m["slug"] + "/"
-    out = head(lang, T(lang, "meta_title_product", name=nm(m, lang)), T(lang, "meta_desc_product", name=nm(m, lang), heights=heights(lang, m)), path, img(m, 0))
+    plain = "" if m.get("knitted", True) else "_plain"
+    out = head(lang, T(lang, "meta_title_product" + plain, name=nm(m, lang)), T(lang, "meta_desc_product" + plain, name=nm(m, lang), heights=heights(lang, m)), path, img(m, 0))
     out += topbar(lang, False) + nav(lang, path, False, any(featured(k) for k in ("halloween", "default")))
 
     photos = m["photos"]
@@ -520,12 +533,12 @@ def product(lang, m):
     <div class="eyebrow">{e(col["name"][lang])}{tag}</div>
     <h1>{e(nm(m, lang))}</h1>
     {f'<p class="tagline">{e(tagline)}</p>' if tagline else ''}
-    <p class="desc">{e(T(lang, "p_desc_kerst" if kerst else "p_desc", name=nm(m, lang), collection=col["name"][lang]))}</p>
+    <p class="desc">{e(T(lang, "p_desc_kerst" if kerst else ("p_desc" if m.get("knitted", True) else "p_desc_plain"), name=nm(m, lang), collection=col["name"][lang]))}</p>
     {f'<p class="pnote">{e(m["note"][lang])}</p>' if m.get("note") else ""}
     {order}
     <ul class="facts">
       {f'<li><span>{e(T(lang, "p_contents"))}</span>{e(m["contents"][lang])}</li>' if m.get("contents") else ""}
-      <li><span>{e(T(lang, "p_finish"))}</span>{e(T(lang, "p_finish_kerst" if kerst else "p_finish_val"))}</li>
+      <li><span>{e(T(lang, "p_finish"))}</span>{e(T(lang, "p_finish_kerst" if kerst else ("p_finish_val" if m.get("knitted", True) else "p_finish_plain")))}</li>
       <li><span>{e(T(lang, "p_lead"))}</span>{e(lead(lang))}</li>
       <li><span>{e(T(lang, "p_delivery"))}</span><div>{e(T(lang, "p_delivery_val"))}<br><a class="more" href="{url(lang)}#levering">{e(T(lang, "p_shipping_link"))} →</a></div></li>
     </ul>

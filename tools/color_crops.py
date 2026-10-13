@@ -131,12 +131,31 @@ def boxes_model(name, debug_dir):
     print(name, k, "cores")
 
 
+# Modelos sem quadro de cores: uma foto de estúdio por cor (arquivos em images/<slug>/), na ordem de catalog.json.
+PHOTO_COLORS = {
+    "The Elemental Dragon": ["the-elemental-dragon-37.webp", "the-elemental-dragon-01.webp", "the-elemental-dragon-03.webp",
+                             "the-elemental-dragon-09.webp", "the-elemental-dragon-13.webp", "the-elemental-dragon-15.webp",
+                             "the-elemental-dragon-16.webp", "the-elemental-dragon-34.webp"],
+}
+
+
+def photo_colors(name):
+    folder = ROOT / "images" / slug(name)
+    for k, f in enumerate(PHOTO_COLORS[name], 1):
+        with Image.open(folder / f) as ph:
+            square(ph.convert("RGB")).save(folder / f"{slug(name)}-cor-{k:02d}.webp", "WEBP", quality=84, method=6)
+    print(name, len(PHOTO_COLORS[name]), "cores (fotos)")
+
+
 def main():
     debug_dir = Path(sys.argv[sys.argv.index("--debug") + 1]) if "--debug" in sys.argv else None
-    only = [a for a in sys.argv[1:] if a in GRIDS or a in BOXES]
+    only = [a for a in sys.argv[1:] if a in GRIDS or a in BOXES or a in PHOTO_COLORS]
     for name in BOXES:
         if not only or name in only:
             boxes_model(name, debug_dir)
+    for name in PHOTO_COLORS:
+        if (not only or name in only) and not debug_dir:
+            photo_colors(name)
     for name in GRIDS:
         if only and name not in only:
             continue

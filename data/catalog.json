@@ -1278,6 +1278,42 @@
      "price": 32
     }
    ]
+  },
+  {
+   "slug": "the-elemental-dragon",
+   "name": "The Elemental Dragon",
+   "collection": "space",
+   "knitted": false,
+   "photos": [
+    "the-elemental-dragon-04.webp",
+    "the-elemental-dragon-37.webp",
+    "the-elemental-dragon-35.webp",
+    "the-elemental-dragon-40.webp"
+   ],
+   "sizes": [
+    {
+     "key": "l",
+     "label": {
+      "nl": "Eén formaat",
+      "fr": "Taille unique",
+      "en": "One size"
+     },
+     "cm": 18,
+     "price": 17
+    }
+   ],
+   "colors": {
+    "options": [
+     "Flame",
+     "Aqua",
+     "Forest",
+     "Storm",
+     "Frost",
+     "Light",
+     "Earth",
+     "Shadow"
+    ]
+   }
   }
  ],
  "kerst": {

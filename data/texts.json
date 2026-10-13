@@ -45,7 +45,7 @@
     "fav_all": "Bekijk alle {n} figuren",
     "cat_label": "De collectie",
     "cat_title": "Een plank vol karakter.",
-    "cat_sub": "{n} figuren in breilook, elk in twee formaten: klein ({small}) en groot ({large}). Kies een collectie of bekijk ze allemaal.",
+    "cat_sub": "{n} figuren, bijna allemaal in breilook en in twee formaten: klein ({small}) en groot ({large}). Kies een collectie of bekijk ze allemaal.",
     "filter_all": "Alles",
     "filter_label": "Filter op collectie",
     "how_label": "Zo werkt het",
@@ -173,7 +173,12 @@
     "p_finish_kerst": "3D-geprint in kleur. Stevig object, geen speelgoed.",
     "p_contents": "Inhoud",
     "p_color_hint_plain": "Je gekozen kleur komt mee in je WhatsApp-bericht.",
-    "p_order_one": "Bestellen"
+    "p_order_one": "Bestellen",
+    "p_desc_plain": "De {name} uit onze collectie {collection}. Stevig 3D-geprint in kleur en pas na je bestelling speciaal voor jou gemaakt: mooi op je plank, je bureau of als cadeau.",
+    "p_finish_plain": "3D-geprint in kleur, gladde afwerking. Stevig object, geen speelgoed.",
+    "one_size": "Eén formaat",
+    "meta_title_product_plain": "{name} · 3D-figuur · popzu",
+    "meta_desc_product_plain": "{name}, 3D-geprint in kleur, {heights} hoog. Speciaal voor jou geprint in Denderleeuw. Bestel via WhatsApp."
   },
   "fr": {
     "lang_name": "Français",
@@ -221,7 +226,7 @@
     "fav_all": "Voir les {n} figurines",
     "cat_label": "La collection",
     "cat_title": "Une étagère pleine de caractère.",
-    "cat_sub": "{n} figurines façon tricot, chacune en deux formats : petit ({small}) et grand ({large}). Choisissez une collection ou voyez-les toutes.",
+    "cat_sub": "{n} figurines, presque toutes façon tricot et en deux formats : petit ({small}) et grand ({large}). Choisissez une collection ou voyez-les toutes.",
     "filter_all": "Tout",
     "filter_label": "Filtrer par collection",
     "how_label": "Comment ça marche",
@@ -349,7 +354,12 @@
     "p_finish_kerst": "Imprimée en 3D en couleur. Objet solide, pas un jouet.",
     "p_contents": "Contenu",
     "p_color_hint_plain": "La couleur choisie est ajoutée à votre message WhatsApp.",
-    "p_order_one": "Commander"
+    "p_order_one": "Commander",
+    "p_desc_plain": "La figurine {name} de notre collection {collection}. Imprimée en 3D en couleur, bien solide et fabriquée rien que pour vous après votre commande : parfaite sur une étagère, un bureau ou à offrir.",
+    "p_finish_plain": "Imprimée en 3D en couleur, finition lisse. Objet solide, pas un jouet.",
+    "one_size": "Taille unique",
+    "meta_title_product_plain": "{name} · Figurine 3D · popzu",
+    "meta_desc_product_plain": "{name}, imprimée en 3D en couleur, {heights} de haut. Imprimée pour vous à Denderleeuw. Commandez via WhatsApp."
   },
   "en": {
     "lang_name": "English",
@@ -397,7 +407,7 @@
     "fav_all": "See all {n} figures",
     "cat_label": "The collection",
     "cat_title": "A shelf full of personality.",
-    "cat_sub": "{n} knitted-look figures, each in two sizes: small ({small}) and large ({large}). Pick a collection or browse them all.",
+    "cat_sub": "{n} figures, nearly all with a knitted look and in two sizes: small ({small}) and large ({large}). Pick a collection or browse them all.",
     "filter_all": "All",
     "filter_label": "Filter by collection",
     "how_label": "How it works",
@@ -525,6 +535,11 @@
     "p_finish_kerst": "3D-printed in colour. A sturdy object, not a toy.",
     "p_contents": "Contents",
     "p_color_hint_plain": "Your chosen colour is added to your WhatsApp message.",
-    "p_order_one": "Order"
+    "p_order_one": "Order",
+    "p_desc_plain": "The {name} from our {collection} collection. Sturdy, 3D-printed in colour and made just for you after you order: lovely on a shelf, on your desk or as a gift.",
+    "p_finish_plain": "3D-printed in colour, smooth finish. A sturdy object, not a toy.",
+    "one_size": "One size",
+    "meta_title_product_plain": "{name} · 3D figure · popzu",
+    "meta_desc_product_plain": "{name}, 3D-printed in colour, {heights} tall. Printed just for you in Denderleeuw, Belgium. Order via WhatsApp."
   }
 }
