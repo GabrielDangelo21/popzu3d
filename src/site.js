@@ -78,6 +78,14 @@
     });
   }
 
+  // Statistieken: elke klik op een WhatsApp-knop telt als gebeurtenis, per pagina.
+  document.addEventListener('click', function (ev) {
+    var a = ev.target.closest && ev.target.closest('a[href*="wa.me/"]');
+    if (a && window.goatcounter && window.goatcounter.count) {
+      window.goatcounter.count({ path: 'whatsapp' + location.pathname, title: document.title, event: true });
+    }
+  });
+
   // Fotogalerij op de productpagina.
   var main = document.querySelector('.gallery .main img');
   document.querySelectorAll('.thumbs button').forEach(function (b, i, all) {

@@ -243,6 +243,11 @@ def head(lang, title, desc, paths, og=None):
     if og:
         og_tags += f'<meta property="og:image" content="{e(base + og)}">'
     seasons = {k: [v["from"], v["to"]] for k, v in SITE["seasons"].items() if not k.startswith("_")}
+    # Estatísticas sem cookies. Só entram no site publicado, e só depois de preencher "goatcounter" em site.json.
+    stats = ""
+    if SITE.get("goatcounter") and not PREVIEW:
+        stats = ("<script>window.goatcounter={referrer:function(){return goatcounter.get_query('ref')||document.referrer}}</script>"
+                 f'<script data-goatcounter="https://{e(SITE["goatcounter"])}.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>')
     return f"""<!doctype html>
 <html lang="{lang}" data-seasons='{e(json.dumps(seasons))}'{FORCE}>
 <head>
@@ -257,6 +262,7 @@ def head(lang, title, desc, paths, og=None):
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/site.css">
+{stats}
 </head>
 <body>
 <a class="skip" href="#inhoud">{e(T(lang, "skip"))}</a>
