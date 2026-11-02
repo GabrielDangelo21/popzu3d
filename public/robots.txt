@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://popzu3d.netlify.app/sitemap.xml
+Sitemap: https://popzu3d.be/sitemap.xml
