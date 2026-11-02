@@ -345,7 +345,10 @@ def card(lang, m, fav=False, halloween=False):
     p = from_price(m)
     if p is not None:
         label = price_text(lang, p) if len(sizes(m)) == 1 else T(lang, "from_price", p=price_text(lang, p))
-        price = f'<span class="price">{e(label)}</span>'
+        # As fotos de Natal mostram várias peças: o preço vem com o rótulo do tamanho ('por peça').
+        unit = sizes(m)[0].get("label", {}).get(lang, "") if m in KITEMS and len(sizes(m)) == 1 else ""
+        unit = f' <span class="unit">{e(unit[0].lower() + unit[1:])}</span>' if unit else ""
+        price = f'<span class="price">{e(label)}{unit}</span>'
     else:
         price = f'<span class="price ask">{e(T(lang, "price_on_request"))}</span>'
     tag = ""
