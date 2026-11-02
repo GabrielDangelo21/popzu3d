@@ -12,7 +12,7 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = Path(r"G:\3D\Arquivos de impressão\Patreon\Sabre Design")
-XLSX = ROOT / "Catalogo_Precos_Tamanho.xlsx"
+XLSX = ROOT.parent / "Negocio" / "Planilhas" / "Catalogo_Precos_Tamanho.xlsx"
 
 
 def L(nl, fr, en):
