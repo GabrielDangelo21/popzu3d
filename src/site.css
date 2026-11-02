@@ -26,6 +26,8 @@ h1,h2,h3,.logo{font-family:'Fredoka',system-ui,sans-serif;font-weight:600;letter
 .btn-sm{padding:10px 16px;font-size:14px}
 .btn-block{width:100%}
 .wa-ico{width:18px;height:18px;flex:none}
+.totop{position:fixed;right:20px;bottom:20px;z-index:9;display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:50%;background:var(--surface-2);border:1px solid var(--line);color:var(--text);font-size:20px;font-weight:700;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+.totop:hover{background:var(--line)}
 
 /* topbar + nav */
 .topbar{background:var(--mint);color:var(--bg);font-size:13px;font-weight:500;text-align:center;padding:7px 12px}

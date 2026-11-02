@@ -326,6 +326,7 @@ def footer(lang):
   <div><h4>{e(T(lang, "footer_contact"))}</h4><p>{"<br>".join(contact)}</p></div>
   {f'<div><h4>{e(T(lang, "footer_company"))}</h4><p>{"<br>".join(company)}</p></div>' if company else ""}
 </div></footer>
+<a class="totop" href="#top" aria-label="{e(T(lang, "to_top"))}" title="{e(T(lang, "to_top"))}" hidden>↑</a>
 <script src="/assets/site.js" defer></script>
 </body>
 </html>

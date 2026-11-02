@@ -86,6 +86,14 @@
     }
   });
 
+  // Knop naar boven: alleen zichtbaar nadat er naar beneden gescrold is.
+  var toTop = document.querySelector('.totop');
+  if (toTop) {
+    var showToTop = function () { toTop.hidden = window.scrollY < 600; };
+    window.addEventListener('scroll', showToTop, { passive: true });
+    showToTop();
+  }
+
   // Fotogalerij op de productpagina.
   var main = document.querySelector('.gallery .main img');
   document.querySelectorAll('.thumbs button').forEach(function (b, i, all) {
