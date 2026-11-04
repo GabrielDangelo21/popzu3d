@@ -1,5 +1,5 @@
 {
- "_info": "Catálogo do Popzu. sizes: s = pequeno (escala 50%), l = grande (100%); cm = altura, price = preço em euros com IVA (Catalogo_Precos_Tamanho.xlsx, 08/10/2026). photos: arquivos de images/<slug>/, o primeiro é a capa. colors: imagem com as variações de cor (modelos.png do Whale) e os nomes das cores, na ordem da imagem.",
+ "_info": "Catálogo do Popzu. sizes: s = pequeno (escala 70%), l = grande (100%); cm = altura, price = preço em euros SEM IVA, porque ainda não há empresa aberta (Catalogo_Precos_Tamanho.xlsx, aba Originais Whale, 04/11/2026). photos: arquivos de images/<slug>/, o primeiro é a capa. colors: imagem com as variações de cor (modelos.png do Whale) e os nomes das cores, na ordem da imagem.",
  "collections": [
   {
    "key": "dino",
@@ -130,13 +130,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 11,
-     "price": 12
+     "cm": 15,
+     "price": 13
     },
     {
      "key": "l",
      "cm": 21,
-     "price": 29
+     "price": 24
     }
    ],
    "colors": {
@@ -166,13 +166,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 12,
-     "price": 11
+     "cm": 17,
+     "price": 15
     },
     {
      "key": "l",
      "cm": 24,
-     "price": 34
+     "price": 28
     }
    ]
   },
@@ -189,13 +189,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 16,
-     "price": 14
+     "cm": 22,
+     "price": 16
     },
     {
      "key": "l",
      "cm": 32,
-     "price": 39
+     "price": 32
     }
    ],
    "colors": {
@@ -227,13 +227,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 14,
-     "price": 12
+     "cm": 20,
+     "price": 14
     },
     {
      "key": "l",
      "cm": 29,
-     "price": 35
+     "price": 30
     }
    ],
    "colors": {
@@ -263,13 +263,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 15,
-     "price": 12
+     "cm": 22,
+     "price": 15
     },
     {
      "key": "l",
      "cm": 31,
-     "price": 35
+     "price": 30
     }
    ]
   },
@@ -286,13 +286,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 15,
-     "price": 12
+     "cm": 22,
+     "price": 15
     },
     {
      "key": "l",
      "cm": 31,
-     "price": 35
+     "price": 30
     }
    ]
   },
@@ -314,13 +314,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 11,
-     "price": 10
+     "cm": 15,
+     "price": 12
     },
     {
      "key": "l",
      "cm": 22,
-     "price": 30
+     "price": 25
     }
    ]
   },
@@ -342,13 +342,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 13,
-     "price": 10
+     "cm": 18,
+     "price": 16
     },
     {
      "key": "l",
      "cm": 25,
-     "price": 38
+     "price": 31
     }
    ]
   },
@@ -365,13 +365,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 11,
-     "price": 10
+     "cm": 15,
+     "price": 12
     },
     {
      "key": "l",
      "cm": 22,
-     "price": 30
+     "price": 25
     }
    ]
   },
@@ -388,13 +388,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 12,
+     "cm": 17,
      "price": 9
     },
     {
      "key": "l",
      "cm": 24,
-     "price": 20
+     "price": 16
     }
    ]
   },
@@ -411,13 +411,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 14,
-     "price": 10
+     "cm": 18,
+     "price": 14
     },
     {
      "key": "l",
      "cm": 25,
-     "price": 35
+     "price": 30
     }
    ]
   },
@@ -434,13 +434,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 13,
-     "price": 12
+     "cm": 18,
+     "price": 18
     },
     {
      "key": "l",
      "cm": 26,
-     "price": 45
+     "price": 38
     }
    ]
   },
@@ -462,13 +462,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 10,
-     "price": 10
+     "cm": 14,
+     "price": 11
     },
     {
      "key": "l",
      "cm": 20,
-     "price": 26
+     "price": 22
     }
    ]
   },
@@ -485,13 +485,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 10,
-     "price": 9
+     "cm": 14,
+     "price": 11
     },
     {
      "key": "l",
      "cm": 20,
-     "price": 26
+     "price": 21
     }
    ]
   },
@@ -508,13 +508,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 9,
-     "price": 5
+     "cm": 13,
+     "price": 7
     },
     {
      "key": "l",
      "cm": 18,
-     "price": 16
+     "price": 13
     }
    ]
   },
@@ -537,13 +537,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 10,
-     "price": 7
+     "cm": 14,
+     "price": 8
     },
     {
      "key": "l",
      "cm": 20,
-     "price": 14
+     "price": 11
     }
    ]
   },
@@ -560,13 +560,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 10,
-     "price": 10
+     "cm": 14,
+     "price": 12
     },
     {
      "key": "l",
      "cm": 20,
-     "price": 29
+     "price": 24
     }
    ]
   },
@@ -588,13 +588,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 11,
-     "price": 7
+     "cm": 15,
+     "price": 12
     },
     {
      "key": "l",
      "cm": 22,
-     "price": 31
+     "price": 26
     }
    ]
   },
@@ -610,13 +610,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 10,
-     "price": 14
+     "cm": 14,
+     "price": 17
     },
     {
      "key": "l",
      "cm": 20,
-     "price": 44
+     "price": 37
     }
    ]
   },
@@ -633,13 +633,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 10,
-     "price": 13
+     "cm": 14,
+     "price": 17
     },
     {
      "key": "l",
      "cm": 20,
-     "price": 46
+     "price": 38
     }
    ]
   },
@@ -661,13 +661,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 13,
-     "price": 6
+     "cm": 18,
+     "price": 8
     },
     {
      "key": "l",
      "cm": 25,
-     "price": 22
+     "price": 18
     }
    ]
   },
@@ -684,13 +684,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 9,
-     "price": 9
+     "cm": 12,
+     "price": 11
     },
     {
      "key": "l",
      "cm": 17,
-     "price": 26
+     "price": 22
     }
    ]
   },
@@ -707,13 +707,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 13,
-     "price": 9
+     "cm": 18,
+     "price": 10
     },
     {
      "key": "l",
      "cm": 25,
-     "price": 23
+     "price": 19
     }
    ]
   },
@@ -730,13 +730,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 13,
-     "price": 11
+     "cm": 18,
+     "price": 12
     },
     {
      "key": "l",
      "cm": 25,
-     "price": 30
+     "price": 25
     }
    ]
   },
@@ -753,13 +753,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 15,
-     "price": 15
+     "cm": 21,
+     "price": 21
     },
     {
      "key": "l",
      "cm": 30,
-     "price": 53
+     "price": 44
     }
    ]
   },
@@ -776,13 +776,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 13,
-     "price": 15
+     "cm": 18,
+     "price": 20
     },
     {
      "key": "l",
      "cm": 25,
-     "price": 37
+     "price": 36
     }
    ],
    "colors": {
@@ -815,13 +815,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 15,
-     "price": 14
+     "cm": 20,
+     "price": 22
     },
     {
      "key": "l",
      "cm": 29,
-     "price": 55
+     "price": 46
     }
    ]
   },
@@ -843,13 +843,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 13,
-     "price": 15
+     "cm": 18,
+     "price": 20
     },
     {
      "key": "l",
      "cm": 25,
-     "price": 48
+     "price": 40
     }
    ],
    "colors": {
@@ -876,13 +876,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 13,
-     "price": 12
+     "cm": 18,
+     "price": 16
     },
     {
      "key": "l",
      "cm": 26,
-     "price": 37
+     "price": 31
     }
    ],
    "colors": {
@@ -914,13 +914,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 13,
-     "price": 12
+     "cm": 18,
+     "price": 17
     },
     {
      "key": "l",
      "cm": 25,
-     "price": 42
+     "price": 35
     }
    ],
    "colors": {
@@ -951,13 +951,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 11,
-     "price": 13
+     "cm": 15,
+     "price": 15
     },
     {
      "key": "l",
      "cm": 22,
-     "price": 37
+     "price": 31
     }
    ]
   },
@@ -974,13 +974,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 10,
-     "price": 11
+     "cm": 14,
+     "price": 14
     },
     {
      "key": "l",
      "cm": 20,
-     "price": 34
+     "price": 28
     }
    ]
   },
@@ -1002,13 +1002,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 11,
-     "price": 7
+     "cm": 15,
+     "price": 9
     },
     {
      "key": "l",
      "cm": 22,
-     "price": 22
+     "price": 18
     }
    ]
   },
@@ -1025,13 +1025,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 10,
-     "price": 9
+     "cm": 13,
+     "price": 11
     },
     {
      "key": "l",
      "cm": 19,
-     "price": 27
+     "price": 23
     }
    ]
   },
@@ -1048,13 +1048,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 13,
-     "price": 12
+     "cm": 18,
+     "price": 18
     },
     {
      "key": "l",
      "cm": 25,
-     "price": 42
+     "price": 35
     }
    ],
    "colors": {
@@ -1089,13 +1089,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 13,
-     "price": 5
+     "cm": 18,
+     "price": 6
     },
     {
      "key": "l",
      "cm": 25,
-     "price": 15
+     "price": 12
     }
    ],
    "colors": {
@@ -1128,13 +1128,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 13,
-     "price": 9
+     "cm": 18,
+     "price": 5
     },
     {
      "key": "l",
      "cm": 26,
-     "price": 22
+     "price": 10
     }
    ],
    "colors": {
@@ -1164,13 +1164,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 13,
+     "cm": 18,
      "price": 6
     },
     {
      "key": "l",
      "cm": 25,
-     "price": 15
+     "price": 12
     }
    ],
    "colors": {
@@ -1200,13 +1200,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 11,
+     "cm": 15,
      "price": 12
     },
     {
      "key": "l",
      "cm": 22,
-     "price": 26
+     "price": 22
     }
    ]
   },
@@ -1223,13 +1223,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 12,
-     "price": 9
+     "cm": 16,
+     "price": 11
     },
     {
      "key": "l",
      "cm": 23,
-     "price": 26
+     "price": 22
     }
    ]
   },
@@ -1246,13 +1246,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 11,
-     "price": 9
+     "cm": 15,
+     "price": 10
     },
     {
      "key": "l",
      "cm": 22,
-     "price": 26
+     "price": 22
     }
    ]
   },
@@ -1269,13 +1269,13 @@
    "sizes": [
     {
      "key": "s",
-     "cm": 10,
-     "price": 10
+     "cm": 13,
+     "price": 11
     },
     {
      "key": "l",
      "cm": 19,
-     "price": 32
+     "price": 27
     }
    ]
   },
@@ -1299,7 +1299,7 @@
       "en": "One size"
      },
      "cm": 18,
-     "price": 17
+     "price": 14
     }
    ],
    "colors": {
