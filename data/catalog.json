@@ -329,8 +329,8 @@
    "name": "Cute Husky",
    "collection": "honden",
    "photos": [
-    "cute-husky-44.webp",
     "cute-husky-26.webp",
+    "cute-husky-44.webp",
     "cute-husky-02.webp",
     "cute-husky-41.webp"
    ],
@@ -523,9 +523,9 @@
    "name": "Hamster Flexi",
    "collection": "dieren",
    "photos": [
+    "hamster-flexi-25.webp",
     "hamster-flexi-40.webp",
     "hamster-flexi-41.webp",
-    "hamster-flexi-46.webp",
     "hamster-flexi-06.webp"
    ],
    "tagline": {

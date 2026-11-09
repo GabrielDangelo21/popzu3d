@@ -11,6 +11,7 @@ Precisa de Pillow para gerar as miniaturas (pip install pillow).
 import datetime
 import html
 import json
+import os
 import shutil
 import sys
 from pathlib import Path
@@ -586,13 +587,16 @@ def build_images():
     src_root = ROOT / "images"
 
     def put(src, dst, size=None):
-        if dst.exists() and dst.stat().st_mtime >= src.stat().st_mtime:
+        # a cópia leva a data da origem: data igual = mesma foto. Assim, trocar a ordem das fotos troca os arquivos.
+        if dst.exists() and dst.stat().st_mtime == src.stat().st_mtime:
             return
         dst.parent.mkdir(parents=True, exist_ok=True)
         if size and Image:
             with Image.open(src) as im:
                 im.thumbnail((size, size), Image.LANCZOS)
                 im.save(dst, "WEBP", quality=78, method=6)
+            st = src.stat()
+            os.utime(dst, (st.st_atime, st.st_mtime))
         else:
             shutil.copy2(src, dst)
 
