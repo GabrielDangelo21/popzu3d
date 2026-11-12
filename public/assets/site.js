@@ -94,6 +94,22 @@
     showToTop();
   }
 
+  // Video bij 'Zo werkt het': speelt alleen als hij in beeld is. Met 'minder beweging' blijft hij stil, met knoppen.
+  var vid = document.querySelector('.how-video video');
+  if (vid) {
+    var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (still || !('IntersectionObserver' in window)) {
+      vid.controls = true;
+    } else {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) { var p = vid.play(); if (p && p.catch) p.catch(function () { vid.controls = true; }); }
+          else vid.pause();
+        });
+      }, { threshold: 0.4 }).observe(vid);
+    }
+  }
+
   // Fotogalerij op de productpagina.
   var main = document.querySelector('.gallery .main img');
   document.querySelectorAll('.thumbs button').forEach(function (b, i, all) {

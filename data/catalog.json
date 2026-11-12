@@ -81,6 +81,7 @@
   }
  ],
  "featured": {
+  "hero": {"halloween": "pumpkin-killer", "kerst": "cute-husky", "none": "alien-baby"},
   "_info": "Ordem dos cartões. Na estação 'halloween' vale 'list'; fora dela, os modelos de 'swap' trocam de lugar. Modelo sem preço é pulado e entra o próximo de 'reserve'.",
   "list": [
    "alien-baby",

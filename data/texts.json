@@ -12,13 +12,13 @@
     "nav_how": "Zo werkt het",
     "nav_custom": "Op maat",
     "nav_faq": "FAQ",
-    "topbar_halloween": "🎃 Halloween-editie: de Spooky-collectie is er · Gratis afhalen in Denderleeuw of verzending vanaf {ship_from}",
-    "topbar_kerst": "🎄 Op zoek naar een kerstcadeau? Elke figuur wordt speciaal voor jou geprint · Afhalen of verzenden",
-    "hero_eyebrow": "Breilook · 3D-geprint in België",
+    "topbar_halloween": "Halloween-editie: de Spooky-collectie is er. Gratis afhalen in Denderleeuw of verzending vanaf {ship_from}",
+    "topbar_kerst": "Op zoek naar een kerstcadeau? Elke figuur wordt speciaal voor jou geprint. Afhalen of verzenden",
+    "hero_eyebrow": "Breilook, 3D-geprint in België",
     "hero_h1a": "Kleine figuren.",
     "hero_h1b": "Groot karakter.",
     "hero_p": "Een origineel cadeau: schattige figuren met een verrassende breitextuur. Stevig geprint in kleur, geen knuffel, en pas na je bestelling speciaal voor jou gemaakt.",
-    "hero_cta1": "Ontdek de collectie →",
+    "hero_cta1": "Ontdek de collectie",
     "hero_cta2": "Bestel via WhatsApp",
     "hero_badge1": "Breilook ✶",
     "hero_badge2": "Klaar in <b>{lead}</b>",
@@ -33,11 +33,11 @@
       ],
       [
         "Afhalen of verzenden",
-        "Gratis in Denderleeuw · vanaf {ship_from}"
+        "Gratis afhalen in Denderleeuw, verzending vanaf {ship_from}"
       ],
       [
-        "Officiële licentie",
-        "Originele designs, legaal geprint"
+        "Commerciële licentie",
+        "Originele designs van Whale 3D Studio"
       ]
     ],
     "fav_label": "Onze favorieten",
@@ -122,7 +122,7 @@
     "badge_halloween": "Halloween",
     "badge_flexi": "Beweegbaar",
     "p_home": "Home",
-    "p_notice": "Voorbeeldfoto · elke figuur wordt na je bestelling voor jou geprint",
+    "p_notice": "Voorbeeldfoto: elke figuur wordt na je bestelling voor jou geprint",
     "p_height": "Hoogte",
     "p_finish": "Afwerking",
     "p_finish_val": "Breilook, 3D-geprint in kleur. Stevig object, geen knuffel.",
@@ -159,7 +159,7 @@
     "from_price": "vanaf {p}",
     "p_choose": "Kies je formaat",
     "order_short": "Bestel",
-    "fav_btn": "Kies je formaat →",
+    "fav_btn": "Kies je formaat",
     "ship_note": "Deze prijzen gelden voor een pakket tot 500 g, ongeveer twee kleine figuren. Voor een grote figuur of een grotere bestelling bevestigen we de verzendkosten via WhatsApp.",
     "p_color": "Kies je kleur",
     "p_color_hint": "Bekijk de kleurenkaart bij de foto's. Je gekozen kleur komt mee in je WhatsApp-bericht.",
@@ -179,7 +179,10 @@
     "p_finish_plain": "3D-geprint in kleur, gladde afwerking. Stevig object, geen speelgoed.",
     "one_size": "Eén formaat",
     "meta_title_product_plain": "{name} · 3D-figuur · popzu",
-    "meta_desc_product_plain": "{name}, 3D-geprint in kleur, {heights} hoog. Speciaal voor jou geprint in Denderleeuw. Bestel via WhatsApp."
+    "meta_desc_product_plain": "{name}, 3D-geprint in kleur, {heights} hoog. Speciaal voor jou geprint in Denderleeuw. Bestel via WhatsApp.",
+    "how_video": "Zo ziet een figuur eruit als hij net van de printer komt. Echte beelden, geen render.",
+    "how_video_label": "Video: een roze alien in breilook, in de hand gehouden",
+    "card_hint": "Bekijk de karakterkaart"
   },
   "fr": {
     "lang_name": "Français",
@@ -194,13 +197,13 @@
     "nav_how": "Comment ça marche",
     "nav_custom": "Sur mesure",
     "nav_faq": "FAQ",
-    "topbar_halloween": "🎃 Édition Halloween : la collection Spooky est arrivée · Retrait gratuit à Denderleeuw ou envoi dès {ship_from}",
-    "topbar_kerst": "🎄 Une idée de cadeau de Noël ? Chaque figurine est imprimée rien que pour vous · Retrait ou envoi",
-    "hero_eyebrow": "Façon tricot · Imprimé en 3D en Belgique",
+    "topbar_halloween": "Édition Halloween : la collection Spooky est arrivée. Retrait gratuit à Denderleeuw ou envoi dès {ship_from}",
+    "topbar_kerst": "Une idée de cadeau de Noël ? Chaque figurine est imprimée rien que pour vous. Retrait ou envoi",
+    "hero_eyebrow": "Façon tricot, imprimé en 3D en Belgique",
     "hero_h1a": "Petites figurines.",
     "hero_h1b": "Grand caractère.",
     "hero_p": "Un cadeau original : d'adorables figurines à la texture tricot étonnante. Imprimées en couleur et bien solides, pas des peluches, et fabriquées rien que pour vous après votre commande.",
-    "hero_cta1": "Découvrir la collection →",
+    "hero_cta1": "Découvrir la collection",
     "hero_cta2": "Commander via WhatsApp",
     "hero_badge1": "Façon tricot ✶",
     "hero_badge2": "Prête en <b>{lead}</b>",
@@ -215,11 +218,11 @@
       ],
       [
         "Retrait ou envoi",
-        "Gratuit à Denderleeuw · dès {ship_from}"
+        "Retrait gratuit à Denderleeuw, envoi dès {ship_from}"
       ],
       [
-        "Licence officielle",
-        "Designs originaux, imprimés légalement"
+        "Licence commerciale",
+        "Designs originaux de Whale 3D Studio"
       ]
     ],
     "fav_label": "Nos favoris",
@@ -304,7 +307,7 @@
     "badge_halloween": "Halloween",
     "badge_flexi": "Articulé",
     "p_home": "Accueil",
-    "p_notice": "Photo d'exemple · chaque figurine est imprimée pour vous après votre commande",
+    "p_notice": "Photo d'exemple : chaque figurine est imprimée pour vous après votre commande",
     "p_height": "Hauteur",
     "p_finish": "Finition",
     "p_finish_val": "Façon tricot, imprimée en 3D en couleur. Objet solide, pas une peluche.",
@@ -341,7 +344,7 @@
     "from_price": "dès {p}",
     "p_choose": "Choisissez votre format",
     "order_short": "Commander",
-    "fav_btn": "Choisir le format →",
+    "fav_btn": "Choisir le format",
     "ship_note": "Ces prix valent pour un colis jusqu'à 500 g, soit environ deux petites figurines. Pour une grande figurine ou une commande plus importante, nous confirmons les frais d'envoi via WhatsApp.",
     "p_color": "Choisissez votre couleur",
     "p_color_hint": "Voir le nuancier avec les photos. La couleur choisie est ajoutée à votre message WhatsApp.",
@@ -361,7 +364,10 @@
     "p_finish_plain": "Imprimée en 3D en couleur, finition lisse. Objet solide, pas un jouet.",
     "one_size": "Taille unique",
     "meta_title_product_plain": "{name} · Figurine 3D · popzu",
-    "meta_desc_product_plain": "{name}, imprimée en 3D en couleur, {heights} de haut. Imprimée pour vous à Denderleeuw. Commandez via WhatsApp."
+    "meta_desc_product_plain": "{name}, imprimée en 3D en couleur, {heights} de haut. Imprimée pour vous à Denderleeuw. Commandez via WhatsApp.",
+    "how_video": "Voilà une figurine tout juste sortie de l'imprimante. De vraies images, pas un rendu 3D.",
+    "how_video_label": "Vidéo : un alien rose effet tricot, tenu dans la main",
+    "card_hint": "Voir la fiche perso"
   },
   "en": {
     "lang_name": "English",
@@ -376,13 +382,13 @@
     "nav_how": "How it works",
     "nav_custom": "Custom",
     "nav_faq": "FAQ",
-    "topbar_halloween": "🎃 Halloween edition: the Spooky collection is here · Free pick-up in Denderleeuw or shipping from {ship_from}",
-    "topbar_kerst": "🎄 Looking for a Christmas gift? Every figure is printed just for you · Pick up or shipping",
-    "hero_eyebrow": "Knitted look · 3D-printed in Belgium",
+    "topbar_halloween": "Halloween edition: the Spooky collection is here. Free pick-up in Denderleeuw or shipping from {ship_from}",
+    "topbar_kerst": "Looking for a Christmas gift? Every figure is printed just for you. Pick up or shipping",
+    "hero_eyebrow": "Knitted look, 3D-printed in Belgium",
     "hero_h1a": "Small figures.",
     "hero_h1b": "Big personality.",
     "hero_p": "An original gift: cute figures with a surprising knitted texture. Sturdy and printed in colour, not a plush toy, and made just for you after you order.",
-    "hero_cta1": "Explore the collection →",
+    "hero_cta1": "Explore the collection",
     "hero_cta2": "Order via WhatsApp",
     "hero_badge1": "Knitted look ✶",
     "hero_badge2": "Ready in <b>{lead}</b>",
@@ -397,11 +403,11 @@
       ],
       [
         "Pick-up or shipping",
-        "Free in Denderleeuw · from {ship_from}"
+        "Free pick-up in Denderleeuw, shipping from {ship_from}"
       ],
       [
-        "Official licence",
-        "Original designs, printed legally"
+        "Commercial licence",
+        "Original designs by Whale 3D Studio"
       ]
     ],
     "fav_label": "Our favourites",
@@ -486,7 +492,7 @@
     "badge_halloween": "Halloween",
     "badge_flexi": "Poseable",
     "p_home": "Home",
-    "p_notice": "Example photo · every figure is printed for you after you order",
+    "p_notice": "Example photo: every figure is printed for you after you order",
     "p_height": "Height",
     "p_finish": "Finish",
     "p_finish_val": "Knitted look, 3D-printed in colour. A sturdy object, not a plush toy.",
@@ -523,7 +529,7 @@
     "from_price": "from {p}",
     "p_choose": "Choose your size",
     "order_short": "Order",
-    "fav_btn": "Choose your size →",
+    "fav_btn": "Choose your size",
     "ship_note": "These prices apply to a parcel up to 500 g, about two small figures. For a large figure or a bigger order, we confirm the shipping cost on WhatsApp.",
     "p_color": "Choose your colour",
     "p_color_hint": "See the colour chart with the photos. Your chosen colour is added to your WhatsApp message.",
@@ -543,6 +549,9 @@
     "p_finish_plain": "3D-printed in colour, smooth finish. A sturdy object, not a toy.",
     "one_size": "One size",
     "meta_title_product_plain": "{name} · 3D figure · popzu",
-    "meta_desc_product_plain": "{name}, 3D-printed in colour, {heights} tall. Printed just for you in Denderleeuw, Belgium. Order via WhatsApp."
+    "meta_desc_product_plain": "{name}, 3D-printed in colour, {heights} tall. Printed just for you in Denderleeuw, Belgium. Order via WhatsApp.",
+    "how_video": "This is a figure fresh off the printer. Real footage, not a render.",
+    "how_video_label": "Video: a pink knitted-look alien, held in a hand",
+    "card_hint": "See the character card"
   }
 }

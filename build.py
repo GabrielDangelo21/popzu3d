@@ -25,7 +25,9 @@ THUMB = 600
 
 load = lambda name: json.loads((ROOT / "data" / name).read_text(encoding="utf-8"))
 SITE, CAT, TXT = load("site.json"), load("catalog.json"), load("texts.json")
+FICHAS = load("fichas.json")
 MODELS = CAT["models"]
+STATS = ("cute", "brave", "chaos")
 # Kerstcollectie: aparte lijn, alleen zichtbaar op de homepage in het seizoen "kerst" (productpagina's bestaan altijd).
 KERST = CAT.get("kerst", {"categories": [], "items": []})
 KITEMS = KERST["items"]
@@ -260,8 +262,7 @@ def head(lang, title, desc, paths, og=None):
 {og_tags}{alt}
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
+<link rel="preload" href="/assets/fonts/fredoka-600.ttf" as="font" type="font/ttf" crossorigin>
 <link rel="stylesheet" href="/assets/site.css">
 {stats}
 </head>
@@ -341,8 +342,39 @@ def card_heights(lang, m):
     return TXT[lang]["range"].format(a=num(lang, cms[0]), b=num(lang, cms[-1])) if len(cms) > 1 else (T(lang, "size", cm=num(lang, cms[0])) if cms else "")
 
 
+def ficha(m):
+    return FICHAS["cards"].get(m["slug"])
+
+
+def meters(lang, f, mini=False):
+    """Três medidores de 10 pontos de tricô (Schattig, Moed, Chaos)."""
+    lab = FICHAS["labels"][lang]
+    rows = "".join(
+        f'<div class="stat st-{k}"><dt>{e(lab[k])}</dt>'
+        f'<dd><span class="steken" style="--n:{f[k]}" aria-hidden="true"></span>'
+        f'<b>{f[k]}</b><span class="sr">/10</span></dd></div>'
+        for k in STATS)
+    return f'<dl class="stats{" mini" if mini else ""}">{rows}</dl>'
+
+
+def kaart(lang, m, cls=""):
+    """Karakterkaart: naam, collectie, drie meters en de superkracht."""
+    f = ficha(m)
+    if not f:
+        WARN.append(f"Sem ficha em fichas.json: {m['slug']}")
+        return ""
+    lab = FICHAS["labels"][lang]
+    col = COLS[m["collection"]]
+    return (f'<aside class="kaart {cls}" aria-label="{e(lab["card"] + ": " + nm(m, lang))}">'
+            f'<div class="kaart-top"><span class="kaart-name">{e(nm(m, lang))}</span>'
+            f'<span class="kaart-col">{e(col["name"][lang])}</span></div>'
+            f'{meters(lang, f)}'
+            f'<p class="power"><span>{e(lab["power"])}</span>{e(f["power"][lang])}</p></aside>')
+
+
 def card(lang, m, fav=False, halloween=False):
     col = COLS[m["collection"]]
+    f = ficha(m)
     p = from_price(m)
     if p is not None:
         label = price_text(lang, p) if len(sizes(m)) == 1 else T(lang, "from_price", p=price_text(lang, p))
@@ -359,17 +391,20 @@ def card(lang, m, fav=False, halloween=False):
         tag = f'<span class="tag flexi">{e(T(lang, "badge_flexi"))}</span>'
     alt = T(lang, "p_photo", name=nm(m, lang), i=1)
     href = url(lang, m["slug"] + "/")
-    body = f'<h3><a href="{href}">{e(nm(m, lang))}</a></h3><div class="sub">{e(col["name"][lang])}{(" · " + e(card_heights(lang, m))) if card_heights(lang, m) else ""}{(" · " + e(T(lang, "card_colors", n=len(m["colors"]["options"])))) if m.get("colors") else ""}</div>'
+    body = f'<h3><a href="{href}">{e(nm(m, lang))}</a></h3>'
+    if f:
+        body += f'<p class="line">{e(f["power"][lang])}</p>'
+    extra = card_heights(lang, m)
+    if m.get("colors"):
+        extra = f'{extra}, {T(lang, "card_colors", n=len(m["colors"]["options"]))}' if extra else T(lang, "card_colors", n=len(m["colors"]["options"]))
+    body += f'<div class="row">{price}<span class="sub">{e(extra)}</span></div>'
     if fav:
-        line = m.get("tagline", {}).get(lang, "")
-        body += f'<p class="line">{e(line)}</p>' if line else ""
-        body += f'<div class="row">{price}</div>'
         # Com dois tamanhos, o pedido é feito na página do produto (um botão de WhatsApp por tamanho).
         body += f'<a class="btn btn-coral btn-sm btn-block" href="{href}" tabindex="-1">{e(T(lang, "fav_btn"))}</a>'
-    else:
-        body += f'<div class="row">{price}</div>'
+    # No computador, a ficha aparece por cima da foto ao passar o mouse (só decorativa: a página do produto tem a ficha completa).
+    peek = f'<div class="peek" aria-hidden="true">{meters(lang, f, True)}</div>' if f else ""
     return (f'<article class="card" data-col="{m["collection"]}">'
-            f'<div class="pic">{tag}<img src="{img(m, 0, True)}" alt="{e(alt)}" width="{THUMB}" height="{THUMB}" loading="lazy" decoding="async"></div>'
+            f'<div class="pic">{tag}<img src="{img(m, 0, True)}" alt="{e(alt)}" width="{THUMB}" height="{THUMB}" loading="lazy" decoding="async">{peek}</div>'
             f'<div class="info">{body}</div></article>')
 
 
@@ -383,26 +418,35 @@ def home(lang):
 
     out = head(lang, T(lang, "meta_title_home"), T(lang, "meta_desc_home"), "", "/img/hero.webp")
     out += topbar(lang, True) + nav(lang, "", True, has_fav)
+    # Destaque: uma figura por estação, com a karakterkaart por cima da foto. O site.js mostra a da estação atual.
+    heroes = CAT["featured"].get("hero", {"halloween": "pumpkin-killer", "kerst": "cute-husky", "none": "alien-baby"})
+    stage = ""
+    for s, slug in heroes.items():
+        m = BY_SLUG.get(slug)
+        if not m:
+            WARN.append(f"Destaque do topo ({s}): modelo desconhecido {slug}")
+            continue
+        now = s == SEASON
+        stage += (f'<figure class="stage" data-season="{s}"{"" if now else " hidden"}>'
+                  f'<a class="stage-pic" href="{url(lang, slug + "/")}"><img src="{img(m, 0)}" alt="{e(T(lang, "p_photo", name=nm(m, lang), i=1))}" width="1200" height="1200"'
+                  f'{" fetchpriority=\"high\"" if now else " loading=\"lazy\""}></a>'
+                  f'{kaart(lang, m, "kaart-hero")}</figure>')
     out += f"""<main id="inhoud">
 <header class="hero"><div class="wrap">
-  <div>
-    <div class="eyebrow">{e(T(lang, "hero_eyebrow"))}</div>
-    <h1>{e(T(lang, "hero_h1a"))}<br><em>{e(T(lang, "hero_h1b"))}</em></h1>
-    <p>{e(T(lang, "hero_p"))}</p>
+  <div class="hero-text">
+    <p class="kicker">{e(T(lang, "hero_eyebrow"))}</p>
+    <h1><span>{e(T(lang, "hero_h1a"))}</span> <span class="l2">{e(T(lang, "hero_h1b"))}</span></h1>
+    <p class="intro">{e(T(lang, "hero_p"))}</p>
     <div class="ctas">
       <a class="btn btn-coral" href="#collectie">{e(T(lang, "hero_cta1"))}</a>
-      {wa_button(wa(T(lang, "wa_general")), T(lang, "hero_cta2"))}
+      {wa_button(wa(T(lang, "wa_general")), T(lang, "hero_cta2"), "btn-wa-ghost")}
     </div>
   </div>
-  <div class="hero-visual">
-    <img src="/img/hero.webp" alt="" width="800" height="1000" fetchpriority="high">
-    <span class="badge b1">{e(T(lang, "hero_badge1"))}</span>
-    <span class="badge b2">{T(lang, "hero_badge2", lead=e(lead(lang)))}</span>
-  </div>
+  <div class="hero-visual">{stage}</div>
 </div></header>
-<div class="trust"><div class="wrap">
-  {"".join(f"<div><b>{e(F(lang, a))}</b>{e(F(lang, b))}</div>" for a, b in TXT[lang]["trust"])}
-</div></div>
+<ul class="trust wrap">
+  {"".join(f"<li><b>{e(F(lang, a))}</b> {e(F(lang, b))}</li>" for a, b in TXT[lang]["trust"])}
+</ul>
 """
     if has_fav:
         out += '<div id="favorieten">\n'
@@ -412,7 +456,7 @@ def home(lang):
             hid = "" if key == cur else " hidden"
             cards = "".join(card(lang, BY_SLUG[s], fav=True, halloween=(key == "halloween" and s in CAT["featured"]["halloween_badge"])) for s in slugs)
             out += f"""<section data-fav="{key}"{hid}><div class="wrap">
-  <div class="head"><div><div class="eyebrow">{e(T(lang, "fav_label"))}</div><h2>{e(T(lang, "fav_title"))}</h2></div><p>{e(T(lang, "fav_sub"))}</p></div>
+  <div class="head"><div><h2>{e(T(lang, "fav_title"))}</h2></div><p>{e(T(lang, "fav_sub"))}</p></div>
   <div class="grid">{cards}</div>
   <div class="center"><a class="btn btn-ghost" href="#collectie">{e(T(lang, "fav_all", n=n))}</a></div>
 </div></section>
@@ -428,7 +472,7 @@ def home(lang):
                            f'<div class="grid">{"".join(card(lang, m) for m in items)}</div>')
         hid = "" if SEASON == "kerst" else " hidden"
         out += f"""<section id="kerst" class="kerst" data-season="kerst"{hid}><div class="wrap">
-  <div class="head"><div><div class="eyebrow">{e(T(lang, "kerst_label"))}</div><h2>{e(T(lang, "kerst_title"))}</h2></div><p>{e(T(lang, "kerst_sub"))}</p></div>
+  <div class="head"><div><h2>{e(T(lang, "kerst_title"))}</h2></div><p>{e(T(lang, "kerst_sub"))}</p></div>
   {groups}
 </div></section>
 """
@@ -439,8 +483,8 @@ def home(lang):
         chips += (f'<button class="chip" type="button" data-filter="{c["key"]}" data-intro="{e(c["tagline"][lang])}" aria-pressed="false">'
                   f'{e(c["name"][lang])}<small>{cnt}</small></button>')
     cards = "".join(card(lang, m) for m in MODELS)
-    steps = "".join(f'<div class="step"><div class="num">{i}</div><h3>{e(a)}</h3><p>{e(F(lang, b))}</p></div>'
-                    for i, (a, b) in enumerate(TXT[lang]["steps"], 1))
+    steps = "".join(f'<li class="step"><h3>{e(a)}</h3><p>{e(F(lang, b))}</p></li>'
+                    for a, b in TXT[lang]["steps"])
     faq = ""
     for q, a in TXT[lang]["faq"]:
         a = F(lang, a)
@@ -449,30 +493,34 @@ def home(lang):
         else:
             faq += f"<details><summary>{e(q)}</summary><p>{e(a)}</p></details>"
     out += f"""<section id="collectie"{' class="alt"' if has_fav else ''}><div class="wrap">
-  <div class="head"><div><div class="eyebrow">{e(T(lang, "cat_label"))}</div><h2>{e(T(lang, "cat_title"))}</h2></div><p>{e(T(lang, "cat_sub", n=n))}</p></div>
+  <div class="head"><div><h2>{e(T(lang, "cat_title"))}</h2></div><p>{e(T(lang, "cat_sub", n=n))}</p></div>
   <div class="chips" role="group" aria-label="{e(T(lang, "filter_label"))}">{chips}</div>
   <p class="col-intro" aria-live="polite"></p>
   <div class="grid" id="catalog">{cards}</div>
 </div></section>
-<section id="hoe"{'' if has_fav else ' class="alt"'}><div class="wrap">
-  <div class="head"><div><div class="eyebrow">{e(T(lang, "how_label"))}</div><h2>{e(T(lang, "how_title"))}</h2></div></div>
-  <div class="steps">{steps}</div>
+<section id="hoe"{'' if has_fav else ' class="alt"'}><div class="wrap how">
+  <figure class="how-video">
+    <video src="/assets/media/in-de-hand.mp4" poster="/assets/media/in-de-hand.webp" width="540" height="960" muted loop playsinline preload="none" aria-label="{e(T(lang, "how_video_label"))}"></video>
+    <figcaption>{e(T(lang, "how_video"))}</figcaption>
+  </figure>
+  <div>
+    <h2>{e(T(lang, "how_title"))}</h2>
+    <ol class="steps">{steps}</ol>
+  </div>
 </div></section>
 <section id="opmaat" style="padding-top:0"><div class="wrap split">
   <div class="panel">
-    <div class="eyebrow">{e(T(lang, "custom_label"))}</div>
     <h2>{e(T(lang, "custom_title"))}</h2>
     <p>{e(T(lang, "custom_p"))}</p>
     {wa_button(wa(T(lang, "wa_custom")), T(lang, "custom_btn"))}
   </div>
   <div class="panel">
-    <div class="eyebrow">{e(T(lang, "about_label"))}</div>
     <h2>{e(T(lang, "about_title"))}</h2>
     <p>{e(T(lang, "about_p"))}</p>
   </div>
 </div></section>
 <section id="faq" style="padding-top:0"><div class="wrap faq">
-  <div class="head"><div><div class="eyebrow">{e(T(lang, "faq_label"))}</div><h2>{e(T(lang, "faq_title"))}</h2></div></div>
+  <div class="head"><div><h2>{e(T(lang, "faq_title"))}</h2></div></div>
   {faq}
 </div></section>
 </main>
@@ -518,7 +566,7 @@ def product(lang, m):
     else:
         order = (f'<p class="big-price ask">{e(T(lang, "price_on_request"))}</p>'
                  + wa_button(wa_order(lang, m), T(lang, "ask_btn"), "btn-block"))
-    tag = f' <span class="tag flexi" style="position:static;vertical-align:middle">{e(T(lang, "badge_flexi"))}</span>' if m.get("badge") == "flexi" else ""
+    tag = f' <span class="tag flexi tag-inline">{e(T(lang, "badge_flexi"))}</span>' if m.get("badge") == "flexi" else ""
 
     kerst = m in KITEMS
     same = [x for x in ALL if x["collection"] == m["collection"]]
@@ -541,17 +589,18 @@ def product(lang, m):
     {colors_fig}
   </div>
   <div class="pinfo">
-    <div class="eyebrow">{e(col["name"][lang])}{tag}</div>
+    <a class="pcol" href="{url(lang) + ("#kerst" if kerst else "?c=" + col["key"] + "#collectie")}">{e(col["name"][lang])}</a>{tag}
     <h1>{e(nm(m, lang))}</h1>
     {f'<p class="tagline">{e(tagline)}</p>' if tagline else ''}
     <p class="desc">{e(T(lang, "p_desc_kerst" if kerst else ("p_desc" if m.get("knitted", True) else "p_desc_plain"), name=nm(m, lang), collection=col["name"][lang]))}</p>
     {f'<p class="pnote">{e(m["note"][lang])}</p>' if m.get("note") else ""}
+    {kaart(lang, m, "kaart-prod")}
     {order}
     <ul class="facts">
       {f'<li><span>{e(T(lang, "p_contents"))}</span>{e(m["contents"][lang])}</li>' if m.get("contents") else ""}
       <li><span>{e(T(lang, "p_finish"))}</span>{e(T(lang, "p_finish_kerst" if kerst else ("p_finish_val" if m.get("knitted", True) else "p_finish_plain")))}</li>
       <li><span>{e(T(lang, "p_lead"))}</span>{e(lead(lang))}</li>
-      <li><span>{e(T(lang, "p_delivery"))}</span><div>{e(T(lang, "p_delivery_val"))}<br><a class="more" href="{url(lang)}#levering">{e(T(lang, "p_shipping_link"))} →</a></div></li>
+      <li><span>{e(T(lang, "p_delivery"))}</span><div>{e(T(lang, "p_delivery_val"))}<br><a class="more" href="{url(lang)}#levering">{e(T(lang, "p_shipping_link"))}</a></div></li>
     </ul>
     <p class="bigger">{e(T(lang, "p_bigger"))} <a href="{e(wa(with_link(T(lang, "wa_bigger", name=nm(m, lang)), lang, m)))}" target="_blank" rel="noopener">{e(T(lang, "p_bigger_link"))}</a></p>
   </div>
@@ -721,6 +770,9 @@ def main():
     (OUT / "assets").mkdir(exist_ok=True)
     for f in ("site.css", "site.js"):
         shutil.copy2(ROOT / "src" / f, OUT / "assets" / f)
+    # Fontes servidas pelo próprio site (sem Google Fonts, por causa do RGPD) e o vídeo de "Zo werkt het".
+    for d in ("fonts", "media"):
+        shutil.copytree(ROOT / "src" / d, OUT / "assets" / d, dirs_exist_ok=True)
     # Logo e ícones da pasta logo/ (fornecidos pelo dono).
     for src, dst in (("selo-fundo-escuro.svg", "assets/logo.svg"), ("favicon-32.png", "favicon-32.png"),
                      ("icone-180.png", "apple-touch-icon.png")):
