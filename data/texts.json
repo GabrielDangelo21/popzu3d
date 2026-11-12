@@ -100,11 +100,15 @@
         "Je kunt je figuur gratis afhalen in Denderleeuw of laten verzenden. De levertijd hieronder telt vanaf het moment dat je figuur klaar is en vertrekt.{shipping_table}"
       ],
       [
+        "Kan ik mijn figuur terugsturen?",
+        "Ja. Je hebt 14 dagen bedenktijd na ontvangst, zonder reden. Laat het ons weten via WhatsApp en stuur de figuur onbeschadigd terug; de kosten van het terugsturen zijn voor jou. Figuren op maat kun je niet terugsturen."
+      ],
+      [
         "Hoe onderhoud ik mijn figuur?",
         "Zet hem niet in de volle zon of vlak bij een warmtebron. Stof afnemen gaat het best met een zacht penseeltje."
       ]
     ],
-    "footer_tagline": "Gebreide 3D-figuren · Denderleeuw, België",
+    "footer_tagline": "Gebreide 3D-figuren uit Denderleeuw, België",
     "footer_contact": "Contact",
     "footer_company": "Bedrijfsgegevens",
     "footer_vat": "Btw",
@@ -135,8 +139,8 @@
     "p_related": "Meer uit {collection}",
     "p_back": "← Terug naar de collectie",
     "p_photo": "{name}, voorbeeldfoto {i}",
-    "nf_title": "Deze pagina bestaat niet.",
-    "nf_p": "Misschien is de figuur verhuisd naar een andere plank.",
+    "nf_title": "Deze pagina is van de plank gevallen.",
+    "nf_p": "Zelfs de Derp Monkey snapt er niets van. Kijk gerust verder in de collectie.",
     "nf_btn": "Naar de collectie",
     "p_shipping_link": "Alle verzendkosten",
     "ship_dest": "Bestemming",
@@ -182,7 +186,8 @@
     "meta_desc_product_plain": "{name}, 3D-geprint in kleur, {heights} hoog. Speciaal voor jou geprint in Denderleeuw. Bestel via WhatsApp.",
     "how_video": "Zo ziet een figuur eruit als hij net van de printer komt. Echte beelden, geen render.",
     "how_video_label": "Video: een roze alien in breilook, in de hand gehouden",
-    "card_hint": "Bekijk de karakterkaart"
+    "card_hint": "Bekijk de karakterkaart",
+    "footer_legal": "Voorwaarden en privacy"
   },
   "fr": {
     "lang_name": "Français",
@@ -285,11 +290,15 @@
         "Vous pouvez retirer votre figurine gratuitement à Denderleeuw ou la faire envoyer. Le délai ci-dessous compte à partir du moment où votre figurine est prête et expédiée.{shipping_table}"
       ],
       [
+        "Puis-je renvoyer ma figurine ?",
+        "Oui. Vous avez 14 jours après réception pour changer d'avis, sans motif. Prévenez-nous via WhatsApp et renvoyez la figurine intacte ; les frais de retour sont à votre charge. Les figurines sur mesure ne peuvent pas être renvoyées."
+      ],
+      [
         "Comment entretenir ma figurine ?",
         "Ne la placez pas en plein soleil ni près d'une source de chaleur. Pour la dépoussiérer, utilisez un pinceau doux."
       ]
     ],
-    "footer_tagline": "Figurines 3D façon tricot · Denderleeuw, Belgique",
+    "footer_tagline": "Figurines 3D façon tricot, Denderleeuw, Belgique",
     "footer_contact": "Contact",
     "footer_company": "Informations légales",
     "footer_vat": "TVA",
@@ -320,8 +329,8 @@
     "p_related": "Plus de {collection}",
     "p_back": "← Retour à la collection",
     "p_photo": "{name}, photo d'exemple {i}",
-    "nf_title": "Cette page n'existe pas.",
-    "nf_p": "La figurine a peut-être changé d'étagère.",
+    "nf_title": "Cette page est tombée de l'étagère.",
+    "nf_p": "Même le Derp Monkey n'y comprend rien. Jetez plutôt un œil à la collection.",
     "nf_btn": "Voir la collection",
     "p_shipping_link": "Tous les frais d'envoi",
     "ship_dest": "Destination",
@@ -367,7 +376,8 @@
     "meta_desc_product_plain": "{name}, imprimée en 3D en couleur, {heights} de haut. Imprimée pour vous à Denderleeuw. Commandez via WhatsApp.",
     "how_video": "Voilà une figurine tout juste sortie de l'imprimante. De vraies images, pas un rendu 3D.",
     "how_video_label": "Vidéo : un alien rose effet tricot, tenu dans la main",
-    "card_hint": "Voir la fiche perso"
+    "card_hint": "Voir la fiche perso",
+    "footer_legal": "Conditions et vie privée"
   },
   "en": {
     "lang_name": "English",
@@ -470,11 +480,15 @@
         "You can pick up your figure for free in Denderleeuw or have it shipped. The delivery times below start once your figure is ready and sent.{shipping_table}"
       ],
       [
+        "Can I return my figure?",
+        "Yes. You have 14 days after receiving it to change your mind, no reason needed. Let us know via WhatsApp and send the figure back undamaged; return shipping is at your cost. Custom figures can't be returned."
+      ],
+      [
         "How do I look after my figure?",
         "Keep it out of direct sunlight and away from heat sources. A soft brush is the best way to dust it."
       ]
     ],
-    "footer_tagline": "Knitted-look 3D figures · Denderleeuw, Belgium",
+    "footer_tagline": "Knitted-look 3D figures from Denderleeuw, Belgium",
     "footer_contact": "Contact",
     "footer_company": "Company details",
     "footer_vat": "VAT",
@@ -505,8 +519,8 @@
     "p_related": "More from {collection}",
     "p_back": "← Back to the collection",
     "p_photo": "{name}, example photo {i}",
-    "nf_title": "This page doesn't exist.",
-    "nf_p": "Maybe the figure moved to another shelf.",
+    "nf_title": "This page fell off the shelf.",
+    "nf_p": "Even the Derp Monkey is confused. Have a look at the collection instead.",
     "nf_btn": "Go to the collection",
     "p_shipping_link": "All shipping costs",
     "ship_dest": "Destination",
@@ -552,6 +566,7 @@
     "meta_desc_product_plain": "{name}, 3D-printed in colour, {heights} tall. Printed just for you in Denderleeuw, Belgium. Order via WhatsApp.",
     "how_video": "This is a figure fresh off the printer. Real footage, not a render.",
     "how_video_label": "Video: a pink knitted-look alien, held in a hand",
-    "card_hint": "See the character card"
+    "card_hint": "See the character card",
+    "footer_legal": "Terms and privacy"
   }
 }

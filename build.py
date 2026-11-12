@@ -26,6 +26,9 @@ THUMB = 600
 load = lambda name: json.loads((ROOT / "data" / name).read_text(encoding="utf-8"))
 SITE, CAT, TXT = load("site.json"), load("catalog.json"), load("texts.json")
 FICHAS = load("fichas.json")
+LEGAL = load("legal.json")
+# Páginas legais: sempre no preview; no site publicado só quando nome e endereço da empresa estiverem em site.json.
+LEGAL_ON = PREVIEW or bool(SITE["legal"].get("name") and SITE["legal"].get("address"))
 MODELS = CAT["models"]
 STATS = ("cute", "brave", "chaos")
 # Kerstcollectie: aparte lijn, alleen zichtbaar op de homepage in het seizoen "kerst" (productpagina's bestaan altijd).
@@ -323,10 +326,14 @@ def footer(lang):
         elif PREVIEW:
             company.append(e(prefix) + todo(lang))
     year = datetime.date.today().year
+    legal_links = ""
+    if LEGAL_ON:
+        legal_links = ("<br>" if company else "") + "<br>".join(
+            f'<a href="{url(lang, k + "/")}">{e(v["nav"][lang])}</a>' for k, v in LEGAL["pages"].items())
     return f"""<footer><div class="wrap">
   <div><a class="logo logo-foot" href="{url(lang)}"><img src="/assets/logo.svg" alt="popzu" width="154" height="52" loading="lazy"></a><p style="margin-top:8px">{e(T(lang, "footer_tagline"))}</p><p style="margin-top:14px">© {year} popzu</p></div>
   <div><h4>{e(T(lang, "footer_contact"))}</h4><p>{"<br>".join(contact)}</p></div>
-  {f'<div><h4>{e(T(lang, "footer_company"))}</h4><p>{"<br>".join(company)}</p></div>' if company else ""}
+  {f'<div><h4>{e(T(lang, "footer_company"))}</h4><p>{"<br>".join(company)}{legal_links}</p></div>' if company or legal_links else ""}
 </div></footer>
 <a class="totop" href="#top" aria-label="{e(T(lang, "to_top"))}" title="{e(T(lang, "to_top"))}" hidden>↑</a>
 <script src="/assets/site.js" defer></script>
@@ -611,15 +618,49 @@ def product(lang, m):
     return out + footer(lang)
 
 
-def not_found():
-    lang = "nl"
+def not_found(lang):
     out = head(lang, "popzu · 404", T(lang, "nf_title"), "")
     out += nav(lang, "", False, False)
     out += f"""<main id="inhoud" class="nf"><div class="wrap">
-  <div class="eyebrow">404</div>
-  <h1>{e(T(lang, "nf_title"))}</h1>
-  <p>{e(T(lang, "nf_p"))}</p>
-  <a class="btn btn-coral" href="/#collectie">{e(T(lang, "nf_btn"))}</a>
+  <div>
+    <p class="kicker">404</p>
+    <h1>{e(T(lang, "nf_title"))}</h1>
+    <p>{e(T(lang, "nf_p"))}</p>
+    <a class="btn btn-coral" href="{url(lang)}#collectie">{e(T(lang, "nf_btn"))}</a>
+  </div>
+  {kaart(lang, BY_SLUG["derp-monkey"], "kaart-nf") if "derp-monkey" in BY_SLUG else ""}
+</div></main>
+"""
+    return out + footer(lang)
+
+
+def fill_legal(lang, s):
+    """Preenche {name}, {address}... Campo vazio vira 'nog in te vullen' (só aparece no preview)."""
+    L = SITE["legal"]
+    vals = {"name": L.get("name"), "address": L.get("address"), "vat": L.get("vat"), "email": SITE.get("email"),
+            "whatsapp": SITE.get("whatsapp_display"), "lead": lead(lang)}
+    out = e(s.format(**{k: (v or "\x00") for k, v in vals.items()}))
+    return out.replace("\x00", todo(lang))
+
+
+def legal_page(lang, key):
+    pg = LEGAL["pages"][key]
+    path = key + "/"
+    title = pg["title"][lang]
+    out = head(lang, f"{title} · popzu", pg["intro"][lang], path)
+    out += nav(lang, path, False, False)
+    body = "".join(f'<h2>{e(h)}</h2>' + "".join(f"<p>{fill_legal(lang, p)}</p>" for p in ps)
+                   for h, ps in pg["sections"][lang])
+    if pg.get("form"):
+        f = pg["form"]
+        body += (f'<div class="legal-form"><h2>{e(f["title"][lang])}</h2>'
+                 + "".join(f"<p>{fill_legal(lang, x)}</p>" for x in f["lines"][lang]) + "</div>")
+    d = datetime.date.fromisoformat(LEGAL["updated"])
+    out += f"""<main id="inhoud" class="legal"><div class="wrap">
+  <h1>{e(title)}</h1>
+  <p class="intro">{e(pg["intro"][lang])}</p>
+  {body}
+  <p class="updated">{e(LEGAL["updated_label"][lang])} {d.day}/{d.month}/{d.year}</p>
 </div></main>
 """
     return out + footer(lang)
@@ -766,7 +807,14 @@ def main():
         write(pre + "index.html", home(lang))
         for m in ALL:
             write(pre + m["slug"] + "/index.html", product(lang, m))
-    write("404.html", not_found())
+    for lang in LANGS:
+        pre = "" if lang == "nl" else lang + "/"
+        write(pre + "404.html", not_found(lang))
+        if LEGAL_ON:
+            for key in LEGAL["pages"]:
+                write(pre + key + "/index.html", legal_page(lang, key))
+    # Netlify: 404 no idioma certo.
+    write("_redirects", "".join(f"/{l}/* /{l}/404.html 404\n" for l in LANGS if l != "nl"))
     (OUT / "assets").mkdir(exist_ok=True)
     for f in ("site.css", "site.js"):
         shutil.copy2(ROOT / "src" / f, OUT / "assets" / f)
@@ -781,14 +829,17 @@ def main():
         (OUT / old).unlink(missing_ok=True)
     base = (SITE.get("base_url") or "").rstrip("/")
     if base:
-        urls = [url(l, p) for l in LANGS for p in [""] + [m["slug"] + "/" for m in ALL]]
+        extra = [k + "/" for k in LEGAL["pages"]] if LEGAL_ON else []
+        urls = [url(l, p) for l in LANGS for p in [""] + [m["slug"] + "/" for m in ALL] + extra]
         write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
               + "".join(f"<url><loc>{base}{u}</loc></url>\n" for u in urls) + "</urlset>\n")
         write("robots.txt", f"User-agent: *\nAllow: /\nSitemap: {base}/sitemap.xml\n")
     else:
         write("robots.txt", "User-agent: *\nAllow: /\n")
 
-    pages = len(LANGS) * (len(ALL) + 1) + 1
+    pages = len(LANGS) * (len(ALL) + 2 + (len(LEGAL["pages"]) if LEGAL_ON else 0))
+    if not LEGAL_ON:
+        WARN.append("Páginas legais fora do site publicado: falta legal.name e legal.address em site.json.")
     print(f"OK: {pages} páginas em {OUT.name}/ (estação de hoje: {SEASON}{', modo preview' if PREVIEW else ''})")
     for w in WARN:
         print("  aviso:", w)

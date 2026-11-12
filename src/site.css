@@ -212,10 +212,26 @@ footer a:hover{color:var(--text)}
 .bigger{font-size:14px;color:var(--muted);margin:14px 0 0;text-align:center}
 .bigger a{color:var(--mint);font-weight:700}
 
+
 /* 404 */
-.nf{padding:120px 0;text-align:center}
-.nf h1{font-size:clamp(32px,5vw,48px);margin:10px 0}
-.nf p{color:var(--muted);margin:0 0 24px}
+.nf{padding:96px 0}
+.nf .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:center}
+.nf h1{font-size:clamp(34px,5vw,56px);line-height:1.02;margin:0 0 14px}
+.nf p{color:var(--muted);margin:0 0 26px;max-width:28em}
+.nf .kicker{color:var(--coral);font-size:20px;margin-bottom:8px}
+.kaart-nf{max-width:320px;transform:rotate(4deg)}
+.nf .kaart p{color:var(--ink);max-width:none;margin:12px 0 0}
+
+/* voorwaarden en privacy */
+.legal{padding:56px 0 88px}
+.legal .wrap{max-width:720px}
+.legal h1{font-size:clamp(34px,5vw,52px);line-height:1.05;margin:0 0 14px}
+.legal .intro{font-size:19px;color:var(--text);margin:0 0 36px}
+.legal h2{font-size:22px;margin:34px 0 8px}
+.legal p{color:var(--muted);margin:0 0 12px}
+.legal-form{margin-top:44px;padding:24px 26px;border:2px dashed var(--line);border-radius:18px}
+.legal-form h2{margin-top:0}
+.legal .updated{font-size:14px;margin-top:40px}
 
 @media (max-width:960px){
   .grid{grid-template-columns:repeat(3,1fr)}
@@ -234,6 +250,8 @@ footer a:hover{color:var(--text)}
   section{padding:56px 0}
   .product .wrap{gap:28px}
   .how-video{max-width:260px}
+  .nf .wrap{grid-template-columns:1fr}
+  .nf{padding:56px 0}
 }
 @media (max-width:520px){
   .wrap{padding:0 16px}

@@ -1,0 +1,94 @@
+{
+  "_info": "Condições de venda e privacidade (NL/FR/EN). Modelo a confirmar com um profissional. Campos {name}, {address}, {vat} vêm de site.json -> legal; as páginas só entram no site publicado quando name e address estiverem preenchidos (no preview sempre aparecem, com 'nog in te vullen').",
+  "updated": "2026-11-12",
+  "pages": {
+    "voorwaarden": {
+      "title": {"nl": "Verkoopsvoorwaarden", "fr": "Conditions de vente", "en": "Terms of sale"},
+      "nav": {"nl": "Voorwaarden", "fr": "Conditions", "en": "Terms"},
+      "intro": {
+        "nl": "Deze voorwaarden gelden voor elke bestelling bij popzu. Kort gezegd: je bestelt via WhatsApp, wij printen je figuur, en als hij je toch niet bevalt, heb je 14 dagen om hem terug te sturen.",
+        "fr": "Ces conditions s'appliquent à chaque commande chez popzu. En bref : vous commandez via WhatsApp, nous imprimons votre figurine, et si elle ne vous plaît pas, vous avez 14 jours pour la renvoyer.",
+        "en": "These terms apply to every order at popzu. In short: you order via WhatsApp, we print your figure, and if you don't like it after all, you have 14 days to send it back."
+      },
+      "sections": {
+        "nl": [
+          ["Wie zijn we", ["popzu is een handelsnaam van {name}, {address}. Ondernemingsnummer en btw: {vat}.", "Je bereikt ons via WhatsApp op {whatsapp} of per e-mail op {email}."]],
+          ["Bestellen", ["Je bestelt door ons een bericht te sturen via de knop ‘Bestel via WhatsApp’ bij een figuur. Je bestelling is pas definitief als wij ze schriftelijk bevestigen, met de figuur, het formaat, de kleur, de totaalprijs en de verzendkosten."]],
+          ["Prijzen en betalen", ["Alle prijzen staan in euro, inclusief btw. Verzendkosten komen erbij en staan in de tabel bij ‘Veelgestelde vragen’; we bevestigen ze altijd vóór je bestelling definitief is.", "De betaalwijze en het moment van betalen spreken we af via WhatsApp, voor we beginnen te printen."]],
+          ["Productie en levering", ["Elke figuur wordt na je bestelling voor jou geprint. Reken op {lead} productie, plus de verzendtijd als je hem laat opsturen. Afhalen in Denderleeuw is gratis. We leveren in elk geval binnen 30 dagen, tenzij we samen iets anders afspreken.", "De foto's op de site zijn voorbeeldfoto's van het design. Kleine verschillen in kleur en de zichtbare laagjes van het 3D-printen horen bij het product en zijn geen gebrek."]],
+          ["Herroepingsrecht: 14 dagen bedenktijd", ["Je mag je aankoop binnen 14 dagen na ontvangst zonder reden herroepen. Laat het ons weten via WhatsApp of e-mail; je mag daarvoor het formulier hieronder gebruiken, maar dat hoeft niet.", "Stuur de figuur daarna binnen 14 dagen onbeschadigd terug. De kosten van het terugsturen zijn voor jou. We betalen het volledige bedrag, inclusief de standaard verzendkosten, terug binnen 14 dagen na je bericht. We mogen wachten met terugbetalen tot we de figuur terug hebben.", "Dit geldt voor alle figuren uit de collectie, ook in een formaat of kleur die op de site staat. Het geldt niet voor figuren op maat, zoals een eigen ontwerp, een eigen tekst, of kleuren en formaten buiten ons aanbod die we speciaal voor jou afspreken."]],
+          ["Garantie", ["Je hebt de wettelijke garantie van 2 jaar op gebreken die er al waren bij de levering. Meld een gebrek binnen 2 maanden nadat je het ontdekt. Schade door een val, door direct zonlicht of door warmte valt niet onder de garantie."]],
+          ["Veiligheid", ["Onze figuren zijn decoratieve objecten, geen speelgoed. Ze zijn niet geschikt voor kinderen jonger dan 3 jaar, want er zitten kleine onderdelen in."]],
+          ["Klachten", ["Niet tevreden? Stuur ons eerst een bericht, dan zoeken we samen een oplossing. Lukt dat niet, dan kun je terecht bij de Consumentenombudsdienst (consumentenombudsdienst.be). Op deze voorwaarden is het Belgisch recht van toepassing."]]
+        ],
+        "fr": [
+          ["Qui sommes-nous", ["popzu est un nom commercial de {name}, {address}. Numéro d'entreprise et TVA : {vat}.", "Vous pouvez nous joindre sur WhatsApp au {whatsapp} ou par e-mail à {email}."]],
+          ["Commander", ["Vous commandez en nous envoyant un message avec le bouton « Commander via WhatsApp » d'une figurine. Votre commande est définitive quand nous la confirmons par écrit, avec la figurine, le format, la couleur, le prix total et les frais d'envoi."]],
+          ["Prix et paiement", ["Tous les prix sont en euros, TVA comprise. Les frais d'envoi s'y ajoutent et figurent dans le tableau des « Questions fréquentes » ; nous les confirmons toujours avant que votre commande soit définitive.", "Nous convenons du mode et du moment de paiement via WhatsApp, avant de lancer l'impression."]],
+          ["Fabrication et livraison", ["Chaque figurine est imprimée pour vous après votre commande. Comptez {lead} de fabrication, plus le délai d'envoi si vous la faites livrer. Le retrait à Denderleeuw est gratuit. Nous livrons dans tous les cas dans les 30 jours, sauf accord différent entre nous.", "Les photos du site sont des photos d'exemple du design. De légères différences de couleur et les fines couches visibles de l'impression 3D font partie du produit et ne sont pas un défaut."]],
+          ["Droit de rétractation : 14 jours", ["Vous pouvez vous rétracter sans motif dans les 14 jours suivant la réception. Prévenez-nous via WhatsApp ou par e-mail ; vous pouvez utiliser le formulaire ci-dessous, mais ce n'est pas obligatoire.", "Renvoyez ensuite la figurine intacte dans les 14 jours. Les frais de retour sont à votre charge. Nous remboursons le montant total, frais d'envoi standard compris, dans les 14 jours suivant votre message. Nous pouvons attendre d'avoir reçu la figurine pour rembourser.", "Cela vaut pour toutes les figurines de la collection, y compris dans un format ou une couleur proposés sur le site. Cela ne vaut pas pour les figurines sur mesure, comme votre propre design, un texte personnel, ou des couleurs et formats hors de notre offre convenus spécialement pour vous."]],
+          ["Garantie", ["Vous bénéficiez de la garantie légale de 2 ans sur les défauts existant à la livraison. Signalez un défaut dans les 2 mois après l'avoir constaté. Les dégâts dus à une chute, au plein soleil ou à la chaleur ne sont pas couverts."]],
+          ["Sécurité", ["Nos figurines sont des objets décoratifs, pas des jouets. Elles ne conviennent pas aux enfants de moins de 3 ans, car elles contiennent de petites pièces."]],
+          ["Réclamations", ["Pas satisfait ? Écrivez-nous d'abord, nous chercherons une solution ensemble. Si cela ne suffit pas, vous pouvez vous adresser au Service de Médiation pour le Consommateur (mediationconsommateur.be). Ces conditions sont soumises au droit belge."]]
+        ],
+        "en": [
+          ["Who we are", ["popzu is a trade name of {name}, {address}. Company and VAT number: {vat}.", "You can reach us on WhatsApp at {whatsapp} or by e-mail at {email}."]],
+          ["Ordering", ["You order by sending us a message with the ‘Order via WhatsApp’ button on a figure. Your order is final once we confirm it in writing, with the figure, size, colour, total price and shipping cost."]],
+          ["Prices and payment", ["All prices are in euros and include VAT. Shipping is extra and listed in the table under ‘Frequently asked questions’; we always confirm it before your order is final.", "We agree on the payment method and when to pay via WhatsApp, before we start printing."]],
+          ["Production and delivery", ["Every figure is printed for you after you order. Allow {lead} for production, plus delivery time if you have it shipped. Pick-up in Denderleeuw is free. We always deliver within 30 days, unless we agree otherwise.", "The photos on the site are example photos of the design. Slight colour differences and the fine visible layers of 3D printing are part of the product and not a defect."]],
+          ["Right of withdrawal: 14 days", ["You may withdraw from your purchase without giving a reason within 14 days of receiving it. Let us know via WhatsApp or e-mail; you may use the form below, but you don't have to.", "Then send the figure back undamaged within 14 days. Return shipping is at your cost. We refund the full amount, including standard shipping, within 14 days of your message. We may wait to refund until we have the figure back.", "This applies to every figure in the collection, including any size or colour offered on the site. It does not apply to custom figures, such as your own design, personal text, or colours and sizes outside our range that we agree on specially for you."]],
+          ["Guarantee", ["You have the 2-year legal guarantee on defects that existed at delivery. Report a defect within 2 months of discovering it. Damage from a fall, direct sunlight or heat is not covered."]],
+          ["Safety", ["Our figures are decorative objects, not toys. They are not suitable for children under 3, as they contain small parts."]],
+          ["Complaints", ["Not happy? Send us a message first and we'll look for a solution together. If that doesn't work, you can contact the Consumer Mediation Service (consumentenombudsdienst.be). These terms are governed by Belgian law."]]
+        ]
+      },
+      "form": {
+        "title": {"nl": "Modelformulier voor herroeping", "fr": "Formulaire de rétractation", "en": "Model withdrawal form"},
+        "lines": {
+          "nl": ["Aan: {name}, {address}, {email}", "Ik deel u hierbij mee dat ik mijn overeenkomst betreffende de verkoop van de volgende goederen herroep:", "Besteld op / ontvangen op:", "Naam:", "Adres:", "Datum en handtekening (alleen op papier):"],
+          "fr": ["À l'attention de : {name}, {address}, {email}", "Je vous notifie par la présente ma rétractation du contrat portant sur la vente des biens ci-dessous :", "Commandé le / reçu le :", "Nom :", "Adresse :", "Date et signature (uniquement sur papier) :"],
+          "en": ["To: {name}, {address}, {email}", "I hereby give notice that I withdraw from my contract for the sale of the following goods:", "Ordered on / received on:", "Name:", "Address:", "Date and signature (only on paper):"]
+        }
+      }
+    },
+    "privacy": {
+      "title": {"nl": "Privacy", "fr": "Vie privée", "en": "Privacy"},
+      "nav": {"nl": "Privacy", "fr": "Vie privée", "en": "Privacy"},
+      "intro": {
+        "nl": "We gebruiken je gegevens alleen om je bestelling te maken en te leveren. Geen cookies, geen advertenties, en we verkopen niets door.",
+        "fr": "Nous utilisons vos données uniquement pour préparer et livrer votre commande. Pas de cookies, pas de publicité, et nous ne revendons rien.",
+        "en": "We only use your details to make and deliver your order. No cookies, no ads, and we never sell anything on."
+      },
+      "sections": {
+        "nl": [
+          ["Wie is verantwoordelijk", ["{name}, {address}. Vragen over je gegevens stuur je naar {email}."]],
+          ["Welke gegevens", ["Als je ons een bericht stuurt of iets bestelt: je naam, je telefoonnummer, je berichten, je adres als je laat verzenden, en de gegevens van je bestelling en betaling."]],
+          ["Waarvoor", ["Om je vragen te beantwoorden en je bestelling te maken, te verzenden en op te volgen (dat is nodig voor de overeenkomst), en om onze boekhouding te doen (dat is een wettelijke plicht)."]],
+          ["Met wie we ze delen", ["Met het verzendbedrijf, alleen je naam en adres. Met je bank of betaaldienst voor de betaling. WhatsApp is het kanaal dat jij kiest om ons te contacteren; daarvoor geldt ook het privacybeleid van WhatsApp. We verkopen je gegevens nooit."]],
+          ["Hoe lang", ["Berichten en bestelgegevens bewaren we zolang we ze nodig hebben voor je bestelling en de garantie, en maximaal 2 jaar na de levering. Facturen bewaren we zolang de boekhoudwet dat vraagt."]],
+          ["Deze website", ["De site gebruikt geen cookies. We tellen bezoeken en klikken op de WhatsApp-knoppen met GoatCounter, zonder cookies en zonder je te volgen over andere sites. Lettertypes, foto's en video's komen van onze eigen site. De site wordt gehost door Netlify, dat technische gegevens zoals je IP-adres kort verwerkt om de site veilig te laten werken."]],
+          ["Je rechten", ["Je mag je gegevens inkijken, laten verbeteren of laten wissen, en je mag bezwaar maken. Stuur ons gewoon een bericht. Ben je niet tevreden over hoe we met je gegevens omgaan, dan kun je een klacht indienen bij de Gegevensbeschermingsautoriteit (gegevensbeschermingsautoriteit.be)."]]
+        ],
+        "fr": [
+          ["Responsable", ["{name}, {address}. Pour toute question sur vos données : {email}."]],
+          ["Quelles données", ["Quand vous nous écrivez ou commandez : votre nom, votre numéro de téléphone, vos messages, votre adresse si vous faites livrer, et les données de votre commande et de votre paiement."]],
+          ["Pourquoi", ["Pour répondre à vos questions et pour préparer, envoyer et suivre votre commande (c'est nécessaire au contrat), et pour notre comptabilité (c'est une obligation légale)."]],
+          ["Avec qui nous les partageons", ["Avec le transporteur, uniquement votre nom et votre adresse. Avec votre banque ou service de paiement pour le paiement. WhatsApp est le canal que vous choisissez pour nous contacter ; la politique de confidentialité de WhatsApp s'applique aussi. Nous ne vendons jamais vos données."]],
+          ["Combien de temps", ["Nous gardons les messages et les données de commande aussi longtemps que nécessaire pour la commande et la garantie, et au maximum 2 ans après la livraison. Les factures sont conservées aussi longtemps que la loi comptable l'exige."]],
+          ["Ce site", ["Le site n'utilise pas de cookies. Nous comptons les visites et les clics sur les boutons WhatsApp avec GoatCounter, sans cookies et sans vous suivre sur d'autres sites. Les polices, photos et vidéos viennent de notre propre site. Le site est hébergé par Netlify, qui traite brièvement des données techniques comme votre adresse IP pour la sécurité du site."]],
+          ["Vos droits", ["Vous pouvez consulter, corriger ou faire effacer vos données, et vous opposer à leur traitement. Envoyez-nous simplement un message. Si vous n'êtes pas satisfait, vous pouvez porter plainte auprès de l'Autorité de protection des données (autoriteprotectiondonnees.be)."]]
+        ],
+        "en": [
+          ["Who is responsible", ["{name}, {address}. Questions about your details go to {email}."]],
+          ["What we collect", ["When you message us or order: your name, phone number, messages, your address if you have it shipped, and the details of your order and payment."]],
+          ["Why", ["To answer your questions and to make, ship and follow up your order (this is needed for the contract), and for our bookkeeping (this is a legal obligation)."]],
+          ["Who we share it with", ["The shipping company, only your name and address. Your bank or payment service, for the payment. WhatsApp is the channel you choose to contact us; WhatsApp's own privacy policy also applies. We never sell your details."]],
+          ["How long", ["We keep messages and order details as long as we need them for your order and the guarantee, and no longer than 2 years after delivery. Invoices are kept as long as accounting law requires."]],
+          ["This website", ["The site uses no cookies. We count visits and clicks on the WhatsApp buttons with GoatCounter, without cookies and without following you to other sites. Fonts, photos and videos come from our own site. The site is hosted by Netlify, which briefly processes technical data such as your IP address to keep the site secure."]],
+          ["Your rights", ["You may see, correct or delete your details, and you may object to how we use them. Just send us a message. If you're not happy with how we handle your details, you can complain to the Belgian Data Protection Authority (gegevensbeschermingsautoriteit.be)."]]
+        ]
+      }
+    }
+  },
+  "updated_label": {"nl": "Laatst bijgewerkt op", "fr": "Dernière mise à jour le", "en": "Last updated on"}
+}
