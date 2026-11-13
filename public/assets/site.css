@@ -7,7 +7,7 @@
 
 :root{
   --bg:#1E1B22; --bg-2:#1A171E; --surface:#2A2630; --surface-2:#332E3A; --line:#3D3745;
-  --text:#F4EFEA; --muted:#A79FAE;
+  --text:#F4EFEA; --muted:#A79FAE; --text-2:#BCB4C3;
   --coral:#FF7A59; --mint:#7FD8BE; --sun:#FFC94A; --wa:#25D366;
   /* karakterkaart: papier en donkere tinten van de merkkleuren, leesbaar op crème */
   --paper:#F4EFEA; --ink:#1E1B22; --ink-2:#6B6372; --seam:#CFC5BC;
@@ -22,6 +22,8 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:'DM Sans',syste
 img,video{display:block;max-width:100%;height:auto}
 a{color:inherit;text-decoration:none}
 :focus-visible{outline:2px solid var(--mint);outline-offset:3px;border-radius:6px}
+/* ao navegar com Tab, o elemento focado não fica atrás do menu fixo nem da barra de baixo */
+a,button,input,summary{scroll-margin-top:96px;scroll-margin-bottom:96px}
 .wrap{max-width:1160px;margin:0 auto;padding:0 20px}
 h1,h2,h3,.logo{font-family:'Fredoka',system-ui,sans-serif;font-weight:600;letter-spacing:-.01em}
 .eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;font-size:16px;color:var(--mint)}
@@ -48,6 +50,7 @@ h1,h2,h3,.logo{font-family:'Fredoka',system-ui,sans-serif;font-weight:600;letter
 /* topbar + nav */
 .topbar{background:var(--mint);color:var(--bg);font-size:13px;font-weight:500;text-align:center;padding:7px 12px}
 .topbar a{text-decoration:underline;text-underline-offset:2px}
+.topbar a:focus-visible{outline-color:var(--bg)}
 .topbar.kerst{background:var(--sun)}
 nav.main{border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(30,27,34,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:10}
 nav.main .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px}
@@ -62,7 +65,13 @@ nav.main .wrap{display:flex;align-items:center;justify-content:space-between;gap
 .lang a[aria-current]{background:var(--surface-2);color:var(--text);font-weight:700}
 
 /* ---------- karakterkaart ---------- */
-.kaart{background:var(--paper);color:var(--ink);border-radius:16px;padding:16px 18px 14px;box-shadow:0 18px 40px rgba(0,0,0,.45)}
+.kaart{--rot:0deg;--rx:0deg;--ry:0deg;position:relative;background:var(--paper);color:var(--ink);border-radius:16px;padding:16px 18px 14px;box-shadow:0 18px 40px rgba(0,0,0,.45);
+  transform:perspective(800px) rotate(var(--rot)) rotateX(var(--rx)) rotateY(var(--ry));transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+/* inclinação 3D: a ficha acompanha o mouse como uma carta contra a luz (só com mouse; o JS liga a classe) */
+.kaart.tilting{transition:transform .08s linear}
+.kaart::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s;
+  background:radial-gradient(circle at var(--gx,50%) var(--gy,30%),rgba(255,255,255,.55),rgba(255,255,255,0) 55%);mix-blend-mode:soft-light}
+.kaart.tilting::after{opacity:1}
 .kaart-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:10px}
 .kaart-name{font-family:'Fredoka',sans-serif;font-weight:600;font-size:22px;line-height:1.1}
 .kaart-col{font-size:13px;color:var(--ink-2);white-space:nowrap}
@@ -73,12 +82,12 @@ nav.main .wrap{display:flex;align-items:center;justify-content:space-between;gap
 .stat b{flex:none;font-family:'Fredoka',sans-serif;font-weight:600;font-size:17px;min-width:1.3em;text-align:right}
 /* encolhe com a coluna: sempre 10 pontos inteiros (cada um = 10% da largura), no máximo 14 px cada */
 .steken{--c:var(--coral-ink);--off:var(--off-ink);--w:14px;display:block;flex:1 1 auto;min-width:0;max-width:calc(var(--w)*10);aspect-ratio:140/16;
-  background:linear-gradient(90deg,var(--c) calc(var(--n)*10%),var(--off) 0);
+  background:linear-gradient(90deg,var(--c) calc(var(--k,var(--n))*10%),var(--off) 0);
   -webkit-mask:var(--stitch) 0 0/10% 100% repeat-x;mask:var(--stitch) 0 0/10% 100% repeat-x}
 .st-brave .steken{--c:var(--mint-ink)}
 .st-chaos .steken{--c:var(--sun-ink)}
 .power{margin:12px 0 0;padding-top:11px;border-top:2px dashed var(--seam);font-size:15px;line-height:1.4}
-.power span{display:block;font-family:'Fredoka',sans-serif;font-weight:600;font-size:14px;color:var(--coral-ink);margin-bottom:1px}
+.power span{display:block;font-family:'Fredoka',sans-serif;font-weight:600;font-size:14px;color:#B83A1A;margin-bottom:1px}
 /* mini-meters op donkere foto (hover in de collectie) */
 .stats.mini{gap:3px}
 .stats.mini .stat{grid-template-columns:4.8em 1fr;gap:6px}
@@ -95,24 +104,24 @@ nav.main .wrap{display:flex;align-items:center;justify-content:space-between;gap
 .hero h1{font-size:clamp(44px,5.4vw,76px);line-height:.98;margin:0 0 24px}
 .hero h1 span{display:block}
 .hero h1 .l2{padding-left:.9em}
-.intro{color:var(--muted);font-size:18px;max-width:30em;margin:0 0 30px}
+.intro{color:var(--text-2);font-size:18px;max-width:30em;margin:0 0 30px}
 .ctas{display:flex;gap:12px;flex-wrap:wrap}
 .hero-visual{position:relative;padding-left:40px}
 .stage{margin:0;position:relative}
 .stage-pic img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:28px}
 /* a ficha fica pendurada embaixo da foto: cobre só a faixa do chão, nunca a figura */
-.kaart-hero{position:relative;margin:-40px 0 0 -40px;width:min(310px,82%);transform:rotate(-3deg)}
+.kaart-hero{position:relative;margin:-40px 0 0 -40px;width:min(310px,82%);--rot:-3deg}
 
 /* trust */
 .trust{list-style:none;margin:0 auto;display:flex;flex-wrap:wrap;gap:10px 36px;padding-top:20px;padding-bottom:20px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:14px;color:var(--muted)}
 .trust b{color:var(--text);font-weight:700}
 
 /* sections */
-section{padding:76px 0}
+section{padding:64px 0}
 .alt{background:var(--bg-2)}
 .head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:28px;flex-wrap:wrap}
 .head h2,.how h2{font-size:clamp(30px,4vw,44px);margin:0;line-height:1.05}
-.head p{color:var(--muted);margin:0;max-width:400px}
+.head p{color:var(--text-2);margin:0;max-width:400px}
 .center{text-align:center;margin-top:28px}
 
 /* cards */
@@ -124,6 +133,10 @@ section{padding:76px 0}
 .card .info{padding:12px 6px 6px;display:flex;flex-direction:column;flex:1}
 .card h3{font-size:18px;margin:0;font-weight:600}
 .card h3 a::after{content:"";position:absolute;inset:0;border-radius:var(--radius)}
+.card h3 a:focus-visible{outline:none}
+.card h3 a:focus-visible::after{outline:2px solid var(--mint);outline-offset:3px}
+.card:has(h3 a:focus-visible){outline:2px solid var(--mint);outline-offset:3px}
+a:focus-visible{text-decoration:underline;text-underline-offset:3px}
 .card .line{font-size:14px;color:var(--muted);margin:3px 0 0;line-height:1.35}
 .card .row{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-top:auto;padding-top:12px}
 .card .sub{font-size:12px;color:var(--muted);text-align:right}
@@ -146,9 +159,10 @@ section{padding:76px 0}
 .chips::-webkit-scrollbar{display:none}
 .chip{white-space:nowrap;padding:9px 16px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font:inherit;font-size:14px;color:var(--muted);cursor:pointer}
 .chip:hover{color:var(--text)}
+.chip[aria-pressed="true"] small{color:var(--bg)}
 .chip[aria-pressed="true"]{background:var(--mint);color:var(--bg);border-color:var(--mint);font-weight:700}
-.chip small{opacity:.7;font-size:12px;margin-left:4px}
-.col-intro{color:var(--muted);margin:0 0 20px;min-height:1.5em}
+.chip small{opacity:1;color:var(--muted);font-size:12px;margin-left:4px}
+.col-intro{color:var(--text-2);margin:0 0 20px;min-height:1.5em}
 
 /* zo werkt het */
 .how{display:grid;grid-template-columns:minmax(220px,340px) 1fr;gap:64px;align-items:center}
@@ -159,13 +173,13 @@ section{padding:76px 0}
 .step{display:grid;grid-template-columns:56px 1fr;column-gap:16px;counter-increment:step}
 .step::before{content:counter(step);grid-row:span 2;font-family:'Fredoka',sans-serif;font-weight:600;font-size:46px;line-height:1;color:var(--coral)}
 .step h3{margin:2px 0 4px;font-size:21px}
-.step p{margin:0;color:var(--muted);font-size:15px;max-width:34em}
+.step p{margin:0;color:var(--text-2);font-size:16px;max-width:34em}
 
 /* custom + about */
 .split{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .panel{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:32px}
 .panel h2{font-size:30px;margin:0 0 12px;line-height:1.1}
-.panel p{color:var(--muted);margin:0 0 20px}
+.panel p{color:var(--text-2);margin:0 0 20px}
 .panel p:last-child{margin-bottom:0}
 
 /* faq */
@@ -175,7 +189,7 @@ summary{cursor:pointer;font-weight:500;font-size:17px;list-style:none;display:fl
 summary::-webkit-details-marker{display:none}
 summary::after{content:"+";color:var(--coral);font-size:22px;line-height:1}
 details[open] summary::after{content:"–"}
-details p{color:var(--muted);margin:10px 0 0}
+details p{color:var(--text-2);margin:10px 0 0}
 
 /* footer */
 footer{border-top:1px solid var(--line);padding:40px 0;color:var(--muted);font-size:14px}
@@ -202,8 +216,8 @@ footer a:hover{color:var(--text)}
 .pcol:hover{text-decoration:underline;text-underline-offset:3px}
 .pinfo h1{font-size:clamp(36px,5vw,52px);line-height:1.02;margin:6px 0 8px}
 .pinfo .tagline{font-size:19px;color:var(--text);margin:0 0 12px}
-.pinfo .desc{color:var(--muted);margin:0 0 22px}
-.kaart-prod{margin:0 0 28px;max-width:400px;transform:rotate(-1deg)}
+.pinfo .desc{color:var(--text-2);margin:0 0 22px}
+.kaart-prod{margin:0 0 28px;max-width:400px;--rot:-1deg}
 .pinfo .big-price{font-family:'Fredoka',sans-serif;font-size:34px;font-weight:600;margin:0 0 18px}
 .pinfo .big-price.ask{font-size:22px;color:var(--muted)}
 .facts{list-style:none;padding:0;margin:0 0 24px;border-top:1px solid var(--line)}
@@ -217,9 +231,9 @@ footer a:hover{color:var(--text)}
 .nf{padding:96px 0}
 .nf .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:center}
 .nf h1{font-size:clamp(34px,5vw,56px);line-height:1.02;margin:0 0 14px}
-.nf p{color:var(--muted);margin:0 0 26px;max-width:28em}
+.nf p{color:var(--text-2);margin:0 0 26px;max-width:28em}
 .nf .kicker{color:var(--coral);font-size:20px;margin-bottom:8px}
-.kaart-nf{max-width:320px;transform:rotate(4deg)}
+.kaart-nf{max-width:320px;--rot:4deg}
 .nf .kaart p{color:var(--ink);max-width:none;margin:12px 0 0}
 
 /* voorwaarden en privacy */
@@ -228,7 +242,7 @@ footer a:hover{color:var(--text)}
 .legal h1{font-size:clamp(34px,5vw,52px);line-height:1.05;margin:0 0 14px}
 .legal .intro{font-size:19px;color:var(--text);margin:0 0 36px}
 .legal h2{font-size:22px;margin:34px 0 8px}
-.legal p{color:var(--muted);margin:0 0 12px}
+.legal p{color:var(--text-2);margin:0 0 12px}
 .legal-form{margin-top:44px;padding:24px 26px;border:2px dashed var(--line);border-radius:18px}
 .legal-form h2{margin-top:0}
 .legal .updated{font-size:14px;margin-top:40px}
@@ -298,12 +312,13 @@ table.ship{width:100%;border-collapse:collapse;font-size:14px;min-width:460px}
 
 /* kleuren */
 .colors{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 8px}
-.color-chip input{position:absolute;opacity:0;pointer-events:none}
+.color-chip{position:relative}
+.color-chip input{position:absolute;inset:0;opacity:0;pointer-events:none}
 .color-chip span{display:inline-block;padding:8px 14px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font-size:14px;color:var(--muted);cursor:pointer}
 .color-chip span:hover{color:var(--text);border-color:#57505F}
 .color-chip input:checked+span{background:var(--mint);border-color:var(--mint);color:var(--bg);font-weight:700}
 .color-chip input:focus-visible+span{outline:2px solid var(--mint);outline-offset:2px}
-.color-hint{font-size:13px;color:var(--muted);margin:0 0 22px}
+.color-hint{font-size:14px;color:var(--text-2);margin:0 0 22px}
 .color-chart{margin:18px 0 0}
 .color-chart img{width:100%;border-radius:16px;border:1px solid var(--line)}
 .color-chart figcaption{font-size:13px;color:var(--muted);margin-top:8px}
@@ -315,3 +330,36 @@ table.ship{width:100%;border-collapse:collapse;font-size:14px;min-width:460px}
 .kerst-cat:first-of-type{margin-top:0}
 .kerst-tag{color:var(--muted);margin:0 0 16px}
 .pnote{display:inline-block;font-size:14px;color:var(--sun);border:1px solid #5A4B2A;background:#2E2820;border-radius:10px;padding:6px 12px;margin:0 0 20px}
+
+/* botões de idioma com área de toque de 44px no celular */
+@media (max-width:860px){
+  .lang{padding:2px}
+  .lang a{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:40px;padding:0 10px}
+}
+
+/* pausar o vídeo de 'Zo werkt het' */
+.vid{position:relative}
+.vid-toggle{position:absolute;right:12px;bottom:12px;width:44px;height:44px;border-radius:50%;border:1px solid rgba(244,239,234,.35);background:rgba(30,27,34,.75);color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center}
+.vid-toggle span{width:12px;height:14px;border-left:4px solid currentColor;border-right:4px solid currentColor}
+.vid-toggle.is-paused span{width:0;height:0;border:0;border-left:13px solid currentColor;border-top:8px solid transparent;border-bottom:8px solid transparent;margin-left:4px}
+.vid-toggle:hover{background:rgba(30,27,34,.95)}
+
+/* barra de pedido fixa na página de produto (só no celular) */
+.buybar{display:none}
+@media (max-width:860px){
+  .buybar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:12;align-items:center;justify-content:space-between;gap:12px;
+    padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(30,27,34,.97);border-top:1px solid var(--line)}
+  .buybar[hidden]{display:none}
+  .buybar div{display:flex;flex-direction:column;min-width:0;line-height:1.25}
+  .buybar b{font-family:'Fredoka',sans-serif;font-weight:600;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .buybar span{font-size:14px;color:var(--text-2)}
+  .buybar .btn{flex:none;min-height:44px}
+  body:has(.buybar:not([hidden])) .totop{bottom:84px}
+}
+
+/* no celular o botão de voltar ao topo cobria textos e perguntas: o menu fixo já faz esse papel */
+@media (max-width:860px){.totop{display:none!important}}
+
+/* FAQ: a resposta desliza ao abrir e fechar (o JS anima a altura) */
+.faq details{overflow:hidden}
+@media (prefers-reduced-motion:reduce){.kaart,.kaart::after{transition:none}}

@@ -35,7 +35,7 @@
     "pumpkin-killer": {"cute": 4, "brave": 10, "chaos": 9, "power": {"nl": "Griezelig van buiten, lief van binnen. Meestal.", "fr": "Effrayant dehors, doux dedans. En général.", "en": "Spooky outside, sweet inside. Mostly."}},
     "baby-vampire": {"cute": 8, "brave": 7, "chaos": 6, "power": {"nl": "Drinkt alleen tomatensap. Officieel.", "fr": "Ne boit que du jus de tomate. Officiellement.", "en": "Only drinks tomato juice. Officially."}},
     "baby-reaper": {"cute": 8, "brave": 5, "chaos": 4, "power": {"nl": "Maakt niemand bang, maar probeert het elke dag.", "fr": "Ne fait peur à personne, mais essaie chaque jour.", "en": "Scares nobody, but tries every day."}},
-    "pumpboo": {"cute": 10, "brave": 3, "chaos": 5, "power": {"nl": "Een spookje dat zich in een pompoen verstopt. Verlegen, niet eng.", "fr": "Un fantôme caché dans une citrouille. Timide, pas effrayant.", "en": "A ghost hiding in a pumpkin. Shy, not scary."}},
+    "pumpboo": {"cute": 10, "brave": 3, "chaos": 5, "power": {"nl": "Een spookje dat zich in een pompoen verstopt. Heel verlegen.", "fr": "Un fantôme caché dans une citrouille. Très timide.", "en": "A ghost hiding in a pumpkin. Very shy."}},
     "pumpkinaut": {"cute": 7, "brave": 9, "chaos": 6, "power": {"nl": "De eerste pompoen op de maan.", "fr": "La première citrouille sur la Lune.", "en": "The first pumpkin on the moon."}},
     "derp-pumpkin": {"cute": 7, "brave": 4, "chaos": 8, "power": {"nl": "Grote ogen, nul plannen.", "fr": "Grands yeux, zéro plan.", "en": "Big eyes, zero plans."}},
     "the-mummy": {"cute": 7, "brave": 6, "chaos": 3, "power": {"nl": "Altijd goed ingepakt, nooit koud.", "fr": "Toujours bien emmaillotée, jamais frileuse.", "en": "Always wrapped up, never cold."}},

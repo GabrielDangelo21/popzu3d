@@ -507,7 +507,10 @@ def home(lang):
 </div></section>
 <section id="hoe"{'' if has_fav else ' class="alt"'}><div class="wrap how">
   <figure class="how-video">
-    <video src="/assets/media/in-de-hand.mp4" poster="/assets/media/in-de-hand.webp" width="540" height="960" muted loop playsinline preload="none" aria-label="{e(T(lang, "how_video_label"))}"></video>
+    <div class="vid">
+      <video src="/assets/media/in-de-hand.mp4" poster="/assets/media/in-de-hand.webp" width="540" height="960" muted loop playsinline preload="none" aria-label="{e(T(lang, "how_video_label"))}"></video>
+      <button type="button" class="vid-toggle" aria-pressed="false" data-pause="{e(T(lang, "how_pause"))}" data-play="{e(T(lang, "how_play"))}" aria-label="{e(T(lang, "how_pause"))}"><span aria-hidden="true"></span></button>
+    </div>
     <figcaption>{e(T(lang, "how_video"))}</figcaption>
   </figure>
   <div>
@@ -515,7 +518,7 @@ def home(lang):
     <ol class="steps">{steps}</ol>
   </div>
 </div></section>
-<section id="opmaat" style="padding-top:0"><div class="wrap split">
+<section id="opmaat"><div class="wrap split">
   <div class="panel">
     <h2>{e(T(lang, "custom_title"))}</h2>
     <p>{e(T(lang, "custom_p"))}</p>
@@ -526,7 +529,7 @@ def home(lang):
     <p>{e(T(lang, "about_p"))}</p>
   </div>
 </div></section>
-<section id="faq" style="padding-top:0"><div class="wrap faq">
+<section id="faq"><div class="wrap faq">
   <div class="head"><div><h2>{e(T(lang, "faq_title"))}</h2></div></div>
   {faq}
 </div></section>
@@ -574,6 +577,16 @@ def product(lang, m):
         order = (f'<p class="big-price ask">{e(T(lang, "price_on_request"))}</p>'
                  + wa_button(wa_order(lang, m), T(lang, "ask_btn"), "btn-block"))
     tag = f' <span class="tag flexi tag-inline">{e(T(lang, "badge_flexi"))}</span>' if m.get("badge") == "flexi" else ""
+    # Celular: barra fixa com o preço e um botão que leva à escolha (cor/tamanho) ou direto ao WhatsApp, sumindo quando a escolha está na tela.
+    if sizes(m):
+        p0 = from_price(m)
+        bprice = price_text(lang, p0) if len(sizes(m)) == 1 else T(lang, "from_price", p=price_text(lang, p0))
+        blabel = T(lang, "p_color" if m.get("colors") else ("p_choose" if len(sizes(m)) > 1 else "order_short"))
+        bbtn = f'<a class="btn btn-coral btn-sm" href="#bestel">{e(blabel)}</a>'
+    else:
+        bprice = T(lang, "price_on_request")
+        bbtn = wa_button(wa_order(lang, m), T(lang, "ask_btn"), "btn-sm")
+    buybar = (f'<div class="buybar" hidden><div><b>{e(nm(m, lang))}</b><span>{e(bprice)}</span></div>{bbtn}</div>')
 
     kerst = m in KITEMS
     same = [x for x in ALL if x["collection"] == m["collection"]]
@@ -602,7 +615,7 @@ def product(lang, m):
     <p class="desc">{e(T(lang, "p_desc_kerst" if kerst else ("p_desc" if m.get("knitted", True) else "p_desc_plain"), name=nm(m, lang), collection=col["name"][lang]))}</p>
     {f'<p class="pnote">{e(m["note"][lang])}</p>' if m.get("note") else ""}
     {kaart(lang, m, "kaart-prod")}
-    {order}
+    <div id="bestel">{order}</div>
     <ul class="facts">
       {f'<li><span>{e(T(lang, "p_contents"))}</span>{e(m["contents"][lang])}</li>' if m.get("contents") else ""}
       <li><span>{e(T(lang, "p_finish"))}</span>{e(T(lang, "p_finish_kerst" if kerst else ("p_finish_val" if m.get("knitted", True) else "p_finish_plain")))}</li>
@@ -614,6 +627,7 @@ def product(lang, m):
 </div></section>
 {related_html}
 </main>
+{buybar}
 """
     return out + footer(lang)
 
